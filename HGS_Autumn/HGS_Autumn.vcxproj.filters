@@ -13,183 +13,207 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="base">
+      <UniqueIdentifier>{ebb3a2dc-d64b-4272-a937-0e48511cc39f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="camera">
+      <UniqueIdentifier>{5a3401c0-e302-4c79-ac6e-82364238c9e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="actor">
+      <UniqueIdentifier>{f5fe532b-8c4e-4884-8b59-382f091fc037}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scene">
+      <UniqueIdentifier>{4ef5b77d-c057-4784-834a-67415592a73e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="input">
+      <UniqueIdentifier>{1bddae66-be9d-4737-8fb6-dc29fd92ba20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="object">
+      <UniqueIdentifier>{42374339-a30e-4231-bf99-76098bff82a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D">
+      <UniqueIdentifier>{57485eef-72eb-42b9-847b-59117c131a39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="VFX">
+      <UniqueIdentifier>{aee62278-12a4-4051-a784-0592fa75cd51}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="code\camera.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="code\collision.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="code\debugproc.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="code\effect2D.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="code\fade.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="code\game.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="code\input.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="code\InputJoyPad.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="code\InputKeyBoard.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="code\InputMouse.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="code\light.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="code\main.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="code\manager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="code\number.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="code\object.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="code\object2D.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="code\particle.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>base</Filter>
     </ClCompile>
     <ClCompile Include="code\pause.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="code\player.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="code\renderer.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="code\result.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="code\score.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="code\sound.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="code\texture.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="code\time.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="code\title.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="code\tutorial.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="code\utility.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>base</Filter>
     </ClCompile>
     <ClCompile Include="code\precompile.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="code\renderer.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="code\light.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="code\fade.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="code\player.cpp">
+      <Filter>actor</Filter>
+    </ClCompile>
+    <ClCompile Include="code\camera.cpp">
+      <Filter>camera</Filter>
+    </ClCompile>
+    <ClCompile Include="code\input.cpp">
+      <Filter>input</Filter>
+    </ClCompile>
+    <ClCompile Include="code\InputJoyPad.cpp">
+      <Filter>input</Filter>
+    </ClCompile>
+    <ClCompile Include="code\InputKeyBoard.cpp">
+      <Filter>input</Filter>
+    </ClCompile>
+    <ClCompile Include="code\InputMouse.cpp">
+      <Filter>input</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="code\result.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="code\title.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="code\tutorial.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="code\utility.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="code\texture.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="code\sound.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="code\object.cpp">
+      <Filter>object</Filter>
+    </ClCompile>
+    <ClCompile Include="code\effect2D.cpp">
+      <Filter>2D</Filter>
+    </ClCompile>
+    <ClCompile Include="code\number.cpp">
+      <Filter>2D</Filter>
+    </ClCompile>
+    <ClCompile Include="code\score.cpp">
+      <Filter>2D</Filter>
+    </ClCompile>
+    <ClCompile Include="code\time.cpp">
+      <Filter>2D</Filter>
+    </ClCompile>
+    <ClCompile Include="code\object2D.cpp">
+      <Filter>2D</Filter>
+    </ClCompile>
+    <ClCompile Include="code\main.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="code\manager.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="code\particle.cpp">
+      <Filter>VFX</Filter>
+    </ClCompile>
+    <ClCompile Include="code\collision.cpp">
+      <Filter>base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="code\camera.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="code\collision.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="code\debugproc.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="code\effect2D.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="code\fade.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="code\game.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="code\input.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="code\InputJoyPad.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="code\InputKeyBoard.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="code\InputMouse.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="code\light.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="code\main.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="code\manager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="code\number.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="code\object.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="code\object2D.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="code\particle.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="code\pause.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="code\player.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="code\renderer.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="code\result.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="code\score.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="code\sound.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="code\texture.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="code\time.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="code\tutorial.h">
+      <Filter>scene</Filter>
     </ClInclude>
     <ClInclude Include="code\title.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>scene</Filter>
     </ClInclude>
-    <ClInclude Include="code\tutorial.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="code\result.h">
+      <Filter>scene</Filter>
     </ClInclude>
-    <ClInclude Include="code\utility.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="code\game.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="code\manager.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="code\renderer.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="code\light.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="code\main.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="code\debugproc.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="code\fade.h">
+      <Filter>base</Filter>
     </ClInclude>
     <ClInclude Include="code\precompile.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="code\utility.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="code\texture.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="code\sound.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="code\camera.h">
+      <Filter>camera</Filter>
+    </ClInclude>
+    <ClInclude Include="code\object.h">
+      <Filter>object</Filter>
+    </ClInclude>
+    <ClInclude Include="code\effect2D.h">
+      <Filter>2D</Filter>
+    </ClInclude>
+    <ClInclude Include="code\score.h">
+      <Filter>2D</Filter>
+    </ClInclude>
+    <ClInclude Include="code\time.h">
+      <Filter>2D</Filter>
+    </ClInclude>
+    <ClInclude Include="code\number.h">
+      <Filter>2D</Filter>
+    </ClInclude>
+    <ClInclude Include="code\input.h">
+      <Filter>input</Filter>
+    </ClInclude>
+    <ClInclude Include="code\InputJoyPad.h">
+      <Filter>input</Filter>
+    </ClInclude>
+    <ClInclude Include="code\InputKeyBoard.h">
+      <Filter>input</Filter>
+    </ClInclude>
+    <ClInclude Include="code\InputMouse.h">
+      <Filter>input</Filter>
+    </ClInclude>
+    <ClInclude Include="code\pause.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="code\object2D.h">
+      <Filter>2D</Filter>
+    </ClInclude>
+    <ClInclude Include="code\player.h">
+      <Filter>actor</Filter>
+    </ClInclude>
+    <ClInclude Include="code\particle.h">
+      <Filter>VFX</Filter>
+    </ClInclude>
+    <ClInclude Include="code\collision.h">
+      <Filter>base</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
