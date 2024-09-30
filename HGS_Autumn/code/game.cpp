@@ -22,6 +22,7 @@
 #include "InputKeyBoard.h"
 #include "InputJoyPad.h"
 #include "warning.h"
+#include "gimmickButtonMash.h"
 
 //================================================================
 // 静的メンバ変数
@@ -118,6 +119,8 @@ HRESULT CGame::Init(void)
 		pGrassL->SetSize(800.0f, 50000.0f);
 		pGrassL->SetDraw(true);
 	}
+
+	CGimmickButtonMash* pRock = CGimmickButtonMash::Create(D3DXVECTOR3(0.0f, 0.0f, -10000.0f));
 
 	// マップ設置
 	SetMap();
