@@ -151,6 +151,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="code\camera.cpp" />
+    <ClCompile Include="code\character.cpp" />
     <ClCompile Include="code\collision.cpp" />
     <ClCompile Include="code\debugproc.cpp" />
     <ClCompile Include="code\effect2D.cpp" />
@@ -189,6 +190,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\camera.h" />
+    <ClInclude Include="code\character.h" />
     <ClInclude Include="code\collision.h" />
     <ClInclude Include="code\debugproc.h" />
     <ClInclude Include="code\effect2D.h" />

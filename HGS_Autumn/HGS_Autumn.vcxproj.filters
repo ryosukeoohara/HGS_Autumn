@@ -19,9 +19,6 @@
     <Filter Include="camera">
       <UniqueIdentifier>{5a3401c0-e302-4c79-ac6e-82364238c9e1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="actor">
-      <UniqueIdentifier>{f5fe532b-8c4e-4884-8b59-382f091fc037}</UniqueIdentifier>
-    </Filter>
     <Filter Include="scene">
       <UniqueIdentifier>{4ef5b77d-c057-4784-834a-67415592a73e}</UniqueIdentifier>
     </Filter>
@@ -39,6 +36,9 @@
     </Filter>
     <Filter Include="3D">
       <UniqueIdentifier>{10d93926-71de-4352-8ef2-aab4e247112c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="character">
+      <UniqueIdentifier>{f5fe532b-8c4e-4884-8b59-382f091fc037}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -61,7 +61,7 @@
       <Filter>base</Filter>
     </ClCompile>
     <ClCompile Include="code\player.cpp">
-      <Filter>actor</Filter>
+      <Filter>character</Filter>
     </ClCompile>
     <ClCompile Include="code\camera.cpp">
       <Filter>camera</Filter>
@@ -134,6 +134,9 @@
     </ClCompile>
     <ClCompile Include="code\object3D.cpp">
       <Filter>3D</Filter>
+    </ClCompile>
+    <ClCompile Include="code\character.cpp">
+      <Filter>character</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -216,7 +219,7 @@
       <Filter>2D</Filter>
     </ClInclude>
     <ClInclude Include="code\player.h">
-      <Filter>actor</Filter>
+      <Filter>character</Filter>
     </ClInclude>
     <ClInclude Include="code\particle.h">
       <Filter>VFX</Filter>
@@ -229,6 +232,9 @@
     </ClInclude>
     <ClInclude Include="code\objectX.h">
       <Filter>3D</Filter>
+    </ClInclude>
+    <ClInclude Include="code\character.h">
+      <Filter>character</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
