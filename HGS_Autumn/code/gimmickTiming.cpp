@@ -95,6 +95,8 @@ void CGimmickTiming::Uninit(void)
 			delete m_pBillBoard[nCnt];
 		}
 	}
+
+	CObject::Release();
 }
 
 //===========================================================

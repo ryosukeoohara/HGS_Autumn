@@ -74,6 +74,8 @@ void CGimmick::Uninit(void)
 		m_pGimmickTiming->Uninit();
 		m_pGimmickTiming = nullptr;
 	}
+
+	CObject::Release();
 }
 
 //===========================================================
