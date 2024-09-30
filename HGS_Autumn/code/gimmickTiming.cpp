@@ -106,6 +106,9 @@ void CGimmickTiming::Update(void)
 	D3DXVECTOR3 posPlayer = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		// プレイヤーの位置
 	D3DXVECTOR3 pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		// 位置
 
+	if (pPlayer->GetState() == pPlayer->STATE_HAMMER)
+		return;
+
 	m_fMove = m_fMove + 1.0f;
 
 	if (pPlayer != nullptr)
