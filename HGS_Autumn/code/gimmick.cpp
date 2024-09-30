@@ -109,7 +109,7 @@ void CGimmick::Update(void)
 		fDestPos[14] <= pPlayer->GetPosition().z && m_bStart == true)
 	{ // 終了
 
-		pPlayer->SetRotition(D3DXVECTOR3(pPlayer->GetRotition().x, pPlayer->GetRotition().y, 0.0f));
+		pPlayer->SetRotition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 		m_bStart = false;
 		m_pGimmickRope->Release();
 		m_pGimmickRope = nullptr;
@@ -129,7 +129,7 @@ void CGimmick::Update(void)
 		fDestPos[12] <= pPlayer->GetPosition().z && m_bStart == true)
 	{ // 終了
 
-		pPlayer->SetRotition(D3DXVECTOR3(pPlayer->GetRotition().x, pPlayer->GetRotition().y, 0.0f));
+		pPlayer->SetRotition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 		m_bStart = false;
 		m_pGimmickRope->Release();
 		m_pGimmickRope = nullptr;
@@ -150,7 +150,7 @@ void CGimmick::Update(void)
 		m_bStart == true)
 	{ // 終了
 
-		pPlayer->SetRotition(D3DXVECTOR3(pPlayer->GetRotition().x, pPlayer->GetRotition().y, 0.0f));
+		pPlayer->SetRotition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
 		m_bStart = false;
 		m_pGimmickTiming->Release();
@@ -172,7 +172,7 @@ void CGimmick::Update(void)
 		m_bStart == true)
 	{ // 終了
 
-		pPlayer->SetRotition(D3DXVECTOR3(pPlayer->GetRotition().x, pPlayer->GetRotition().y, 0.0f));
+		pPlayer->SetRotition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
 		m_bStart = false;
 		m_pGimmickTiming->Release();
@@ -193,7 +193,7 @@ void CGimmick::Update(void)
 		fDestPos[2] <= pPlayer->GetPosition().z && m_bStart == true)
 	{ // 終了
 
-		pPlayer->SetRotition(D3DXVECTOR3(pPlayer->GetRotition().x, pPlayer->GetRotition().y, 0.0f));
+		pPlayer->SetRotition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 		m_bStart = false;
 		m_pGimmickRope->Release();
 		m_pGimmickRope = nullptr;

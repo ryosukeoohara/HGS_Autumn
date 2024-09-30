@@ -716,6 +716,8 @@ void CPlayerStateStep::Update(CPlayer* pPlayer)
 
 	if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_RB, 0) == true)
 		pMotion->Set(pPlayer->TYPE_STEP_LEFT);
+
+	Info->rot.z += (0 - Info->rot.z) * 0.1f;
 }
 
 //================================================================
@@ -755,6 +757,8 @@ void CPlayerStateWalk::Update(CPlayer* pPlayer)
 
 	if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_RB, 0) == true)
 		pMotion->Set(pPlayer->TYPE_WALK_LEFT);
+
+	Info->rot.z += (0 - Info->rot.z) * 0.1f;
 }
 
 //================================================================
@@ -769,6 +773,8 @@ CPlayerStateStagger::CPlayerStateStagger()
 	Info->state = CPlayer::STATE_STAGGER;
 
 	CManager::GetInstance()->GetSound()->Play(CSound::SOUND_LABEL_SE_BAD);
+
+	Info->rot.z += (0 - Info->rot.z) * 0.1f;
 }
 
 void CPlayerStateStagger::Update(CPlayer* pPlayer)
@@ -793,6 +799,8 @@ void CPlayerStateStagger::Update(CPlayer* pPlayer)
 
 	if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_RB, 0) == true)
 		pMotion->Set(pPlayer->TYPE_STAGGER_LEFT);
+
+	Info->rot.z += (0 - Info->rot.z) * 0.1f;
 }
 
 //================================================================
