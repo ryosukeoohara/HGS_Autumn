@@ -1,59 +1,59 @@
 //===========================================================
 //
-// タイム[time.cpp]
-// Author 大原怜将
+// リザルトタイム[time.cpp]
+// Author Ibuki Okusada
 //
 //===========================================================
 #include "main.h"
 #include "renderer.h"
 #include "manager.h"
-#include "time.h"
+#include "result_time.h"
 #include "texture.h"
 #include "game.h"
 #include "fade.h"
 #include "number.h"
-#include "result_time.h"
+#include "time.h"
 
 // 定数定義
 namespace
 {
-	const D3DXVECTOR3 FISHPOS = D3DXVECTOR3(1150.0f, 500.0f, 0.0f);
-	const float WIDTH = 150.0f;
-	const float HEIGHT = 200.0f;
+	const D3DXVECTOR3 FISHPOS = D3DXVECTOR3(SCREEN_WIDTH * 0.65f, SCREEN_HEIGHT * 0.75f, 0.0f);
+	const float WIDTH = 40.0f;
+	const float HEIGHT = 80.0f;
 }
 
 //================================================================
 //静的メンバ変数宣言
 //================================================================
-LPDIRECT3DTEXTURE9 CTime::m_pTexture = NULL;
-CNumber* CTime::m_apNumber[SETTIME] = {};
-int CTime::m_nTime = 0;
-int CTime::m_nTimerCount = 0;
+LPDIRECT3DTEXTURE9 CResultTime::m_pTexture = NULL;
+CNumber* CResultTime::m_apNumber[2] = {};
+int CResultTime::m_nResultTime = 0;
+int CResultTime::m_nResultTimerCount = 0;
 
 //================================================================
 //コンストラクタ
 //================================================================
-CTime::CTime()
+CResultTime::CResultTime()
 {
 	m_move = { 0.0f, 0.0f, 0.0f };  //移動量
-	m_nTime = 0;  //時間
+	m_nResultTime = 0;  //時間
 }
 
 //================================================================
 //コンストラクタ(オーバーロード)
 //================================================================
-CTime::CTime(D3DXVECTOR3 pos)
+CResultTime::CResultTime(D3DXVECTOR3 pos)
 {
 	m_pos = pos;  //位置
 	SetPosition(pos);
 	m_move = { 0.0f, 0.0f, 0.0f };  //移動量
-	m_nTime = 0;  //時間
+	m_nResultTime = 0;  //時間
 }
 
 //================================================================
 //デストラクタ
 //================================================================
-CTime::~CTime()
+CResultTime::~CResultTime()
 {
 
 }
@@ -61,29 +61,29 @@ CTime::~CTime()
 //================================================================
 //生成処理
 //================================================================
-CTime* CTime::Create(void)
+CResultTime* CResultTime::Create(void)
 {
 	//オブジェクト2Dのポインタ
-	CTime* pTime = NULL;
+	CResultTime* pResultTime = NULL;
 
 	CTexture* pTexture = CManager::GetInstance()->GetTexture();
 
-	if (pTime == NULL)
+	if (pResultTime == NULL)
 	{
 		//オブジェクト2Dの生成
-		pTime = new CTime();
+		pResultTime = new CResultTime();
 
 		//初期化処理
-		pTime->Init();
+		pResultTime->Init();
 	}
 
-	return pTime;
+	return pResultTime;
 }
 
 //================================================================
-//プレイヤーの初期化処理
+// 初期化処理
 //================================================================
-HRESULT CTime::Init(void)
+HRESULT CResultTime::Init(void)
 {
 	CTexture* pTexture = CManager::GetInstance()->GetTexture();
 
@@ -91,7 +91,7 @@ HRESULT CTime::Init(void)
 	{
 		if (m_apNumber[nCount] == NULL)
 		{
-			m_apNumber[nCount] = CNumber::Create({ 600.0f + 50.0f * nCount, 50.0f, 0.0f });
+			m_apNumber[nCount] = CNumber::Create({ FISHPOS.x + 50.0f * nCount, FISHPOS.y, 0.0f });
 
 			//テクスチャをバインド
 			//m_apNumber[nCount]->BindTexture(pTexture->GetAddress(m_nIdxTexture));
@@ -99,35 +99,28 @@ HRESULT CTime::Init(void)
 			m_apNumber[nCount]->SetNumberType(TYPENUMBER_TIME);
 
 			//初期化処理
-			//m_apNumber[nCount]->Init();
+			m_apNumber[nCount]->Init();
 
-			m_apNumber[nCount]->m_Number = INITTIME;
+			m_apNumber[nCount]->m_Number = 0;
+			D3DXVECTOR3 pos = D3DXVECTOR3(FISHPOS.x + 80.0f * nCount, FISHPOS.y, 0.0f);
+			m_apNumber[nCount]->SetVtxCounter(pos, WIDTH, HEIGHT);
 		}
 	}
 
-	// 魚の生成
-	m_pFish = CObject2D::Create(7);
-	m_pFish->SetIdxTex(CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\fish.png"));
-	m_pFish->SetPosition(FISHPOS);
-	m_pFish->SetSize(WIDTH, HEIGHT);
-	m_pFish->SetDraw();
+	m_apNumber[0]->m_Number = m_nResultTime % 100 / 10;
+	m_apNumber[1]->m_Number = m_nResultTime % 10 / 1;
 
-	m_nTime = TIME;  //時間
-
-	m_apNumber[0]->m_Number = m_nTime % 100 / 10;
-	m_apNumber[1]->m_Number = m_nTime % 10 / 1;
-
-	TimeCounter();
+	ResultTimeCounter();
 
 	return S_OK;
 }
 
 //================================================================
-//プレイヤーの終了処理
+// 終了処理
 //================================================================
-void CTime::Uninit(void)
+void CResultTime::Uninit(void)
 {
-	for (int nCount = 0; nCount < SETTIME; nCount++)
+	for (int nCount = 0; nCount < 2; nCount++)
 	{
 		if (m_apNumber[nCount] != NULL)
 		{
@@ -140,45 +133,21 @@ void CTime::Uninit(void)
 
 	Release();
 
-	CResultTime::SetResultTime(m_nTime);
+	m_nResultTime = 0;
 }
 
 //================================================================
-//プレイヤーの更新処理
+// 更新処理
 //================================================================
-void CTime::Update(void)
+void CResultTime::Update(void)
 {
-	for (int nCount = 0; nCount < SETTIME; nCount++)
-	{
-		if (m_apNumber[nCount] != NULL)
-		{
-			//更新処理
-			m_apNumber[nCount]->Update();
-		}
-	}
-
-	TimeCounter();
-
-	if (m_nTime == 0) { return; }
-
-	// 色を変更する
-	{
-		D3DXCOLOR col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
-		float fMulti = static_cast<float>(m_nTime) / static_cast<float>(TIME);
-		if (fMulti <= 0.5f)
-		{
-			col.r *= fMulti * 2.0f;
-			col.g *= fMulti * 1.9f;
-			col.b *= fMulti * 1.9f;
-			m_pFish->SetColor(col);
-		}
-	}
+	
 }
 
 //================================================================
-//プレイヤーの描画処理
+// 描画処理
 //================================================================
-void CTime::Draw(void)
+void CResultTime::Draw(void)
 {
 	for (int nCount = 0; nCount < SETTIME; nCount++)
 	{
@@ -193,31 +162,23 @@ void CTime::Draw(void)
 //================================================================
 //タイム
 //================================================================
-void CTime::TimeCounter(void)
+void CResultTime::ResultTimeCounter(void)
 {
 	//フェードの情報を取得
 	CFade* pFade = CManager::GetInstance()->GetFade();
 
-	m_nTimerCount++;
+	m_nResultTimerCount++;
 
-	if (m_nTimerCount % 60 == 0)
+	if (m_nResultTimerCount % 60 == 0)
 	{
-		m_nTime--;
+		m_nResultTime--;
 
-		m_apNumber[0]->m_Number = m_nTime % 100 / 10;
-		m_apNumber[1]->m_Number = m_nTime % 10 / 1;
+		m_apNumber[0]->m_Number = m_nResultTime % 100 / 10;
+		m_apNumber[1]->m_Number = m_nResultTime % 10 / 1;
 	}
 
 	for (int nCount = 0; nCount < SETTIME; nCount++)
 	{
 		m_apNumber[nCount]->SetNumber(m_apNumber[nCount]->m_Number);
-	}
-
-	if (m_nTime <= 0)
-	{
-		if (pFade->Get() != pFade->FADE_OUT)
-		{
-			pFade->Set(CScene::MODE_RESULT);
-		}
 	}
 }

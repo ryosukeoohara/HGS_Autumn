@@ -331,10 +331,10 @@ void FixedCamera::Update(CCamera* pCamera)
 	// ƒJƒƒ‰‚Ìî•ñŽæ“¾
 	CCamera::Info* pCameraInfo = pCamera->GetInfo();
 
-	pCameraInfo->posV.x = pCameraInfo->posR.x - sinf(pCameraInfo->rot.y) * -pCameraInfo->fLength;
-	pCameraInfo->posV.z = pCameraInfo->posR.z - cosf(pCameraInfo->rot.y) * -pCameraInfo->fLength;
+	pCameraInfo->posV.x = pCameraInfo->posR.x - sinf(0.0f) * -pCameraInfo->fLength;
+	pCameraInfo->posV.z = pCameraInfo->posR.z - cosf(0.0f) * -pCameraInfo->fLength;
 
-	pCameraInfo->posV = D3DXVECTOR3(100.0f, 50.0f, 100.0f);
+	pCameraInfo->posV = D3DXVECTOR3(pCameraInfo->posV.x + 100.0f, 50.0f, pCameraInfo->posV.z + 100.0f);
 	pCameraInfo->posR = D3DXVECTOR3(50.0f, 50.0f, 10.0f);
 }
 

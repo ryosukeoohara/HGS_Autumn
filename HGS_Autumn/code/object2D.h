@@ -18,8 +18,8 @@
 class CObject2D : public CObject
 {
 public:		//誰でもアクセスできる
-	CObject2D(int nPriority = 3);                   // コンストラクタ
-	CObject2D(D3DXVECTOR3 pos, int nPriority = 3);  // コンストラクタ
+	CObject2D(int nPriority = 5);                   // コンストラクタ
+	CObject2D(D3DXVECTOR3 pos, int nPriority = 5);  // コンストラクタ
 	~CObject2D();                                   // デストラクタ
 
 	HRESULT Init(void);                             // 初期化処理

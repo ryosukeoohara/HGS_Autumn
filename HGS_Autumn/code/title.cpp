@@ -100,9 +100,8 @@ HRESULT CTitle::Init(void)
 	SetMap();
 
 	CCamera*p = CManager::GetInstance()->GetCamera();
-	p->ChangeState(new FixedCamera);
 	p->SetRotation(D3DXVECTOR3(0.0f, D3DX_PI, 0.0f));
-
+	
 	if (m_pBg == nullptr)
 	{
 		m_pBg = CObject2D::Create();
@@ -112,7 +111,7 @@ HRESULT CTitle::Init(void)
 		m_pBg->SetDraw(true);
 	}
 
-	//CManager::GetInstance()->GetSound()->Play(CSound::SOUND_LABEL_BGM_TITLE);
+	CManager::GetInstance()->GetSound()->Play(CSound::SOUND_LABEL_BGM_TITLE);
 	
 	return S_OK;
 }
@@ -151,8 +150,8 @@ void CTitle::Uninit(void)
 //===========================================================
 void CTitle::Update(void)
 {
-	CCamera* p = CManager::GetInstance()->GetCamera();
-	p->SetRotation(D3DXVECTOR3(0.0f, -D3DX_PI * 0.0f, 0.0f));
+	/*CCamera* p = CManager::GetInstance()->GetCamera();
+	p->SetRotation(D3DXVECTOR3(0.0f, -D3DX_PI * 0.0f, 0.0f));*/
 
 	// キーボードを取得
 	CInputKeyboard *InputKeyboard = CManager::GetInstance()->GetKeyBoard();
