@@ -74,6 +74,7 @@ CPlayer::CPlayer()
 	D3DXMatrixIdentity(&m_Info.mtxWorld);
 
 	m_pPlayer = this;
+	m_nLeg = 0;
 	m_pGimmick = nullptr;
 }
 
@@ -218,6 +219,7 @@ void CPlayer::Update(void)
 		m_pState->Update(this);
 
 	Move();
+	NextMotion();
 
 	//Control();
 
@@ -291,6 +293,30 @@ void CPlayer::Control(void)
 	}
 
 
+}
+
+//================================================================
+// 次のモーション設定
+//================================================================
+void CPlayer::NextMotion()
+{
+	// 終了しているときのみ
+	if (!m_pMotion->IsFinish()) { return; }
+
+	int type = m_pMotion->GetType();
+
+	// 動いているときのみ
+	if (type > MOTIONTYPE::TYPE_STAGGER_RIGHT) { return; }
+
+	int leg = type % 2;
+
+	// 左足
+	if (leg == 0) {
+		m_pMotion->Set(type + 1);
+	}
+	else {	// 右足
+		m_pMotion->Set(type - 1);
+	}
 }
 
 //================================================================

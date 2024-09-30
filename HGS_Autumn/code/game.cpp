@@ -22,6 +22,7 @@
 #include "InputKeyBoard.h"
 #include "InputJoyPad.h"
 #include "warning.h"
+#include "gimmickButtonMash.h"
 
 //================================================================
 // 静的メンバ変数
@@ -85,6 +86,10 @@ HRESULT CGame::Init(void)
 	// ポーズの生成
 	if (m_pPause == nullptr)
 		m_pPause = CPause::Create();
+
+	
+
+	CGimmickButtonMash* pRock = CGimmickButtonMash::Create(D3DXVECTOR3(0.0f, 0.0f, -10000.0f));
 
 	// マップ設置
 	SetMap();

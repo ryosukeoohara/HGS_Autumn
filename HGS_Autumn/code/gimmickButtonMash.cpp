@@ -5,11 +5,12 @@
 //
 //===========================================================
 #include "gimmickButtonMash.h"
+#include "objectX.h"
 
 //===========================================================
 // コンストラクタ
 //===========================================================
-CGimmickButtonMash::CGimmickButtonMash(int nPriority)
+CGimmickButtonMash::CGimmickButtonMash(D3DXVECTOR3 pos, int nPriority)
 {
 
 }
@@ -44,7 +45,7 @@ void CGimmickButtonMash::Uninit(void)
 //===========================================================
 void CGimmickButtonMash::Update(void)
 {
-
+	
 }
 
 //===========================================================
@@ -58,13 +59,14 @@ void CGimmickButtonMash::Draw(void)
 //===========================================================
 // 生成処理
 //===========================================================
-CGimmickButtonMash* CGimmickButtonMash::Create(void)
+CGimmickButtonMash* CGimmickButtonMash::Create(D3DXVECTOR3 pos)
 {
-	CGimmickButtonMash* pGimmick = new CGimmickButtonMash;
+	CGimmickButtonMash* pGimmick = new CGimmickButtonMash(pos);
 
 	if (pGimmick != nullptr)
 	{
 		pGimmick->Init();
+		pGimmick->m_pObjectX = CObjectX::Create("data\\MODEL\\Field\\rock.x", pos);
 	}
 
 	return pGimmick;
