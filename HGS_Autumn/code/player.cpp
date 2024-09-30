@@ -145,6 +145,7 @@ HRESULT CPlayer::Init(void)
 	}
 
 	m_Info.fSpeed = 1.0f;
+	m_fWindSpeed = 0.03f;
 
 	ReadText(PLAYER_TEXT);
 
@@ -207,10 +208,9 @@ void CPlayer::Update(void)
 	if (m_pMotion != nullptr)
 		m_pMotion->Update();
 
-
 	Control();
 
-	debugmove();
+	debugKey();
 }
 
 //================================================================
@@ -261,7 +261,10 @@ void CPlayer::Control(void)
 
 
 	CManager::GetInstance()->GetDebugProc()->Print("\nプレイヤーの位置：%f,%f,%f\n", m_Info.pos.x, m_Info.pos.y, m_Info.pos.z);
+	CManager::GetInstance()->GetDebugProc()->Print("\nプレイヤーの向き：%f,%f,%f\n", m_Info.rot.x, m_Info.rot.y, m_Info.rot.z);
+	CManager::GetInstance()->GetDebugProc()->Print("プレイヤーの速度切り替え：[1]2.0f, [2]1.0f, [3]0.5f\n");
 	CManager::GetInstance()->GetDebugProc()->Print("プレイヤーの速度：%f\n", m_Info.fSpeed);
+	CManager::GetInstance()->GetDebugProc()->Print("風向きの変更：[Bボタン]\n");
 }
 
 //================================================================
@@ -275,15 +278,45 @@ void CPlayer::Move(void)
 	if (pInputJoyPad == nullptr)
 		return;
 
-	if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_RT, 0) == true)
+	if (m_nDebugState == 0)
 	{
-		m_Info.move.z -= m_Info.fSpeed;
+		if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_RB, 0) == true)
+		{
+			m_Info.move.z -= m_Info.fSpeed;
+		}
+
+		if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_LB, 0) == true)
+		{
+			m_Info.move.z -= m_Info.fSpeed;
+		}
+
+		CManager::GetInstance()->GetDebugProc()->Print("現在のギミック：タイミング\n");
 	}
 
-	if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_LT, 0) == true)
+	if (m_nDebugState == 1)
 	{
-		m_Info.move.z -= m_Info.fSpeed;
+		m_Info.fSpeed = 0.5f;
+
+		if (pInputJoyPad->GetPress(pInputJoyPad->BUTTON_RB, 0) == true)
+		{
+			if(m_fRot > -0.1f)
+			   m_fRot -= 0.01f;
+		}
+		else if (pInputJoyPad->GetPress(pInputJoyPad->BUTTON_LB, 0) == true)
+		{
+			if (m_fRot < 0.1f)
+				m_fRot += 0.01f;
+		}
+		else
+		{
+			m_fRot = 0.0f;
+		}
+
+		m_Info.rot.z += (m_fWindSpeed - m_fRot);
+
+		CManager::GetInstance()->GetDebugProc()->Print("現在のギミック：バランス\n");
 	}
+	
 
 	m_Info.move.z -= m_Info.fSpeed;
 
@@ -296,10 +329,13 @@ void CPlayer::Move(void)
 	m_Info.move.z += (0.0f - m_Info.move.z) * 0.1f;
 }
 
-void CPlayer::debugmove(void)
+void CPlayer::debugKey(void)
 {
 	//キーボードを取得
 	CInputKeyboard* InputKeyboard = CManager::GetInstance()->GetKeyBoard();
+
+	//ゲームパッドを取得
+	CInputJoyPad* pInputJoyPad = CManager::GetInstance()->GetInputJoyPad();
 
 	if (InputKeyboard->GetTrigger(DIK_1) == true)
 	{
@@ -314,6 +350,17 @@ void CPlayer::debugmove(void)
 	if (InputKeyboard->GetTrigger(DIK_3) == true)
 	{
 		m_Info.fSpeed = 0.5f;
+	}
+
+	// ギミックの切り替え
+	if (InputKeyboard->GetTrigger(DIK_4) == true)
+	{
+		m_nDebugState = m_nDebugState ? 0 : 1;
+	}
+
+	if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_B, 0) == true)
+	{
+		m_fWindSpeed *= -1.0f;
 	}
 }
 
