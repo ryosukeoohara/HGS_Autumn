@@ -120,7 +120,7 @@ CPlayer *CPlayer::Create(D3DXVECTOR3 pos, int nPriority)
 		pPlayer->Init();
 	}
 	
-	CGimmick::Create(CGimmick::TYPEWALK);
+	CGimmick::Create(500.0f,CGimmick::TYPEWALK);
 
 	return pPlayer;
 }

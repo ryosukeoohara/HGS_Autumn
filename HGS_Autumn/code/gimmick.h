@@ -20,6 +20,7 @@ public:
 	enum TYPE
 	{
 		TYPEWALK = 0,		// 歩行
+		TYPEROPE,			// 綱渡り
 		TYPEMAX
 	};
 
@@ -31,10 +32,13 @@ public:
 	void Update(void);             // 更新処理
 	void Draw(void);               // 描画処理
 
-	static CGimmick* Create(TYPE type);        // 生成処理
+	static CGimmick* Create(float fDestDistance, TYPE type);        // 生成処理
 
 private:
 	TYPE m_GimmickType;			// 種類
+	static float m_fDestPos;		// 目標地点
+
+	bool m_bStart;		// ギミック開始したか
 	
 };
 
