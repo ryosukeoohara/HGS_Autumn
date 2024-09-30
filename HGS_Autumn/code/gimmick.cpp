@@ -122,7 +122,7 @@ void CGimmick::Update(void)
 		{
 			m_GimmickType = TYPEROPE;
 			m_bStart = true;
-			Set(m_GimmickType, D3DXVECTOR3(DEFAULT_POS.x, DEFAULT_POS.y, DEFAULT_POS.z));
+			Set(m_GimmickType, D3DXVECTOR3(DEFAULT_POS.x, DEFAULT_POS.y, fDestPos[12]));
 		}
 	}
 	else if (fDestPos[11] >= pPlayer->GetPosition().z &&
@@ -142,7 +142,7 @@ void CGimmick::Update(void)
 		{
 			m_GimmickType = TYPEROPE;
 			m_bStart = true;
-			Set(m_GimmickType, D3DXVECTOR3(DEFAULT_POS.x, DEFAULT_POS.y, DEFAULT_POS.z));
+			Set(m_GimmickType, D3DXVECTOR3(DEFAULT_POS.x, DEFAULT_POS.y, fDestPos[10]));
 		}
 	}
 	else if (fDestPos[7] >= pPlayer->GetPosition().z &&
@@ -208,7 +208,7 @@ void CGimmick::Update(void)
 			m_bStart = true;
 			m_pGimmickTiming->Release();
 			m_pGimmickTiming = nullptr;
-			Set(m_GimmickType, D3DXVECTOR3(DEFAULT_POS.x, DEFAULT_POS.y, DEFAULT_POS.z));
+			Set(m_GimmickType, D3DXVECTOR3(DEFAULT_POS.x, DEFAULT_POS.y, fDestPos[0]));
 		}
 	}
 }
@@ -256,7 +256,7 @@ void CGimmick::Set(TYPE GimmickType, D3DXVECTOR3 pos)
 		break;
 	case CGimmick::TYPEROPE:	// ÉçÅ[Év
 
-		m_pGimmickRope = CGimmickRope::Create();
+		m_pGimmickRope = CGimmickRope::Create(pos);
 
 		break;
 
