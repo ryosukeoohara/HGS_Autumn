@@ -869,3 +869,16 @@ void CPlayerStateHummer::Update(CPlayer* pPlayer)
 		pPlayer->ChangeState(new CPlayerStateWalk);
 	}
 }
+
+//================================================================
+// ƒ[ƒv‚Ó‚ç‚Ó‚ç•à‚«
+//================================================================
+CPlayerStateRopeStagger::CPlayerStateRopeStagger()
+{
+
+}
+
+void CPlayerStateRopeStagger::Update(CPlayer* pPlayer)
+{
+
+}
