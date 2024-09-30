@@ -150,13 +150,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="code\billboard.cpp" />
     <ClCompile Include="code\camera.cpp" />
     <ClCompile Include="code\character.cpp" />
     <ClCompile Include="code\collision.cpp" />
     <ClCompile Include="code\debugproc.cpp" />
     <ClCompile Include="code\effect2D.cpp" />
     <ClCompile Include="code\fade.cpp" />
+    <ClCompile Include="code\field.cpp" />
     <ClCompile Include="code\game.cpp" />
+    <ClCompile Include="code\gimmick.cpp" />
+    <ClCompile Include="code\gimmickBalance.cpp" />
+    <ClCompile Include="code\gimmickButtonMash.cpp" />
+    <ClCompile Include="code\gimmickTiming.cpp" />
     <ClCompile Include="code\input.cpp" />
     <ClCompile Include="code\InputJoyPad.cpp" />
     <ClCompile Include="code\InputKeyBoard.cpp" />
@@ -164,6 +170,7 @@
     <ClCompile Include="code\light.cpp" />
     <ClCompile Include="code\main.cpp" />
     <ClCompile Include="code\manager.cpp" />
+    <ClCompile Include="code\motion.cpp" />
     <ClCompile Include="code\number.cpp" />
     <ClCompile Include="code\object.cpp" />
     <ClCompile Include="code\object2D.cpp" />
@@ -189,13 +196,19 @@
     <ClCompile Include="code\utility.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="code\billboard.h" />
     <ClInclude Include="code\camera.h" />
     <ClInclude Include="code\character.h" />
     <ClInclude Include="code\collision.h" />
     <ClInclude Include="code\debugproc.h" />
     <ClInclude Include="code\effect2D.h" />
     <ClInclude Include="code\fade.h" />
+    <ClInclude Include="code\field.h" />
     <ClInclude Include="code\game.h" />
+    <ClInclude Include="code\gimmick.h" />
+    <ClInclude Include="code\gimmickBalance.h" />
+    <ClInclude Include="code\gimmickButtonMash.h" />
+    <ClInclude Include="code\gimmickTiming.h" />
     <ClInclude Include="code\input.h" />
     <ClInclude Include="code\InputJoyPad.h" />
     <ClInclude Include="code\InputKeyBoard.h" />
@@ -203,6 +216,7 @@
     <ClInclude Include="code\light.h" />
     <ClInclude Include="code\main.h" />
     <ClInclude Include="code\manager.h" />
+    <ClInclude Include="code\motion.h" />
     <ClInclude Include="code\number.h" />
     <ClInclude Include="code\object.h" />
     <ClInclude Include="code\object2D.h" />

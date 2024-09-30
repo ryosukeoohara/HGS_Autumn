@@ -14,12 +14,15 @@
 #include "sound.h"
 #include "debugproc.h"
 #include "texture.h"
+#include "motion.h"
 #include "camera.h"
 #include "game.h"
 #include "fade.h"
+#include "character.h"
 #include "collision.h"
 #include "camera.h"
 #include "object.h"
+#include "billboard.h"
 #include "utility.h"
 #include "particle.h"
 #include "effect2D.h"
@@ -34,43 +37,376 @@ CPlayer *CPlayer::m_pPlayer = nullptr;
 //===========================================================
 namespace
 {
+	const int MAX_LIFE = 200;                                  // 体力の最大値
+	const int DAMAGE_COUNT = 15;                               // ダメージ状態でいる時間
+	const int MICROWAVE = 3600;                                // 電子レンジを使用したヒートアクションを再び使用可能になるまでの時間
+	const float GRAP_MOVE_SPEED = 0.7f;                        // 掴み状態の移動の速さ
+	const float MOVE_SPEED = 1.0f;                             // 通常状態の移動の速さ
+	const float MAX_STAMINA = 40.0f;                           // スタミナの最大値
+	const float BOOST_STAMINA = 0.1f;                          // スタミナの回復値
+	const float LOST_STMINA = 10.0f;                           // 回避のスタミナ消費量
+	const float GRAP_LOST_STMINA = 0.1f;                       // 敵を掴んでいる時のスタミナ消費量
+	const float ATTACK_MAGNETIC_RANGE = 100.0f;                // 攻撃すると一番近くの敵に自動ですこし前進する敵との距離
+	const float MY_RADIUS = 25.0f;                             // プレイヤーの横幅
+	const char* PLAYER_TEXT = "data\\TEXT\\motion_player.txt"; // プレイヤーのテキストファイル
+
+	const D3DXVECTOR3 MAP_LIMIT_MAX = D3DXVECTOR3(800.0f, 0.0f, 1000.0f);   // マップの制限
+	const D3DXVECTOR3 MAP_LIMIT_MIN = D3DXVECTOR3(-850.0f, 0.0f, -670.0f);  // マップの制限
+	const float TUTORIAL_MAP_LIMITZ = 30.0f;                                // チュートリアルマップのZ軸の制限
+
+	const D3DXVECTOR3 STICK_ENEMY = D3DXVECTOR3(100.0f, 0.0f, 100.0f);      // 
+	const D3DXVECTOR2 HEATACT_BUTTON_SIZE = D3DXVECTOR2(25.0f, 25.0f);      // ヒートアクション可能時に出るテクスチャのサイズ
+}
+
+//===========================================================
+// コンストラクタ
+//===========================================================
+CPlayer::CPlayer()
+{
+	// 初期化
+	m_Info.pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	m_Info.posOld = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	m_Info.move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	m_Info.rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	m_Info.col = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f);
+	m_Info.state = STATE_NONE;
+	m_Info.nLife = 0;
+	D3DXMatrixIdentity(&m_Info.mtxWorld);
+
+	m_pPlayer = this;
+}
+
+//===========================================================
+// コンストラクタ
+//===========================================================
+CPlayer::CPlayer(D3DXVECTOR3 pos, int nPriority) : CObject(nPriority)
+{
+	// 初期化
+	m_Info.pos = pos;
+	m_Info.posOld = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	m_Info.move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	m_Info.rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	m_Info.col = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f);
+	m_Info.state = STATE_NONE;
+	m_Info.nLife = 0;
+	D3DXMatrixIdentity(&m_Info.mtxWorld);
+
+	m_pPlayer = this;
+}
+
+//===========================================================
+// デストラクタ
+//===========================================================
+CPlayer::~CPlayer()
+{
+
+}
+
+//===========================================================
+// 生成処理
+//===========================================================
+CPlayer *CPlayer::Create(D3DXVECTOR3 pos, int nPriority)
+{
+	// プレイヤーのポインタ
+	CPlayer *pPlayer = nullptr;
+
+	if (pPlayer == nullptr)
+	{
+		// 生成
+		pPlayer = new CPlayer(pos, nPriority);
+
+		// 初期化処理
+		pPlayer->Init();
+	}
+	
+	return pPlayer;
+}
+
+//===========================================================
+// 初期化処理
+//===========================================================
+HRESULT CPlayer::Init(void)
+{
+	//テクスチャの情報取得
+	CTexture *pTexture = CManager::GetInstance()->GetTexture();
+
+	//シーンの情報を取得
+	CScene *pScene = CManager::GetInstance()->GetScene();
+
+	//種類設定
+	SetType(TYPE_PLAYER);
+
+	if (m_pMotion == nullptr)
+	{
+		m_pMotion = new CMotion;
+
+		//初期化処理
+		m_pMotion->Init();
+
+		m_pMotion->Set(TYPE_NEUTRAL);
+	}
+
+	ReadText(PLAYER_TEXT);
+
+	return S_OK;
+}
+
+//================================================================
+// 終了処理
+//================================================================
+void CPlayer::Uninit(void)
+{
+	//サウンドの情報を取得
+	CSound *pSound = CManager::GetInstance()->GetSound();
+
+	//サウンドストップ
+	pSound->Stop();
+	 
+	// モーションの破棄
+	if (m_pMotion != nullptr)
+	{
+		//終了処理
+		m_pMotion->Uninit();
+		delete m_pMotion;
+		m_pMotion = nullptr;
+	}
+
+	// パーツの破棄
+	if (m_appCharacter != nullptr)
+	{
+		for (int nCount = 0; nCount < m_nNumModel; nCount++)
+		{
+			if (m_appCharacter[nCount] != nullptr)
+			{
+				m_appCharacter[nCount]->Uninit();
+				m_appCharacter[nCount] = nullptr;
+			}
+		}
+
+		delete m_appCharacter;
+		m_appCharacter = nullptr;
+	}
+
+	CObject::Release();
+}
+
+//================================================================
+// 更新処理
+//================================================================
+void CPlayer::Update(void)
+{
+	// パーツごとの更新
+	for (int nCount = 0; nCount < m_nNumModel; nCount++)
+	{
+		if (m_appCharacter[nCount] != nullptr)
+			m_appCharacter[nCount]->Update();
+
+	}
+
+	// モーションの更新
+	if (m_pMotion != nullptr)
+		m_pMotion->Update();
+
+}
+
+//================================================================
+// 描画処理
+//================================================================
+void CPlayer::Draw(void)
+{
+	CTexture *pTexture = CManager::GetInstance()->GetTexture();
+	CRenderer *pRenderer = CManager::GetInstance()->GetRenderer();
+	LPDIRECT3DDEVICE9 pDevice = pRenderer->GetDevice();
+
+	pDevice->SetTexture(0, pTexture->GetAddress(m_nIdxTexture));
+
+	//計算用マトリックス
+	D3DXMATRIX mtxRot, mtxTrans;
+
+	//ワールドマトリックスの初期化
+	D3DXMatrixIdentity(&m_Info.mtxWorld);
+
+	//向きを反映
+	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_Info.rot.y, m_Info.rot.x, m_Info.rot.z);
+
+	D3DXMatrixMultiply(&m_Info.mtxWorld, &m_Info.mtxWorld, &mtxRot);
+
+	//位置を反映
+	D3DXMatrixTranslation(&mtxTrans, m_Info.pos.x, m_Info.pos.y, m_Info.pos.z);
+
+	D3DXMatrixMultiply(&m_Info.mtxWorld, &m_Info.mtxWorld, &mtxTrans);
+
+	//ワールドマトリックスの設定
+	pDevice->SetTransform(D3DTS_WORLD, &m_Info.mtxWorld);
+
+	for (int nCount = 0; nCount < m_nNumModel; nCount++)
+	{
+		if (m_appCharacter[nCount] != nullptr)
+		{
+			m_appCharacter[nCount]->Draw();
+		}
+	}
+}
+
+//================================================================
+// 制御処理
+//================================================================
+void CPlayer::Control(void)
+{
+
+	CManager::GetInstance()->GetDebugProc()->Print("\nプレイヤーの位置：%f,%f,%f\n", m_Info.pos.x, m_Info.pos.y, m_Info.pos.z);
+	CManager::GetInstance()->GetDebugProc()->Print("プレイヤーの向き：%f,%f,%f\n", m_Info.rot.x, m_Info.rot.y, m_Info.rot.z);
+	CManager::GetInstance()->GetDebugProc()->Print("掴んでいる敵の番号:%d", m_nIdxEne);
+	CManager::GetInstance()->GetDebugProc()->Print("倒した数：%d\n", m_nDefeat);
+}
+
+//================================================================
+// 移動処理
+//================================================================
+void CPlayer::Move(void)
+{
 	
 }
 
-CPlayer::CPlayer()
+//================================================================
+// 外部ファイル読み込み
+//================================================================
+void CPlayer::ReadText(const char *fliename)
 {
-}
+	char aString[128] = {};
+	char aComment[128] = {};
+	int nCntParts = 0, nCntParts2 = 0, nCntParts3 = 0;
+	int nCntMotion = 0;
+	int nCntKeySet = 0;
+	int nCntKey = 0;
+	int nCntModel = 0;
+	int nCntMotionIdx = 0;
 
-CPlayer::CPlayer(D3DXVECTOR3 pos, int nPriority)
-{
-}
+	//テクスチャの情報取得
+	CTexture *pTexture = CManager::GetInstance()->GetTexture();
 
-CPlayer::~CPlayer()
-{
-}
+	FILE *pFile;   //ファイルポインタを宣言
 
-HRESULT CPlayer::Init(void)
-{
-	return E_NOTIMPL;
-}
+	pFile = fopen(fliename, "r");
 
-void CPlayer::Uninit(void)
-{
-}
+	if (pFile != NULL)
+	{//ファイルを開けた場合
 
-void CPlayer::Update(void)
-{
-}
+		fscanf(pFile, "%s", &aString[0]);
 
-void CPlayer::Draw(void)
-{
-}
+		if (strcmp("SCRIPT", aString) == 0)
+		{
+			while (strcmp("END_SCRIPT", aString) != 0)
+			{
+				fscanf(pFile, "%s", &aString[0]);
 
-CPlayer* CPlayer::Create(D3DXVECTOR3 pos, int nPriority)
-{
-	return nullptr;
-}
+				if (strcmp("NUM_MODEL", aString) == 0)
+				{
+					fscanf(pFile, "%s", &aString);          //=
+					fscanf(pFile, "%d", &m_nNumModel);  //モデルの総数
 
-void CPlayer::Control(void)
-{
+					m_appCharacter = new CCharacter*[m_nNumModel];
+
+				}  //NUM_MODELのかっこ
+
+				if (strcmp("MODEL_FILENAME", aString) == 0)
+				{
+					fscanf(pFile, "%s", &aString);          //=
+					fscanf(pFile, "%s", &m_filename[0]);  //モデルの名前
+
+					m_appCharacter[nCntModel] = CCharacter::Create(m_filename);
+					nCntModel++;
+
+					nCntParts++;
+
+				}  //MODEL_LILENAMEのかっこ
+
+				if (strcmp("CHARACTERSET", aString) == 0)
+				{
+					while (strcmp("END_CHARACTERSET", aString) != 0)
+					{
+						fscanf(pFile, "%s", &aString);
+
+						if (strcmp("PARTSSET", aString) == 0)
+						{
+							while (strcmp("END_PARTSSET", aString) != 0)
+							{
+								fscanf(pFile, "%s", &aString);
+
+								if (strcmp("INDEX", aString) == 0)
+								{
+									fscanf(pFile, "%s", &aString);          //=
+									fscanf(pFile, "%d", &m_nIdx);  //モデルの番号
+								}
+
+								if (strcmp("PARENT", aString) == 0)
+								{
+									fscanf(pFile, "%s", &aString);          //=
+									fscanf(pFile, "%d", &m_nParent);  //親モデルの番号
+
+									if (m_nParent > -1 && m_nNumModel > m_nParent)
+									{
+										m_appCharacter[nCntParts2]->SetParent(m_appCharacter[m_nParent]);
+									}
+									else
+									{
+										m_appCharacter[nCntParts2]->SetParent(NULL);
+									}
+								}
+
+								if (strcmp("POS", aString) == 0)
+								{
+									fscanf(pFile, "%s", &aString);      //=
+									fscanf(pFile, "%f", &m_Readpos.x);  //モデルの総数
+									fscanf(pFile, "%f", &m_Readpos.y);  //モデルの総数
+									fscanf(pFile, "%f", &m_Readpos.z);  //モデルの総数
+
+									m_appCharacter[nCntParts2]->SetPositionOri(m_Readpos);
+
+									m_appCharacter[nCntParts2]->SetPosition(m_Readpos);
+								}
+
+								if (strcmp("ROT", aString) == 0)
+								{
+									fscanf(pFile, "%s", &aString);      //=
+									fscanf(pFile, "%f", &m_Readrot.x);  //モデルの総数
+									fscanf(pFile, "%f", &m_Readrot.y);  //モデルの総数
+									fscanf(pFile, "%f", &m_Readrot.z);  //モデルの総数
+
+									m_appCharacter[nCntParts2]->SetRotOrigin(m_Readrot);
+
+									m_appCharacter[nCntParts2]->SetRot(m_Readrot);
+								}
+
+							}//END_PARTSSETのかっこ
+
+							nCntParts2++;
+
+						}//PARTSSETのかっこ
+
+					}//END_CHARACTERSETのかっこ 
+
+				}//CHARACTERSETのかっこ 
+			}
+		}
+
+		//ファイルを閉じる
+		fclose(pFile);
+	}
+	else
+	{
+		return;
+	}
+
+	if (m_pMotion != nullptr)
+	{
+		// モデルの設定
+		m_pMotion->SetModel(m_appCharacter, m_nNumModel);
+
+		// 初期化処理
+		m_pMotion->ReadText(fliename);
+
+		// プレイヤーの初期モーション設定
+		m_pMotion->InitPose(TYPE_NEUTRAL);
+	}
 }

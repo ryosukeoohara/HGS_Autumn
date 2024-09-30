@@ -40,6 +40,9 @@
     <Filter Include="character">
       <UniqueIdentifier>{f5fe532b-8c4e-4884-8b59-382f091fc037}</UniqueIdentifier>
     </Filter>
+    <Filter Include="gimmick">
+      <UniqueIdentifier>{e9984ab1-4083-4e05-ab4d-44e03d5d686e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\debugproc.cpp">
@@ -138,6 +141,27 @@
     <ClCompile Include="code\character.cpp">
       <Filter>character</Filter>
     </ClCompile>
+    <ClCompile Include="code\gimmick.cpp">
+      <Filter>gimmick</Filter>
+    </ClCompile>
+    <ClCompile Include="code\gimmickTiming.cpp">
+      <Filter>gimmick</Filter>
+    </ClCompile>
+    <ClCompile Include="code\gimmickButtonMash.cpp">
+      <Filter>gimmick</Filter>
+    </ClCompile>
+    <ClCompile Include="code\gimmickBalance.cpp">
+      <Filter>gimmick</Filter>
+    </ClCompile>
+    <ClCompile Include="code\billboard.cpp">
+      <Filter>3D</Filter>
+    </ClCompile>
+    <ClCompile Include="code\field.cpp">
+      <Filter>3D</Filter>
+    </ClCompile>
+    <ClCompile Include="code\motion.cpp">
+      <Filter>character</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\tutorial.h">
@@ -234,6 +258,27 @@
       <Filter>3D</Filter>
     </ClInclude>
     <ClInclude Include="code\character.h">
+      <Filter>character</Filter>
+    </ClInclude>
+    <ClInclude Include="code\gimmick.h">
+      <Filter>gimmick</Filter>
+    </ClInclude>
+    <ClInclude Include="code\gimmickBalance.h">
+      <Filter>gimmick</Filter>
+    </ClInclude>
+    <ClInclude Include="code\gimmickButtonMash.h">
+      <Filter>gimmick</Filter>
+    </ClInclude>
+    <ClInclude Include="code\gimmickTiming.h">
+      <Filter>gimmick</Filter>
+    </ClInclude>
+    <ClInclude Include="code\billboard.h">
+      <Filter>3D</Filter>
+    </ClInclude>
+    <ClInclude Include="code\field.h">
+      <Filter>3D</Filter>
+    </ClInclude>
+    <ClInclude Include="code\motion.h">
       <Filter>character</Filter>
     </ClInclude>
   </ItemGroup>

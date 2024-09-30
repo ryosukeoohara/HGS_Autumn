@@ -13,6 +13,13 @@
 #include "object.h"
 
 //===========================================================
+// 前方宣言
+//===========================================================
+class CCharacter;
+class CMotion;
+class CPlayerState;
+
+//===========================================================
 // プレイヤークラス定義
 //===========================================================
 class CPlayer : public CObject
@@ -26,6 +33,13 @@ public:
 		STATE_MOVE,         // 移動
 		STATE_DEATH,        // 死亡
 		STATE_MAX
+	};
+
+	enum MOTIONTYPE
+	{
+		TYPE_NONE = 0,
+		TYPE_NEUTRAL,
+		TYPE_MAX
 	};
 
 	enum MOBILITY
@@ -90,10 +104,14 @@ public:
 	bool GetHeatActFlag(void) { return m_bHeatActFlag; }
 	MOBILITY GetMobility(void) { return m_Mobility; }
 
+
+
 private:
 
 	// メンバ関数
 	void Control(void);                   // 制御
+	void ReadText(const char *filename);
+	void Move(void);
 	
 	// メンバ変数
 	int m_nNumModel;                    //モデル(パーツ)の総数
@@ -110,6 +128,8 @@ private:
 	D3DXVECTOR3 m_Readrot;
 	D3DXVECTOR3 m_posOrigin;   
 	
+	CCharacter** m_appCharacter;
+	CMotion* m_pMotion;
 	static CPlayer *m_pPlayer;
 	int m_nDefeat;  // 敵を倒した数
 	int m_nIdxEne;
@@ -137,6 +157,36 @@ private:
 	bool m_bPushD;                       // Dキーを押した
 	bool m_bAvoi;                        // 回避した
 	bool m_bWhee;                        // ホイールを回転した
+};
+
+//===========================================================
+// プレイヤーステイト
+//===========================================================
+class CPlayerState
+{
+public:
+	CPlayerState();
+	~CPlayerState() {};
+
+	virtual void Update(CPlayer* pPlayer) = 0;
+
+private:
+
+};
+
+//===========================================================
+// プレイヤーステイト
+//===========================================================
+class CPlayerStateMove : public CPlayerState
+{
+public:
+	CPlayerStateMove();
+	~CPlayerStateMove() {};
+
+	void Update(CPlayer* pPlayer) = 0;
+
+private:
+
 };
 
 #endif
