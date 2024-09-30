@@ -88,6 +88,7 @@ public:
 	// 取得系
 	int GetType(void);                                  // 種類
 	int GetNumFrame(void) { return m_nNowFrame; }       // モーションの総フレーム
+	int GetKey(void) { return m_nKey; }
 	int GetNowFrame(void);
 	int GetAttackOccurs(void);
 	int GetAttackEnd(void);
