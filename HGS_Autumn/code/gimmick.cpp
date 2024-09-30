@@ -83,6 +83,8 @@ void CGimmick::Uninit(void)
 		m_pGimmickRope->Uninit();
 		m_pGimmickRope = nullptr;
 	}
+
+	CObject::Release();
 }
 
 //===========================================================

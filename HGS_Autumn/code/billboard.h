@@ -72,6 +72,8 @@ public:
 
 
 	// Žæ“¾Œn
+	float GetWidth() { return m_fWidth; }
+	float GetHeight() { return m_fHeight; }
 	D3DXVECTOR3 GetPosition(void) { return m_pos; }
 	D3DXVECTOR3 GetRotition(void) { return m_rot; }
 	JUDGETYPE GetJudgeType(void) { return m_Judgetype; }			// ”»’è‚ÌŽí—Þ
