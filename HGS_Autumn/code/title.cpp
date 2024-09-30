@@ -99,15 +99,12 @@ HRESULT CTitle::Init(void)
 	// マップ設置
 	SetMap();
 
-	CCamera*p = CManager::GetInstance()->GetCamera();
-	p->SetRotation(D3DXVECTOR3(0.0f, D3DX_PI, 0.0f));
-	
 	if (m_pBg == nullptr)
 	{
 		m_pBg = CObject2D::Create();
 		m_pBg->SetIdxTex(CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\title.png"));
 		m_pBg->SetPosition(D3DXVECTOR3(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.35f, 0.0f));
-		m_pBg->SetSize(SCREEN_WIDTH * 0.25f, SCREEN_HEIGHT * 0.25f);
+		m_pBg->SetSize(SCREEN_WIDTH * 0.40f, SCREEN_HEIGHT * 0.25f);
 		m_pBg->SetDraw(true);
 	}
 
@@ -150,9 +147,6 @@ void CTitle::Uninit(void)
 //===========================================================
 void CTitle::Update(void)
 {
-	/*CCamera* p = CManager::GetInstance()->GetCamera();
-	p->SetRotation(D3DXVECTOR3(0.0f, -D3DX_PI * 0.0f, 0.0f));*/
-
 	// キーボードを取得
 	CInputKeyboard *InputKeyboard = CManager::GetInstance()->GetKeyBoard();
 
