@@ -941,7 +941,7 @@ void CScene::SetMap(void)
 		pGrassL->SetDraw(true);
 	}
 
-	for (int i = 0; i < 150; i++)
+	for (int i = 0; i <130; i++)
 	{
 		CObjectX::Create(MAPFILENAME::MAP_TREE, D3DXVECTOR3(1000.0f, -100.0f, -2500.0f - (500 * i)));
 		CObjectX::Create(MAPFILENAME::MAP_TREE, D3DXVECTOR3(-1200.0f, -100.0f, -2500.0f - (500 * i)));
@@ -951,12 +951,10 @@ void CScene::SetMap(void)
 		CObjectX::Create(MAPFILENAME::MAP_ROCK_PIECE, D3DXVECTOR3(-500.0f, 0.0f, -2500.0f - (500 * i)));
 	}
 
-	CObjectX::Create(MAPFILENAME::MAP_ROCK, D3DXVECTOR3(0.0f, 0.0f, -35000.0f));
-	CObjectX::Create(MAPFILENAME::MAP_ROPE, D3DXVECTOR3(0.0f, 0.0f, -55000.0f));
-	CObjectX::Create(MAPFILENAME::MAP_CASTLE, D3DXVECTOR3(0.0f, 0.0f, -85000.0f));
-	CObjectX::Create(MAPFILENAME::MAP_CASTLE_FRAME, D3DXVECTOR3(0.0f, 0.0f, -75000.0f));
-	CObjectX::Create(MAPFILENAME::MAP_CASTLE_DOOR_R, D3DXVECTOR3(0.0f, 0.0f, -75000.0f));
-	CObjectX::Create(MAPFILENAME::MAP_CASTLE_DOOR_L, D3DXVECTOR3(0.0f, 0.0f, -75000.0f));
+	CObjectX::Create(MAPFILENAME::MAP_CASTLE, D3DXVECTOR3(0.0f, 0.0f, -71000));
+	CObjectX::Create(MAPFILENAME::MAP_CASTLE_FRAME, D3DXVECTOR3(0.0f, 0.0f, -70000.0f));
+	CObjectX::Create(MAPFILENAME::MAP_CASTLE_DOOR_R, D3DXVECTOR3(55.0f, 0.0f, -70000.0f));
+	CObjectX::Create(MAPFILENAME::MAP_CASTLE_DOOR_L, D3DXVECTOR3(-60.0f, 0.0f, -70000.0f));
 
 }
 
