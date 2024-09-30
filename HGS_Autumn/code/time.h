@@ -11,8 +11,11 @@
 
 //マクロ定義
 #define SETTIME   (2)  //時間の桁
-#define TIME      (99) //ゲームの制限時間
-#define INITTIME  (9)  //それぞれの桁の初期値
+#define TIME      (90) //ゲームの制限時間
+#define INITTIME  (0)  //それぞれの桁の初期値
+
+// 前方宣言
+class CObject2D;
 
 //タイムクラス
 class CTime : public CNumber
@@ -44,6 +47,7 @@ private:
 	static int m_nTimerCount;
 	static int m_nTime;  //時間
 	int m_nIdxTexture;
+	CObject2D* m_pFish;
 };
 
 #endif

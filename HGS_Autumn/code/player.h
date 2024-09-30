@@ -32,8 +32,9 @@ public:
 		STATE_STEP,         // 移動
 		STATE_WALK,         // 歩き
 		STATE_STAGGER,      // よろけながら歩く
+		STATE_ROPEWALK,     // ロープ歩き
+		STATE_HAMMER,       // ハンマー
 		STATE_DEATH,        // 死亡
-		STATE_HAMMER,
 		STATE_MAX
 	};
 
@@ -245,6 +246,8 @@ public:
 	void Update(CPlayer* pPlayer) override;
 
 private:
+
+	float m_fTiltAngle = 0.0f;
 
 };
 

@@ -13,6 +13,14 @@
 #include "fade.h"
 #include "number.h"
 
+// 定数定義
+namespace
+{
+	const D3DXVECTOR3 FISHPOS = D3DXVECTOR3(1150.0f, 500.0f, 0.0f);
+	const float WIDTH = 150.0f;
+	const float HEIGHT = 200.0f;
+}
+
 //================================================================
 //静的メンバ変数宣言
 //================================================================
@@ -67,7 +75,6 @@ CTime* CTime::Create(void)
 		//初期化処理
 		pTime->Init();
 	}
-	
 
 	return pTime;
 }
@@ -97,7 +104,19 @@ HRESULT CTime::Init(void)
 		}
 	}
 
+	// 魚の生成
+	m_pFish = CObject2D::Create(7);
+	m_pFish->SetIdxTex(CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\fish.png"));
+	m_pFish->SetPosition(FISHPOS);
+	m_pFish->SetSize(WIDTH, HEIGHT);
+	m_pFish->SetDraw();
+
 	m_nTime = TIME;  //時間
+
+	m_apNumber[0]->m_Number = m_nTime % 100 / 10;
+	m_apNumber[1]->m_Number = m_nTime % 10 / 1;
+
+	TimeCounter();
 
 	return S_OK;
 }
@@ -136,6 +155,21 @@ void CTime::Update(void)
 	}
 
 	TimeCounter();
+
+	if (m_nTime == 0) { return; }
+
+	// 色を変更する
+	{
+		D3DXCOLOR col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+		float fMulti = static_cast<float>(m_nTime) / static_cast<float>(TIME);
+		if (fMulti <= 0.5f)
+		{
+			col.r *= fMulti * 2.0f;
+			col.g *= fMulti * 1.9f;
+			col.b *= fMulti * 1.9f;
+			m_pFish->SetColor(col);
+		}
+	}
 }
 
 //================================================================

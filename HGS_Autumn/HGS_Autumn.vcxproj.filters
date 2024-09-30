@@ -162,6 +162,9 @@
     <ClCompile Include="code\motion.cpp">
       <Filter>character</Filter>
     </ClCompile>
+    <ClCompile Include="code\warning.cpp">
+      <Filter>2D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\tutorial.h">
@@ -280,6 +283,9 @@
     </ClInclude>
     <ClInclude Include="code\motion.h">
       <Filter>character</Filter>
+    </ClInclude>
+    <ClInclude Include="code\warning.h">
+      <Filter>2D</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
