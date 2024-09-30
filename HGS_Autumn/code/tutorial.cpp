@@ -118,7 +118,7 @@ void CTutorial::Update(void)
 	//フェードの情報を取得
 	CFade *pFade = CManager::GetInstance()->GetFade();
 
-	if (InputKeyboard->GetTrigger(DIK_RETURN) == true || pInputJoyPad->GetTrigger(CInputJoyPad::BUTTON_START, 0) == true)
+	if (InputKeyboard->GetTrigger(DIK_RETURN) == true || pInputJoyPad->GetTrigger(CInputJoyPad::BUTTON_A, 0) == true)
 	{//ENTERキーを押したかつシーンがタイトルのとき
 
 		if (pFade->Get() != pFade->FADE_OUT)
