@@ -63,12 +63,12 @@ private:
 		{ "data/SOUND/BGM/tutorial.wav", -1 },
 		{ "data/SOUND/BGM/game.wav", -1 },
 		{ "data/SOUND/BGM/result.wav", -1 },
-		{ "data/SOUND/BGM/warning.wav", 0 },
-		{ "data/SOUND/BGM/panic.wav", 0 },
-		{ "data/SOUND/BGM/normal_hit.wav", 0 },
-		{ "data/SOUND/BGM/hanmmer.wav", 0 },
-		{ "data/SOUND/BGM/good.wav", 0 },
-		{ "data/SOUND/BGM/bad_hit.wav", 0 },
+		{ "data/SOUND/SE/warning.wav", 0 },
+		{ "data/SOUND/SE/panic.wav", 0 },
+		{ "data/SOUND/SE/normal_hit.wav", 0 },
+		{ "data/SOUND/SE/hanmmer.wav", 0 },
+		{ "data/SOUND/SE/good.wav", 0 },
+		{ "data/SOUND/SE/bad_hit.wav", 0 },
 	}; 
 
 	IXAudio2 *m_pXAudio2 = nullptr;								// XAudio2オブジェクトへのインターフェイス

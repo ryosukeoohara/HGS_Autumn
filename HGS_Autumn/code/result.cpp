@@ -99,6 +99,8 @@ HRESULT CResult::Init(void)
 	// マップ設置
 	SetMap();
 
+	CManager::GetInstance()->GetSound()->Play(CSound::SOUND_LABEL_BGM_RESULT);
+
 	return S_OK;
 }
 

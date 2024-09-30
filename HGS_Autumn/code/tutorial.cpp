@@ -80,7 +80,7 @@ HRESULT CTutorial::Init(void)
 		m_pBg->SetDraw(true);
 	}
 
-	//CManager::GetInstance()->GetSound()->Play(CSound::SOUND_LABEL_BGM_TUTORIAL);
+	CManager::GetInstance()->GetSound()->Play(CSound::SOUND_LABEL_BGM_TUTORIAL);
 
 	return S_OK;
 }
