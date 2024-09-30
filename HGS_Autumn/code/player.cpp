@@ -217,7 +217,9 @@ void CPlayer::Update(void)
 	if (m_pState != nullptr)
 		m_pState->Update(this);
 
-	Control();
+	Move();
+
+	//Control();
 
 	debugKey();
 }
@@ -296,51 +298,51 @@ void CPlayer::Move(void)
 	if (pInputJoyPad == nullptr)
 		return;
 
-	// タイミング
-	if (m_nDebugState == 0)
-	{
-		if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_LB, 0) == true)
-		{
-			m_Info.move.z -= m_Info.fSpeed;
+	//// タイミング
+	//if (m_nDebugState == 0)
+	//{
+	//	if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_LB, 0) == true)
+	//	{
+	//		m_Info.move.z -= m_Info.fSpeed;
 
-			if (m_Info.state == STATE_STEP)
-			{
-				m_pMotion->Set(TYPE_STEP_RIGHT);
-			}
+	//		if (m_Info.state == STATE_STEP)
+	//		{
+	//			m_pMotion->Set(TYPE_STEP_RIGHT);
+	//		}
 
-			if (m_Info.state == STATE_WALK)
-			{
-				m_pMotion->Set(TYPE_WALK_RIGHT);
-			}
+	//		if (m_Info.state == STATE_WALK)
+	//		{
+	//			m_pMotion->Set(TYPE_WALK_RIGHT);
+	//		}
 
-			if (m_Info.state == STATE_STAGGER)
-			{
-				m_pMotion->Set(TYPE_WALK_RIGHT);
-			}
-		}
+	//		if (m_Info.state == STATE_STAGGER)
+	//		{
+	//			m_pMotion->Set(TYPE_WALK_RIGHT);
+	//		}
+	//	}
 
-		if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_RB, 0) == true)
-		{
-			m_Info.move.z -= m_Info.fSpeed;
-			
-			if (m_Info.state == STATE_STEP)
-			{
-				m_pMotion->Set(TYPE_STEP_LEFT);
-			}
+	//	if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_RB, 0) == true)
+	//	{
+	//		m_Info.move.z -= m_Info.fSpeed;
+	//		
+	//		if (m_Info.state == STATE_STEP)
+	//		{
+	//			m_pMotion->Set(TYPE_STEP_LEFT);
+	//		}
 
-			if (m_Info.state == STATE_WALK)
-			{
-				m_pMotion->Set(TYPE_WALK_LEFT);
-			}
+	//		if (m_Info.state == STATE_WALK)
+	//		{
+	//			m_pMotion->Set(TYPE_WALK_LEFT);
+	//		}
 
-			if (m_Info.state == STATE_STAGGER)
-			{
-				m_pMotion->Set(TYPE_WALK_LEFT);
-			}
-		}
+	//		if (m_Info.state == STATE_STAGGER)
+	//		{
+	//			m_pMotion->Set(TYPE_WALK_LEFT);
+	//		}
+	//	}
 
-		CManager::GetInstance()->GetDebugProc()->Print("現在のギミック：タイミング\n");
-	}
+	//	CManager::GetInstance()->GetDebugProc()->Print("現在のギミック：タイミング\n");
+	//}
 
 	// バランス
 	if (m_nDebugState == 1)
@@ -453,23 +455,23 @@ void CPlayer::debugKey(void)
 
 	if (InputKeyboard->GetTrigger(DIK_1) == true)
 	{
-		m_Info.fSpeed = 2.0f;
-
 		m_Info.state = STATE_STEP;
+
+		ChangeState(new CPlayerStateStep);
 	}
 
 	if (InputKeyboard->GetTrigger(DIK_2) == true)
 	{
-		m_Info.fSpeed = 1.0f;
-
 		m_Info.state = STATE_WALK;
+
+		ChangeState(new CPlayerStateWalk);
 	}
 
 	if (InputKeyboard->GetTrigger(DIK_3) == true)
 	{
-		m_Info.fSpeed = 0.5f;
-
 		m_Info.state = STATE_STAGGER;
+
+		ChangeState(new CPlayerStateStagger);
 	}
 
 	// ギミックの切り替え
@@ -479,7 +481,9 @@ void CPlayer::debugKey(void)
 
 		m_Info.rot.z = 0.0f;
 
-		m_pMotion->Set(TYPE_ROPEWALK);
+		//m_pMotion->Set(TYPE_ROPEWALK);
+
+		ChangeState(new CPlayerStateRopeWalk);
 	}
 
 	// 風向きの変更
@@ -648,17 +652,37 @@ CPlayerState::CPlayerState()
 
 }
 
-CPlayerStateStep::CPlayerStateStep()
-{
-
-}
-
 //================================================================
 // ステップ
 //================================================================
+CPlayerStateStep::CPlayerStateStep()
+{
+	CPlayer::INFO* Info = CPlayer::GetInstance()->GetInfo();
+
+	Info->fSpeed = 2.0f;
+
+	Info->state = CPlayer::STATE_STEP;
+}
+
 void CPlayerStateStep::Update(CPlayer* pPlayer)
 {
+	//ゲームパッドを取得
+	CInputJoyPad* pInputJoyPad = CManager::GetInstance()->GetInputJoyPad();
 
+	CMotion* pMotion = pPlayer->GetMotion();
+
+	if (pMotion == nullptr)
+		return;
+
+	CPlayer::INFO* Info = pPlayer->GetInfo();
+
+	Info->move.z -= Info->fSpeed;
+
+	if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_LB, 0) == true)
+		pMotion->Set(pPlayer->TYPE_STEP_RIGHT);
+
+	if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_RB, 0) == true)
+		pMotion->Set(pPlayer->TYPE_STEP_LEFT);
 }
 
 //================================================================
@@ -666,7 +690,11 @@ void CPlayerStateStep::Update(CPlayer* pPlayer)
 //================================================================
 CPlayerStateWalk::CPlayerStateWalk()
 {
+	CPlayer::INFO* Info = CPlayer::GetInstance()->GetInfo();
 
+	Info->fSpeed = 1.0f;
+
+	Info->state = CPlayer::STATE_WALK;
 }
 
 void CPlayerStateWalk::Update(CPlayer* pPlayer)
@@ -684,14 +712,10 @@ void CPlayerStateWalk::Update(CPlayer* pPlayer)
 	Info->move.z -= Info->fSpeed;
 
 	if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_LB, 0) == true)
-	{
 		pMotion->Set(pPlayer->TYPE_WALK_RIGHT);
-	}
 
 	if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_RB, 0) == true)
-	{
 		pMotion->Set(pPlayer->TYPE_WALK_LEFT);
-	}
 }
 
 //================================================================
@@ -699,12 +723,32 @@ void CPlayerStateWalk::Update(CPlayer* pPlayer)
 //================================================================
 CPlayerStateStagger::CPlayerStateStagger()
 {
-	
+	CPlayer::INFO* Info = CPlayer::GetInstance()->GetInfo();
+
+	Info->fSpeed = 0.5f;
+
+	Info->state = CPlayer::STATE_STAGGER;
 }
 
 void CPlayerStateStagger::Update(CPlayer* pPlayer)
 {
+	//ゲームパッドを取得
+	CInputJoyPad* pInputJoyPad = CManager::GetInstance()->GetInputJoyPad();
 
+	CMotion* pMotion = pPlayer->GetMotion();
+
+	if (pMotion == nullptr)
+		return;
+
+	CPlayer::INFO* Info = pPlayer->GetInfo();
+
+	Info->move.z -= Info->fSpeed;
+
+	if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_LB, 0) == true)
+		pMotion->Set(pPlayer->TYPE_STAGGER_RIGHT);
+
+	if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_RB, 0) == true)
+		pMotion->Set(pPlayer->TYPE_STAGGER_LEFT);
 }
 
 //================================================================
@@ -712,13 +756,40 @@ void CPlayerStateStagger::Update(CPlayer* pPlayer)
 //================================================================
 CPlayerStateRopeWalk::CPlayerStateRopeWalk()
 {
+	CPlayer::INFO* Info = CPlayer::GetInstance()->GetInfo();
+
+	Info->fSpeed = 0.5f;
+
 	CPlayer* pPlayer = CPlayer::GetInstance();
 
 	pPlayer->GetMotion()->Set(pPlayer->TYPE_ROPEWALK);
+
+	Info->state = CPlayer::STATE_ROPEWALK;
 }
 
 void CPlayerStateRopeWalk::Update(CPlayer* pPlayer)
 {
+	CPlayer::INFO* Info = CPlayer::GetInstance()->GetInfo();
+
+	//ゲームパッドを取得
+	CInputJoyPad* pInputJoyPad = CManager::GetInstance()->GetInputJoyPad();
+
+	if (pInputJoyPad->GetPress(pInputJoyPad->BUTTON_RB, 0) == true)
+	{
+		if (m_fTiltAngle > -0.1f)
+			m_fTiltAngle -= 0.007f;
+	}
+	else if (pInputJoyPad->GetPress(pInputJoyPad->BUTTON_LB, 0) == true)
+	{
+		if (m_fTiltAngle < 0.1f)
+			m_fTiltAngle += 0.007f;
+	}
+	else
+	{
+		m_fTiltAngle = 0.0f;
+	}
+
+	Info->rot.z += (0.03f - m_fTiltAngle);
 }
 
 //================================================================
@@ -728,7 +799,13 @@ CPlayerStateHummer::CPlayerStateHummer()
 {
 	CPlayer* pPlayer = CPlayer::GetInstance();
 
+	CPlayer::INFO* Info = CPlayer::GetInstance()->GetInfo();
+
 	pPlayer->GetMotion()->Set(pPlayer->TYPE_HAMMER);
+
+	Info->state = CPlayer::STATE_HAMMER;
+
+	Info->fSpeed = 0.0f;
 }
 
 void CPlayerStateHummer::Update(CPlayer* pPlayer)
@@ -748,5 +825,7 @@ void CPlayerStateHummer::Update(CPlayer* pPlayer)
 	if (m_nButtonPushCounter >= 50)
 	{
 		m_nButtonPushCounter = 0;
+
+		pPlayer->ChangeState(new CPlayerStateWalk);
 	}
 }
