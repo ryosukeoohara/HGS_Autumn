@@ -256,6 +256,21 @@ private:
 
 };
 
+// ロープ歩き
+class CPlayerStateRopeStagger : public CPlayerState
+{
+public:
+	CPlayerStateRopeStagger();
+	~CPlayerStateRopeStagger() {};
+
+	void Update(CPlayer* pPlayer) override;
+
+private:
+
+	float m_fTiltAngle = 0.0f;
+
+};
+
 // ハンマー
 class CPlayerStateHummer : public CPlayerState
 {
