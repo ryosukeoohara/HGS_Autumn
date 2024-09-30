@@ -17,6 +17,8 @@
 #include "player.h"
 #include "texture.h"
 #include "collision.h"
+#include "player.h"
+#include "field.h"
 #include "InputKeyBoard.h"
 #include "InputJoyPad.h"
 
@@ -44,6 +46,7 @@ CGame::CGame(CScene::MODE mode)
 	m_bPause = false;
 	m_pPause = nullptr;
 	m_pBg = nullptr;
+	m_pPlayer = nullptr;
 }
 
 //===========================================================
@@ -80,15 +83,23 @@ HRESULT CGame::Init(void)
 	if (m_pPause == nullptr)
 		m_pPause = CPause::Create();
 
-	if (m_pBg == nullptr)
+	CField* pField = new CField;
+
+	if (pField != nullptr)
 	{
-		m_pBg = CObject2D::Create();
-		m_pBg->SetIdxTex(CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\game.png"));
-		m_pBg->SetPosition(D3DXVECTOR3(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f, 0.0f));
-		m_pBg->SetSize(SCREEN_WIDTH * 0.3f, SCREEN_HEIGHT * 0.3f);
-		m_pBg->SetDraw(true);
+		pField->Init();
+		pField->SetIdxTex(CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\concreat.png"));
+		pField->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+		pField->SetSize(5000.0f, 5000.0f);
+		pField->SetDraw(true);
 	}
 
+	// ƒvƒŒƒCƒ„[‚Ì¶¬
+	if (m_pPlayer == nullptr)
+	{
+		m_pPlayer = CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, 500.0f));
+	}
+	
 	//CManager::GetInstance()->GetSound()->Play(CSound::SOUND_LABEL_BGM_GAME);
 
 	return S_OK;
