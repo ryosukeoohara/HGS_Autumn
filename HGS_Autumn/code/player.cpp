@@ -49,7 +49,7 @@ namespace
 	const float GRAP_LOST_STMINA = 0.1f;                       // 敵を掴んでいる時のスタミナ消費量
 	const float ATTACK_MAGNETIC_RANGE = 100.0f;                // 攻撃すると一番近くの敵に自動ですこし前進する敵との距離
 	const float MY_RADIUS = 25.0f;                             // プレイヤーの横幅
-	const char* PLAYER_TEXT = "data\\TEXT\\setup_player.txt"; // プレイヤーのテキストファイル
+	const char* PLAYER_TEXT = "data\\TEXT\\setup_player.txt";  // プレイヤーのテキストファイル
 
 	const D3DXVECTOR3 MAP_LIMIT_MAX = D3DXVECTOR3(800.0f, 0.0f, 1000.0f);   // マップの制限
 	const D3DXVECTOR3 MAP_LIMIT_MIN = D3DXVECTOR3(-850.0f, 0.0f, -670.0f);  // マップの制限
@@ -262,13 +262,22 @@ void CPlayer::Draw(void)
 //================================================================
 void CPlayer::Control(void)
 {
-	Move();
+	if (m_Info.state == STATE_HAMMER)
+	{
+		Hammer();
+	}
+	else
+	{
+		Move();
+	}
 
 
 	CManager::GetInstance()->GetDebugProc()->Print("\nプレイヤーの位置：%f,%f,%f\n", m_Info.pos.x, m_Info.pos.y, m_Info.pos.z);
 	CManager::GetInstance()->GetDebugProc()->Print("\nプレイヤーの向き：%f,%f,%f\n", m_Info.rot.x, m_Info.rot.y, m_Info.rot.z);
 	CManager::GetInstance()->GetDebugProc()->Print("プレイヤーの速度切り替え：[1]2.0f, [2]1.0f, [3]0.5f\n");
+	CManager::GetInstance()->GetDebugProc()->Print("ギミック切り替え：[4]バランス, [5]ハンマー\n");
 	CManager::GetInstance()->GetDebugProc()->Print("プレイヤーの速度：%f\n", m_Info.fSpeed);
+	CManager::GetInstance()->GetDebugProc()->Print("ハンマー連打：%d\n", m_nButtonPushCounter);
 	CManager::GetInstance()->GetDebugProc()->Print("風向きの変更：[Bボタン]\n");
 }
 
@@ -286,16 +295,44 @@ void CPlayer::Move(void)
 	// タイミング
 	if (m_nDebugState == 0)
 	{
-		if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_RB, 0) == true)
-		{
-			m_Info.move.z -= m_Info.fSpeed;
-			m_pMotion->Set(TYPE_STEP_LEFT);
-		}
-
 		if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_LB, 0) == true)
 		{
 			m_Info.move.z -= m_Info.fSpeed;
 
+			if (m_Info.state == STATE_STEP)
+			{
+				m_pMotion->Set(TYPE_STEP_RIGHT);
+			}
+
+			if (m_Info.state == STATE_WALK)
+			{
+				m_pMotion->Set(TYPE_WALK_RIGHT);
+			}
+
+			if (m_Info.state == STATE_STAGGER)
+			{
+				m_pMotion->Set(TYPE_WALK_RIGHT);
+			}
+		}
+
+		if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_RB, 0) == true)
+		{
+			m_Info.move.z -= m_Info.fSpeed;
+			
+			if (m_Info.state == STATE_STEP)
+			{
+				m_pMotion->Set(TYPE_STEP_LEFT);
+			}
+
+			if (m_Info.state == STATE_WALK)
+			{
+				m_pMotion->Set(TYPE_WALK_LEFT);
+			}
+
+			if (m_Info.state == STATE_STAGGER)
+			{
+				m_pMotion->Set(TYPE_WALK_LEFT);
+			}
 		}
 
 		CManager::GetInstance()->GetDebugProc()->Print("現在のギミック：タイミング\n");
@@ -309,12 +346,12 @@ void CPlayer::Move(void)
 		if (pInputJoyPad->GetPress(pInputJoyPad->BUTTON_RB, 0) == true)
 		{
 			if(m_fRot > -0.1f)
-			   m_fRot -= 0.01f;
+			   m_fRot -= 0.007f;
 		}
 		else if (pInputJoyPad->GetPress(pInputJoyPad->BUTTON_LB, 0) == true)
 		{
 			if (m_fRot < 0.1f)
-				m_fRot += 0.01f;
+				m_fRot += 0.007f;
 		}
 		else
 		{
@@ -326,7 +363,6 @@ void CPlayer::Move(void)
 		CManager::GetInstance()->GetDebugProc()->Print("現在のギミック：バランス\n");
 	}
 	
-
 	m_Info.move.z -= m_Info.fSpeed;
 
 	// 位置に移動量加算
@@ -338,6 +374,37 @@ void CPlayer::Move(void)
 	m_Info.move.z += (0.0f - m_Info.move.z) * 0.1f;
 }
 
+//================================================================
+// ハンマー処理
+//================================================================
+void CPlayer::Hammer(void)
+{
+	//ゲームパッドを取得
+	CInputJoyPad* pInputJoyPad = CManager::GetInstance()->GetInputJoyPad();
+
+	if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_RB, 0) == true)
+	{
+		m_nButtonPushCounter++;
+	}
+	else if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_LB, 0) == true)
+	{
+		m_nButtonPushCounter++;
+	}
+
+	if (m_nButtonPushCounter >= 50)
+	{
+		m_nButtonPushCounter = 0;
+
+		m_pMotion->Set(TYPE_HAMMER);
+	}
+
+	if (m_pMotion->IsFinish() == true)
+	{
+		m_Info.state = STATE_STEP;
+	}
+}
+
+// ギミックのデバック
 //================================================================
 // 状態の設定
 //================================================================
@@ -369,27 +436,44 @@ void CPlayer::debugKey(void)
 	if (InputKeyboard->GetTrigger(DIK_1) == true)
 	{
 		m_Info.fSpeed = 2.0f;
+
+		m_Info.state = STATE_STEP;
 	}
 
 	if (InputKeyboard->GetTrigger(DIK_2) == true)
 	{
 		m_Info.fSpeed = 1.0f;
+
+		m_Info.state = STATE_WALK;
 	}
 
 	if (InputKeyboard->GetTrigger(DIK_3) == true)
 	{
 		m_Info.fSpeed = 0.5f;
+
+		m_Info.state = STATE_STAGGER;
 	}
 
 	// ギミックの切り替え
 	if (InputKeyboard->GetTrigger(DIK_4) == true)
 	{
 		m_nDebugState = m_nDebugState ? 0 : 1;
+
+		m_Info.rot.z = 0.0f;
+
+		m_pMotion->Set(TYPE_ROPEWALK);
 	}
 
+	// 風向きの変更
 	if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_B, 0) == true)
 	{
 		m_fWindSpeed *= -1.0f;
+	}
+
+	// ハンマー
+	if (InputKeyboard->GetTrigger(DIK_5) == true)
+	{
+		m_Info.state = STATE_HAMMER;
 	}
 }
 

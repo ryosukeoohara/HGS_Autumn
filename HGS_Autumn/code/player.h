@@ -30,20 +30,23 @@ public:
 	enum STATE
 	{
 		STATE_STEP,         // 移動
-		STATE_WAKE,         // 歩き
+		STATE_WALK,         // 歩き
 		STATE_STAGGER,      // よろけながら歩く
 		STATE_DEATH,        // 死亡
+		STATE_HAMMER,
 		STATE_MAX
 	};
 
 	enum MOTIONTYPE
 	{
-		TYPE_STEP_LEFT = 0,       // 
-		TYPE_STEP_RIGHT,
-		TYPE_WALK_LEFT,
-		TYPE_WALK_RIGHT,
-		TYPE_STAGGER_LEFT,
-		TYPE_STAGGER_RIGHT,
+		TYPE_STEP_LEFT = 0,       // ステップ左
+		TYPE_STEP_RIGHT,          // ステップ右
+		TYPE_WALK_LEFT,           // 歩き左
+		TYPE_WALK_RIGHT,          // 歩き右
+		TYPE_STAGGER_LEFT,        // 足ぐき左
+		TYPE_STAGGER_RIGHT,       // 足ぐき右
+		TYPE_ROPEWALK,            // ロープ歩き
+		TYPE_HAMMER,              // ハンマー
 		TYPE_MAX
 	};
 
@@ -118,6 +121,8 @@ private:
 	void Control(void);                   // 制御
 	void ReadText(const char *filename);
 	void Move(void);
+	void Hammer(void);
+
 
 	void debugKey(void);
 
@@ -135,6 +140,7 @@ private:
 	int m_nUseCounter;
 	int m_nDebugState = 0;
 	char m_filename[128] = {};
+	int m_nButtonPushCounter = 0;
 
 	D3DXVECTOR3 m_Readpos;
 	D3DXVECTOR3 m_Readrot;
