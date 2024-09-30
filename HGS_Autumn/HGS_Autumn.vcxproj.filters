@@ -174,6 +174,12 @@
     <ClCompile Include="code\result_time.cpp">
       <Filter>2D</Filter>
     </ClCompile>
+    <ClCompile Include="code\mesh.cpp">
+      <Filter>3D</Filter>
+    </ClCompile>
+    <ClCompile Include="code\meshdome.cpp">
+      <Filter>3D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\tutorial.h">
@@ -304,6 +310,12 @@
     </ClInclude>
     <ClInclude Include="code\result_time.h">
       <Filter>2D</Filter>
+    </ClInclude>
+    <ClInclude Include="code\mesh.h">
+      <Filter>3D</Filter>
+    </ClInclude>
+    <ClInclude Include="code\meshdome.h">
+      <Filter>3D</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

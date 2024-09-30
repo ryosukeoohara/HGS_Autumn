@@ -27,6 +27,7 @@
 #include "InputJoyPad.h"
 #include "objectX.h"
 #include"field.h"
+#include "meshdome.h"
 
 //===========================================================
 //ê√ìIÉÅÉìÉoïœêî
@@ -957,7 +958,7 @@ void CScene::SetMap(void)
 	CObjectX::Create(MAPFILENAME::MAP_CASTLE_FRAME, D3DXVECTOR3(0.0f, 0.0f, -70000.0f));
 	CObjectX::Create(MAPFILENAME::MAP_CASTLE_DOOR_R, D3DXVECTOR3(55.0f, 0.0f, -70000.0f));
 	CObjectX::Create(MAPFILENAME::MAP_CASTLE_DOOR_L, D3DXVECTOR3(-60.0f, 0.0f, -70000.0f));
-	CObjectX::Create(MAPFILENAME::MAP_SKY, D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	CMeshDome::Create(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 7000.0f, 1000.0f, 3, 10, 10);
 }
 
 //================================================================
