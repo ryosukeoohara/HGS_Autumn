@@ -10,6 +10,15 @@
 #include "gimmick.h"
 
 class CGimmick;
+class CPlayer;
+
+//===========================================================
+// 定数定義
+//===========================================================
+namespace
+{
+	const int NUM_JUDGE = 2;           // 判定の数
+}
 
 //===========================================================
 // ギミッククラス定義
@@ -17,6 +26,7 @@ class CGimmick;
 class CGimmickTiming : public CGimmick
 {
 public:
+
 	CGimmickTiming(int nPriority = 3);  // コンストラクタ
 	~CGimmickTiming();                  // デストラクタ
 
@@ -28,7 +38,7 @@ public:
 	CGimmickTiming* Create(void);        // 生成処理
 
 private:
-
+	CBillBoard* m_pBillBoard[NUM_JUDGE];		// ビルボードの情報
 
 };
 

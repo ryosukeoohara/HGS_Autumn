@@ -1,37 +1,3 @@
-#==============================================================================
-#
-# 『モーションビューワ』スクリプトファイル [motion.txt]
-# Author : AKIRA TANAKA
-#
-#==============================================================================
-SCRIPT			# この行は絶対消さないこと！
-
-#------------------------------------------------------------------------------
-# モデル数
-#------------------------------------------------------------------------------
-NUM_MODEL = 16
-
-#------------------------------------------------------------------------------
-# モデルファイル名
-#------------------------------------------------------------------------------
-MODEL_FILENAME = data/MODEL/neet2/00_neet2waist.x		    # [0]腰
-MODEL_FILENAME = data/MODEL/neet2/01_neet2body.x		    # [1]体
-MODEL_FILENAME = data/MODEL/neet2/02_neet2hed.x		        # [2]頭
-MODEL_FILENAME = data/MODEL/neet2/03_neet2hair.x		    # [3]髪
-MODEL_FILENAME = data/MODEL/neet2/04_neet2leftupperarm.x    # [4]左上腕
-MODEL_FILENAME = data/MODEL/neet2/05_neet2leftforearm.x     # [5]左前腕
-MODEL_FILENAME = data/MODEL/neet2/06_neet2lefthand.x	    # [6]左手
-MODEL_FILENAME = data/MODEL/neet2/07_neet2rightupperarm.x	# [7]右上腕
-MODEL_FILENAME = data/MODEL/neet2/08_neet2rightforearm.x	# [8]右前腕
-MODEL_FILENAME = data/MODEL/neet2/09_neet2righthand.x		# [9]右手
-MODEL_FILENAME = data/MODEL/neet2/10_neet2leftthigh.x		# [10]左太もも
-MODEL_FILENAME = data/MODEL/neet2/11_neet2leftshin.x		# [11]左脛
-MODEL_FILENAME = data/MODEL/neet2/12_neet2leftleg.x		    # [12]左足
-MODEL_FILENAME = data/MODEL/neet2/13_neet2rightthigh.x	    # [13]右太もも
-MODEL_FILENAME = data/MODEL/neet2/14_neet2rightshin.x	    # [14]右脛
-MODEL_FILENAME = data/MODEL/neet2/15_neet2rightleg.x        # [15]右足
-
-
 #------------------------------------------------------------------------------
 # キャラクター情報
 #------------------------------------------------------------------------------
@@ -172,16 +138,9 @@ CHARACTERSET
 
 	PARTSSET
 		INDEX = 16
-		PARENT = 2
-		POS = 0.00 -8.50 8.00
-		ROT = -1.72 0.00 -3.14
+		PARENT = 1
+		POS = 0.00 27.50 8.00
+		ROT = -1.32 -3.14 0.00
 		START = 1
 	END_PARTSSET
 END_CHARACTERSET
-
-NUM_MOTION = 2
-
-MOTION_FILENAME = data/TEXT/character/player/tyuuni/motion_grap.txt
-MOTION_FILENAME = data/TEXT/character/player/tyuuni/motion_throw.txt
-
-END_SCRIPT		# この行は絶対消さないこと！

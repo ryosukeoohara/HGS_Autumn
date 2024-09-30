@@ -118,7 +118,10 @@ private:
 	void ReadText(const char *filename);
 	void Move(void);
 
-	void debugmove(void);
+	void debugKey(void);
+
+	float m_fWindSpeed = 0.0f;
+	float m_fRot = 0.0f;
 	
 	// メンバ変数
 	int m_nNumModel;                    //モデル(パーツ)の総数
@@ -129,6 +132,7 @@ private:
 	int m_nCntColi;
 	int m_nDamegeCounter;
 	int m_nUseCounter;
+	int m_nDebugState = 0;
 	char m_filename[128] = {};
 
 	D3DXVECTOR3 m_Readpos;

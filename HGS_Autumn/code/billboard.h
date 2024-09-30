@@ -27,6 +27,15 @@ public:
 		TYPE_MAX
 	};
 
+	// 判定の種類
+	enum JUDGETYPE
+	{
+		JUDGETYPE_NONE = 0,		// 何もなし
+		JUDGETYPE_UP,			// 上側
+		JUDGETYPE_DOWN,			// 下側
+		JUDGETYPE_MAX
+	};
+
 	CBillBoard(int nPriority = 3);
 	~CBillBoard();
 
@@ -49,10 +58,12 @@ public:
 	void SetColor(D3DXCOLOR col);                                         // 色
 	void SetType(TYPE type) { m_Type = type; }                            // 種類
 	void SetDraw(bool bDraw = true) { m_bDraw = bDraw; }                  // 描画するかどうか
+	void SetJudgeType(JUDGETYPE type) { m_Judgetype = type; }			// 判定の種類
 
 	// 取得系
 	D3DXVECTOR3 GetPosition(void) { return m_pos; }
 	D3DXVECTOR3 GetRotition(void) { return m_rot; }
+	JUDGETYPE GetJudgeType(void) { return m_Judgetype; }			// 判定の種類
 
 private:
 	LPDIRECT3DTEXTURE9 m_pTexture;             // テクスチャへのポインタ
@@ -74,6 +85,7 @@ private:
 	bool m_bDraw;                              // 描画するかどうか
 
 	TYPE m_Type;
+	JUDGETYPE m_Judgetype;			// 判定の種類
 };
 
 #endif
