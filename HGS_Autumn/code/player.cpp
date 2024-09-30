@@ -435,6 +435,8 @@ void CPlayer::debugKey(void)
 		m_nDebugState = m_nDebugState ? 0 : 1;
 
 		m_Info.rot.z = 0.0f;
+
+		m_pMotion->Set(TYPE_ROPEWALK);
 	}
 
 	// •—Œü‚«‚Ì•ÏX

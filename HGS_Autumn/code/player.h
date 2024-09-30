@@ -38,13 +38,14 @@ public:
 
 	enum MOTIONTYPE
 	{
-		TYPE_STEP_LEFT = 0,       // 
-		TYPE_STEP_RIGHT,
-		TYPE_WALK_LEFT,
-		TYPE_WALK_RIGHT,
-		TYPE_STAGGER_LEFT,
-		TYPE_STAGGER_RIGHT,
-		TYPE_HAMMER,
+		TYPE_STEP_LEFT = 0,       // ステップ左
+		TYPE_STEP_RIGHT,          // ステップ右
+		TYPE_WALK_LEFT,           // 歩き左
+		TYPE_WALK_RIGHT,          // 歩き右
+		TYPE_STAGGER_LEFT,        // 足ぐき左
+		TYPE_STAGGER_RIGHT,       // 足ぐき右
+		TYPE_ROPEWALK,            // ロープ歩き
+		TYPE_HAMMER,              // ハンマー
 		TYPE_MAX
 	};
 
