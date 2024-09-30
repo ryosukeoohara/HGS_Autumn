@@ -38,6 +38,9 @@ namespace
 		-23000.0f,		// 9.èIóπ
 		-24000.0f,		// 10.çjìnÇË
 		-26000.0f,		// 11.èIóπ
+		-27000.0f,		// 12.çjìnÇË
+		-30000.0f,		// 13.èIóπ
+		-31000.0f,		// 14.ä‚
 
 	};
 }
@@ -70,6 +73,7 @@ HRESULT CGimmick::Init(void)
 {
 	CGimmickButtonMash::Create(D3DXVECTOR3(0.0f, 0.0f, fDestPos[4]));
 	CGimmickButtonMash::Create(D3DXVECTOR3(0.0f, 0.0f, fDestPos[8]));
+	CGimmickButtonMash::Create(D3DXVECTOR3(0.0f, 0.0f, fDestPos[14]));
 
 	return S_OK;
 }
@@ -101,16 +105,58 @@ void CGimmick::Update(void)
 {
 	CPlayer* pPlayer = CPlayer::GetInstance();
 
-	if (fDestPos[7] >= pPlayer->GetPosition().z &&
+	if (fDestPos[13] >= pPlayer->GetPosition().z &&
+		fDestPos[14] <= pPlayer->GetPosition().z && m_bStart == true)
+	{ // èIóπ
+
+		pPlayer->SetRotition(D3DXVECTOR3(pPlayer->GetRotition().x, pPlayer->GetRotition().y, 0.0f));
+		m_bStart = false;
+		m_pGimmickRope->Release();
+		m_pGimmickRope = nullptr;
+	}
+	else if (fDestPos[12] >= pPlayer->GetPosition().z &&
+		fDestPos[13] <= pPlayer->GetPosition().z)
+	{ // çjìnÇË
+
+		if (m_bStart == false)
+		{
+			m_GimmickType = TYPEROPE;
+			m_bStart = true;
+			Set(m_GimmickType, D3DXVECTOR3(DEFAULT_POS.x, DEFAULT_POS.y, DEFAULT_POS.z));
+		}
+	}
+	else if (fDestPos[11] >= pPlayer->GetPosition().z &&
+		fDestPos[12] <= pPlayer->GetPosition().z && m_bStart == true)
+	{ // èIóπ
+
+		pPlayer->SetRotition(D3DXVECTOR3(pPlayer->GetRotition().x, pPlayer->GetRotition().y, 0.0f));
+		m_bStart = false;
+		m_pGimmickRope->Release();
+		m_pGimmickRope = nullptr;
+	}
+	else if (fDestPos[10] >= pPlayer->GetPosition().z &&
+		fDestPos[11] <= pPlayer->GetPosition().z)
+	{ // çjìnÇË
+
+		if (m_bStart == false)
+		{
+			m_GimmickType = TYPEROPE;
+			m_bStart = true;
+			Set(m_GimmickType, D3DXVECTOR3(DEFAULT_POS.x, DEFAULT_POS.y, DEFAULT_POS.z));
+		}
+	}
+	else if (fDestPos[7] >= pPlayer->GetPosition().z &&
 		fDestPos[8] <= pPlayer->GetPosition().z &&
 		m_bStart == true)
 	{ // èIóπ
+
+		pPlayer->SetRotition(D3DXVECTOR3(pPlayer->GetRotition().x, pPlayer->GetRotition().y, 0.0f));
 
 		m_bStart = false;
 		m_pGimmickTiming->Release();
 		m_pGimmickTiming = nullptr;
 	}
-	if (fDestPos[6] >= pPlayer->GetPosition().z &&
+	else if (fDestPos[6] >= pPlayer->GetPosition().z &&
 		fDestPos[7] <= pPlayer->GetPosition().z)
 	{ // ï‡çs
 
@@ -125,6 +171,8 @@ void CGimmick::Update(void)
 		fDestPos[4] <= pPlayer->GetPosition().z &&
 		m_bStart == true)
 	{ // èIóπ
+
+		pPlayer->SetRotition(D3DXVECTOR3(pPlayer->GetRotition().x, pPlayer->GetRotition().y, 0.0f));
 
 		m_bStart = false;
 		m_pGimmickTiming->Release();
@@ -145,6 +193,7 @@ void CGimmick::Update(void)
 		fDestPos[2] <= pPlayer->GetPosition().z && m_bStart == true)
 	{ // èIóπ
 
+		pPlayer->SetRotition(D3DXVECTOR3(pPlayer->GetRotition().x, pPlayer->GetRotition().y, 0.0f));
 		m_bStart = false;
 		m_pGimmickRope->Release();
 		m_pGimmickRope = nullptr;

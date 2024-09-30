@@ -141,6 +141,8 @@ void CResult::Update(void)
 	if (InputKeyboard->GetTrigger(DIK_RETURN) == true || pInputJoyPad->GetTrigger(CInputJoyPad::BUTTON_START, 0) == true)
 	{//ENTERキーを押したかつシーンがタイトルのとき
 
+		CManager::GetInstance()->GetSound()->Play(CSound::SOUND_LABEL_SE_GOOD);
+
 		if (pFade->Get() != pFade->FADE_OUT)
 		{
 			//シーンをゲームに遷移

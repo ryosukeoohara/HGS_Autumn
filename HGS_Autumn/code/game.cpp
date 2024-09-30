@@ -165,16 +165,6 @@ void CGame::Update(void)
 		return;
 	}
 
-	if (InputKeyboard->GetTrigger(DIK_RETURN) == true || pInputJoyPad->GetTrigger(CInputJoyPad::BUTTON_A, 0) == true || pInputJoyPad->GetTrigger(CInputJoyPad::BUTTON_START, 0) == true)
-	{//ENTERキーを押したかつシーンがタイトルのとき
-
-		if (pFade->Get() != pFade->FADE_OUT)
-		{
-			//シーンをゲームに遷移
-			pFade->Set(CScene::MODE_RESULT);
-		}
-	}
-
 	//すべての更新処理
 	CObject::UpdateAll();
 	
