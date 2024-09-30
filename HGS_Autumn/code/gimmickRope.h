@@ -11,7 +11,7 @@
 
 class CGimmick;
 class CPlayer;
-class CObjectX;
+class CObject3D;
 
 //===========================================================
 // ギミッククラス定義
@@ -28,10 +28,10 @@ public:
 	void Update(void);             // 更新処理
 	void Draw(void);               // 描画処理
 
-	static CGimmickRope* Create(void);        // 生成処理
+	static CGimmickRope* Create(D3DXVECTOR3 pos);        // 生成処理
 
 private:
-	//static CBillBoard* m_pBillBoard[NUM_JUDGE];		// ビルボードの情報
+	CObject3D* m_pObject3D;
 	float m_fMove;		// 移動量
 
 };
