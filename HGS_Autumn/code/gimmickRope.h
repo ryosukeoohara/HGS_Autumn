@@ -13,14 +13,6 @@ class CGimmick;
 class CPlayer;
 
 //===========================================================
-// 定数定義
-//===========================================================
-namespace
-{
-	const int NUM_JUDGE = 2;           // 判定の数
-}
-
-//===========================================================
 // ギミッククラス定義
 //===========================================================
 class CGimmickRope : public CGimmick
@@ -38,7 +30,7 @@ public:
 	static CGimmickRope* Create(void);        // 生成処理
 
 private:
-	static CBillBoard* m_pBillBoard[NUM_JUDGE];		// ビルボードの情報
+	//static CBillBoard* m_pBillBoard[NUM_JUDGE];		// ビルボードの情報
 	float m_fMove;		// 移動量
 
 };

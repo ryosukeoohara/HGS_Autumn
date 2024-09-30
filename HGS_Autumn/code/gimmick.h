@@ -13,6 +13,7 @@
 #include "billboard.h"
 
 class CGimmickTiming;
+class CGimmickRope;
 
 //===========================================================
 // ギミッククラス定義
@@ -41,6 +42,7 @@ public:
 
 private:
 	static CGimmickTiming* m_pGimmickTiming;
+	static CGimmickRope* m_pGimmickRope;
 
 	TYPE m_GimmickType;			// 種類
 	static float m_fDestPos;		// 目標地点

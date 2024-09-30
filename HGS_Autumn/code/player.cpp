@@ -27,6 +27,7 @@
 #include "particle.h"
 #include "effect2D.h"
 #include "gimmick.h"
+#include "utility.h"
 
 //===========================================================
 // Ã“Iƒƒ“ƒo•Ï”
@@ -821,7 +822,12 @@ void CPlayerStateRopeWalk::Update(CPlayer* pPlayer)
 		m_fTiltAngle = 0.0f;
 	}
 
+	m_fTiltAngle = utility::CorrectAngle(m_fTiltAngle);
+
 	Info->rot.z += (0.03f - m_fTiltAngle);
+
+	Info->rot.z = utility::CorrectAngle(Info->rot.z);
+
 }
 
 //================================================================

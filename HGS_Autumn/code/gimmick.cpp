@@ -7,10 +7,12 @@
 #include "gimmick.h"
 #include "billboard.h"
 #include "gimmickTiming.h"
+#include "gimmickRope.h"
 #include "player.h"
 
 float CGimmick::m_fDestPos = 0.0f;		// 目標地点
 CGimmickTiming* CGimmick::m_pGimmickTiming = nullptr;
+CGimmickRope* CGimmick::m_pGimmickRope = nullptr;
 
 //===========================================================
 // 定数定義
@@ -39,6 +41,7 @@ namespace
 CGimmick::CGimmick(int nPriority)
 {
 	m_pGimmickTiming = nullptr;
+	m_pGimmickRope = nullptr;
 	m_GimmickType = TYPEWALK;
 	m_fDestPos = 0.0f;
 	m_bStart = false;		// ギミック開始したか
@@ -74,6 +77,12 @@ void CGimmick::Uninit(void)
 		m_pGimmickTiming->Uninit();
 		m_pGimmickTiming = nullptr;
 	}
+
+	if (m_pGimmickRope != nullptr)
+	{
+		m_pGimmickRope->Uninit();
+		m_pGimmickRope = nullptr;
+	}
 }
 
 //===========================================================
@@ -99,6 +108,8 @@ void CGimmick::Update(void)
 	{ // 終了
 
 		m_bStart = false;
+		m_pGimmickRope->Release();
+		m_pGimmickRope = nullptr;
 	}
 	else if (fDestPos[0] >= pPlayer->GetPosition().z &&
 		fDestPos[1] <= pPlayer->GetPosition().z)
@@ -151,12 +162,15 @@ void CGimmick::Set(TYPE GimmickType)
 {
 	switch (GimmickType)
 	{
-	case CGimmick::TYPEWALK:
+	case CGimmick::TYPEWALK:	// 歩き
 
 		m_pGimmickTiming = CGimmickTiming::Create();
 
 		break;
-	case CGimmick::TYPEROPE:
+	case CGimmick::TYPEROPE:	// ロープ
+
+		m_pGimmickRope = CGimmickRope::Create();
+
 		break;
 	
 	default:
