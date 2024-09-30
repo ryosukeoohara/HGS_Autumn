@@ -166,6 +166,8 @@ void CTitle::Update(void)
 	{//ENTERキーを押したかつシーンがタイトルのとき
 		if (pFade->Get() != pFade->FADE_OUT)
 		{
+			CManager::GetInstance()->GetSound()->Play(CSound::SOUND_LABEL_SE_GOOD);
+
 			//シーンをゲームに遷移
 			pFade->Set(CScene::MODE_TUTORIAL);
 		}
