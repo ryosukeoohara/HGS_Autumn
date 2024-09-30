@@ -93,8 +93,6 @@ HRESULT CGame::Init(void)
 		m_pCollision = new CCollision;
 	}
 	
-	CGimmickButtonMash* pRock = CGimmickButtonMash::Create(D3DXVECTOR3(0.0f, 0.0f, -10000.0f));
-	
 	// マップ設置
 	SetMap();
 
