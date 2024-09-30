@@ -69,16 +69,16 @@ void CGimmickRope::Update(void)
 
 	rot = pPlayer->GetRotition();
 
-	if (rot.z >= fDangerRot)
-	{
-		// ふらふら歩きに変更
-		//pPlayer->ChangeState(new CPlayerStateRopeWalk);
-	}
-	if (rot.z < fDangerRot)
-	{
-		// ロープ歩きに変更
-		//pPlayer->ChangeState(new CPlayerStateRopeWalk);
-	}
+	//if (rot.z >= fDangerRot && pPlayer->GetState() == pPlayer->STATE_ROPEWALK)
+	//{
+	//	// ふらふら歩きに変更
+	//	pPlayer->ChangeState(new CPlayerStateRopeStagger);
+	//}
+	//else if (rot.z < fDangerRot && pPlayer->GetState() == pPlayer->STATE_ROPE_STAGGER)
+	//{
+	//	// ロープ歩きに変更
+	//	pPlayer->ChangeState(new CPlayerStateRopeWalk);
+	//}
 
 	CManager::GetInstance()->GetDebugProc()->Print("角度:%f\n", rot.z);
 
