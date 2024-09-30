@@ -30,7 +30,7 @@ namespace
 	const D3DXVECTOR3 HEAT_CAMERAROT = { 0.0f, -D3DX_PI * 0.75f, D3DX_PI * -0.38f };   // –Ú•W‚ÌŠp“x
 	const D3DXVECTOR3 ONSTAGE_POSV = { 0.0f, 150.0f, -100.0f };   // –Ú•W‚ÌŠp“x
 	const D3DXVECTOR3 ONSTAGE_POSR = { 0.0f, 50.0f, 0.0f };       // –Ú•W‚ÌŠp“x
-	const float CAMERA_DISTNCE = 200.0f;  // ‹——£
+	const float CAMERA_DISTNCE = 300.0f;  // ‹——£
 	const float CAMERA_MOVE = 2.0f;       // ˆÚ“®—Ê
 	const float CAMERA_ROT_Y = 0.03f;     // YŽ²‚Ì‰ñ“]—Ê
 	const float CORRECT_TO_FACT = 0.05f;  // •â³‚·‚é’l
@@ -266,7 +266,7 @@ void FollowPlayerCamera::Update(CCamera* pCamera)
 	if (pPlayer == nullptr)
 		return;
 
-	if (pInputJoyPad->GetRXStick(CInputJoyPad::STICK_RX, 0) > 0)
+	/*if (pInputJoyPad->GetRXStick(CInputJoyPad::STICK_RX, 0) > 0)
 	{
 		pCameraInfo->rot.y += 0.05f;
 	}
@@ -276,7 +276,7 @@ void FollowPlayerCamera::Update(CCamera* pCamera)
 	}
 
 	if (pPlayer->GetMobility() == CPlayer::Mobile)
-		pCameraInfo->rot.y += MousePos.x * 0.005f;
+		pCameraInfo->rot.y += MousePos.x * 0.005f;*/
 
 	// Šp“x‚Ì’l‚ðC³‚·‚é
 	pCameraInfo->rot.y = utility::CorrectAngle(pCameraInfo->rot.y);

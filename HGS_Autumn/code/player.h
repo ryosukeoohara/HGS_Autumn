@@ -30,15 +30,16 @@ public:
 	{
 		STATE_NONE = 0,     // ‚È‚ñ‚à‚È‚¢
 		STATE_NEUTRAL,      // ƒjƒ…[ƒgƒ‰ƒ‹
-		STATE_MOVE,         // ˆÚ“®
+		STATE_SKIP,         // ˆÚ“®
+		STATE_WAKE,         // •à‚«
+		STATE_STAGGER,      // ‚æ‚ë‚¯‚È‚ª‚ç•à‚­
 		STATE_DEATH,        // Ž€–S
 		STATE_MAX
 	};
 
 	enum MOTIONTYPE
 	{
-		TYPE_NONE = 0,
-		TYPE_NEUTRAL,
+		TYPE_NEUTRAL = 0,
 		TYPE_MAX
 	};
 

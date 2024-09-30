@@ -152,6 +152,16 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 		m_DebugProc->Init();
 	}
 
+	if (m_Light == nullptr)
+	{//使用されていなかったら
+
+	 //ライトを生成
+		m_Light = new CLight;
+
+		//初期化処理
+		m_Light->Init();
+	}
+
 	if (m_Camera == nullptr)
 	{//使用されていなかったら
 
