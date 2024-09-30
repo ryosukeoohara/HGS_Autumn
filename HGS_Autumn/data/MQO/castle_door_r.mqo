@@ -2,13 +2,13 @@ Metasequoia Document
 Format Text Ver 1.0
 
 Scene {
-	pos -69.2089 -86.3340 2400.0000
+	pos -81.8762 -501.6118 9830.4014
 	lookat 0.0000 0.0000 0.0000
-	head -0.0136
-	pich 0.0936
+	head 0.0064
+	pich 0.0436
 	bank 0.0000
 	ortho 0
-	zoom2 3.1250
+	zoom2 0.7629
 	amb 0.250 0.250 0.250
 	dirlights 1 {
 		light {
@@ -17,8 +17,9 @@ Scene {
 		}
 	}
 }
-Material 1 {
+Material 2 {
 	"mat1" col(1.000 1.000 1.000 1.000) dif(0.800) amb(0.600) emi(0.000) spc(0.000) power(5.00) tex("C:\Users\student\Documents\2024_9_28_HGS\HGS_Autumn\HGS_Autumn\data\TEXTURE\castle_door.png")
+	"mat2" col(1.000 1.000 1.000 1.000) dif(0.800) amb(0.600) emi(0.000) spc(0.000) power(5.00) tex("C:\Users\student\Documents\2024_9_28_HGS\HGS_Autumn\HGS_Autumn\data\TEXTURE\castle_door_frame.jpg")
 }
 Object "door_r" {
 	visible 15
@@ -28,14 +29,14 @@ Object "door_r" {
 	color 0.898 0.498 0.698
 	color_type 0
 	vertex 8 {
-		-200.7377 451.4329 8.5107
-		-200.7377 0.5140 8.5107
-		-0.7377 451.4329 8.5107
-		-0.7377 0.5140 8.5107
-		-0.7377 451.4329 -8.5107
-		-0.7377 0.5140 -8.5107
-		-200.7377 451.4329 -8.5107
-		-200.7377 0.5140 -8.5107
+		-674.9984 1364.2932 16.3576
+		-674.9984 -0.1768 16.3576
+		1.6755 1364.2932 16.3576
+		1.6755 -0.1768 16.3576
+		1.6755 1364.2932 -16.3576
+		1.6755 -0.1768 -16.3576
+		-674.9984 1364.2932 -16.3576
+		-674.9984 -0.1768 -16.3576
 	}
 	face 6 {
 		4 V(0 2 3 1) M(0) UV(0.00000 -0.00339 1.00000 -0.00339 1.00000 0.98669 0.00000 0.98669)

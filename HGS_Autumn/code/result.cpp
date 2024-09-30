@@ -70,6 +70,9 @@ HRESULT CResult::Init(void)
 		pBg->SetDraw(true);
 	}
 
+	// マップ設置
+	SetMap();
+
 	return S_OK;
 }
 

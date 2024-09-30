@@ -75,14 +75,15 @@ public:
 	bool IsFinish(void);
 	
 	// 読み込み系
-	void ReadText(const char *TextFilename);            // 外部ファイル読み込み
+	void ReadText(const char *TextFilename);           // 外部ファイル読み込み
 	
 	// 設定系
 	void Set(int nType, bool value = true);            // モーション
-	void SetInfoBlendON(void);                                 // 情報
+	void SetInfoBlendON(void);                         // 情報
 	void SetInfoBlendOFF(KEY key);
 	void SetModel(CCharacter **ppModel, int nNumModel); // キャラクターのモデル
 	void InitPose(int type);
+	void SetMotionSpeed(const float fMulti = 1.0f) { m_fSpdMulti = fMulti; }		// 再生速度設定
 
 	// 取得系
 	int GetType(void);                                  // 種類
@@ -116,6 +117,7 @@ private:
 	int  m_nCntkeySet;
 	int m_nNumFrame;             //モーションのフレーム数
 	int m_nNowFrame;
+	float m_fSpdMulti;				// モーションの再生速度倍率
 	bool m_bFinish;              //終了したかどうか
 	bool m_bBlend;               // モーションブレンドするかどうか
 	

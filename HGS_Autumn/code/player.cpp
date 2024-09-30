@@ -151,6 +151,7 @@ HRESULT CPlayer::Init(void)
 
 	m_Info.fSpeed = 1.0f;
 	m_fWindSpeed = 0.03f;
+	m_pState = new CPlayerStateWalk;
 
 	ReadText(PLAYER_TEXT);
 
@@ -212,6 +213,9 @@ void CPlayer::Update(void)
 	// モーションの更新
 	if (m_pMotion != nullptr)
 		m_pMotion->Update();
+
+	if (m_pState != nullptr)
+		m_pState->Update(this);
 
 	Control();
 
@@ -417,6 +421,20 @@ void CPlayer::SetState(STATE state)
 	m_Info.state = state;
 }
 
+//================================================================
+// ステイトの変更
+//================================================================
+void CPlayer::ChangeState(CPlayerState* pState)
+{
+	if (m_pState != nullptr)
+	{
+		delete m_pState;
+		m_pState = nullptr;
+	}
+
+	m_pState = pState;
+}
+
 void CPlayer::debugKey(void)
 {
 	//キーボードを取得
@@ -466,6 +484,8 @@ void CPlayer::debugKey(void)
 	if (InputKeyboard->GetTrigger(DIK_5) == true)
 	{
 		m_Info.state = STATE_HAMMER;
+
+		ChangeState(new CPlayerStateHummer);
 	}
 }
 
@@ -609,5 +629,116 @@ void CPlayer::ReadText(const char *fliename)
 
 		// プレイヤーの初期モーション設定
 		m_pMotion->InitPose(TYPE_STEP_LEFT);
+	}
+}
+
+//============================================================================
+// ステイト
+//============================================================================
+CPlayerState::CPlayerState()
+{
+
+}
+
+CPlayerStateStep::CPlayerStateStep()
+{
+
+}
+
+//================================================================
+// ステップ
+//================================================================
+void CPlayerStateStep::Update(CPlayer* pPlayer)
+{
+
+}
+
+//================================================================
+// 歩き
+//================================================================
+CPlayerStateWalk::CPlayerStateWalk()
+{
+
+}
+
+void CPlayerStateWalk::Update(CPlayer* pPlayer)
+{
+	//ゲームパッドを取得
+	CInputJoyPad* pInputJoyPad = CManager::GetInstance()->GetInputJoyPad();
+
+	CMotion* pMotion = pPlayer->GetMotion();
+
+	if (pMotion == nullptr)
+		return;
+
+	CPlayer::INFO* Info = pPlayer->GetInfo();
+
+	Info->move.z -= Info->fSpeed;
+
+	if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_LB, 0) == true)
+	{
+		pMotion->Set(pPlayer->TYPE_WALK_RIGHT);
+	}
+
+	if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_RB, 0) == true)
+	{
+		pMotion->Set(pPlayer->TYPE_WALK_LEFT);
+	}
+}
+
+//================================================================
+// 足ぐき歩き
+//================================================================
+CPlayerStateStagger::CPlayerStateStagger()
+{
+	
+}
+
+void CPlayerStateStagger::Update(CPlayer* pPlayer)
+{
+
+}
+
+//================================================================
+// ロープ歩き
+//================================================================
+CPlayerStateRopeWalk::CPlayerStateRopeWalk()
+{
+	CPlayer* pPlayer = CPlayer::GetInstance();
+
+	pPlayer->GetMotion()->Set(pPlayer->TYPE_ROPEWALK);
+}
+
+void CPlayerStateRopeWalk::Update(CPlayer* pPlayer)
+{
+}
+
+//================================================================
+// マグロハンマー振り回し
+//================================================================
+CPlayerStateHummer::CPlayerStateHummer()
+{
+	CPlayer* pPlayer = CPlayer::GetInstance();
+
+	pPlayer->GetMotion()->Set(pPlayer->TYPE_HAMMER);
+}
+
+void CPlayerStateHummer::Update(CPlayer* pPlayer)
+{
+	//ゲームパッドを取得
+	CInputJoyPad* pInputJoyPad = CManager::GetInstance()->GetInputJoyPad();
+
+	if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_RB, 0) == true)
+	{
+		m_nButtonPushCounter++;
+	}
+	else if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_LB, 0) == true)
+	{
+		m_nButtonPushCounter++;
+	}
+
+	if (m_nButtonPushCounter >= 50)
+	{
+		m_nButtonPushCounter = 0;
 	}
 }
