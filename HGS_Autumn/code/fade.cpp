@@ -235,9 +235,12 @@ void CFade::Draw(void)
 //================================================================
 void CFade::Set(CScene::MODE modeNext)
 {
-	m_fade = FADE_OUT;
-	m_modeNext = modeNext;
-	m_Color = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f);
+	if (m_fade != FADE_OUT)
+	{
+		m_fade = FADE_OUT;
+		m_modeNext = modeNext;
+		m_Color = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f);
+	}
 }
 
 //================================================================

@@ -36,7 +36,6 @@ int CResultTime::m_nResultTimerCount = 0;
 CResultTime::CResultTime()
 {
 	m_move = { 0.0f, 0.0f, 0.0f };  //ˆÚ“®—Ê
-	m_nResultTime = 0;  //ŽžŠÔ
 }
 
 //================================================================
@@ -47,7 +46,6 @@ CResultTime::CResultTime(D3DXVECTOR3 pos)
 	m_pos = pos;  //ˆÊ’u
 	SetPosition(pos);
 	m_move = { 0.0f, 0.0f, 0.0f };  //ˆÚ“®—Ê
-	m_nResultTime = 0;  //ŽžŠÔ
 }
 
 //================================================================

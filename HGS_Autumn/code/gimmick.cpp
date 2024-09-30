@@ -10,6 +10,7 @@
 #include "gimmickRope.h"
 #include "gimmickButtonMash.h"
 #include "player.h"
+#include "warning.h"
 
 float CGimmick::m_fDestPos = 0.0f;		// 目標地点
 CGimmickTiming* CGimmick::m_pGimmickTiming = nullptr;
@@ -31,16 +32,16 @@ namespace
 		-8000.0f,		// 2.歩行
 		-13000.0f,		// 3.終了
 		-14000.0f,		// 4.岩
-		-15000.0f,		// 5.終了
-		-16000.0f,		// 6.歩行
-		-21000.0f,		// 7.終了
-		-22000.0f,		// 8.岩
-		-23000.0f,		// 9.終了
-		-24000.0f,		// 10.綱渡り
-		-26000.0f,		// 11.終了
-		-27000.0f,		// 12.綱渡り
-		-30000.0f,		// 13.終了
-		-31000.0f,		// 14.岩
+		-17000.0f,		// 5.終了
+		-26000.0f,		// 6.歩行
+		-29000.0f,		// 7.終了
+		-32000.0f,		// 8.岩
+		-33000.0f,		// 9.終了
+		-44000.0f,		// 10.綱渡り
+		-48000.0f,		// 11.終了
+		-57000.0f,		// 12.綱渡り
+		-62000.0f,		// 13.終了
+		-65000.0f,		// 14.岩
 
 	};
 }
@@ -109,7 +110,7 @@ void CGimmick::Update(void)
 		fDestPos[14] <= pPlayer->GetPosition().z && m_bStart == true)
 	{ // 終了
 
-		pPlayer->SetRotition(D3DXVECTOR3(pPlayer->GetRotition().x, pPlayer->GetRotition().y, 0.0f));
+		pPlayer->SetRotition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 		m_bStart = false;
 		m_pGimmickRope->Release();
 		m_pGimmickRope = nullptr;
@@ -120,6 +121,7 @@ void CGimmick::Update(void)
 
 		if (m_bStart == false)
 		{
+			CWarning::Create(CWarning::TYPE_ROPE);
 			m_GimmickType = TYPEROPE;
 			m_bStart = true;
 			Set(m_GimmickType, D3DXVECTOR3(DEFAULT_POS.x, DEFAULT_POS.y, fDestPos[12]));
@@ -129,7 +131,7 @@ void CGimmick::Update(void)
 		fDestPos[12] <= pPlayer->GetPosition().z && m_bStart == true)
 	{ // 終了
 
-		pPlayer->SetRotition(D3DXVECTOR3(pPlayer->GetRotition().x, pPlayer->GetRotition().y, 0.0f));
+		pPlayer->SetRotition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 		m_bStart = false;
 		m_pGimmickRope->Release();
 		m_pGimmickRope = nullptr;
@@ -140,6 +142,7 @@ void CGimmick::Update(void)
 
 		if (m_bStart == false)
 		{
+			CWarning::Create(CWarning::TYPE_ROPE);
 			m_GimmickType = TYPEROPE;
 			m_bStart = true;
 			Set(m_GimmickType, D3DXVECTOR3(DEFAULT_POS.x, DEFAULT_POS.y, fDestPos[10]));
@@ -150,7 +153,7 @@ void CGimmick::Update(void)
 		m_bStart == true)
 	{ // 終了
 
-		pPlayer->SetRotition(D3DXVECTOR3(pPlayer->GetRotition().x, pPlayer->GetRotition().y, 0.0f));
+		pPlayer->SetRotition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
 		m_bStart = false;
 		m_pGimmickTiming->Release();
@@ -162,6 +165,7 @@ void CGimmick::Update(void)
 
 		if (m_bStart == false)
 		{
+			CWarning::Create(CWarning::TYPE_WALK);
 			m_GimmickType = TYPEWALK;
 			m_bStart = true;
 			Set(m_GimmickType, D3DXVECTOR3(DEFAULT_POS.x, DEFAULT_POS.y, DEFAULT_POS.z));
@@ -172,7 +176,7 @@ void CGimmick::Update(void)
 		m_bStart == true)
 	{ // 終了
 
-		pPlayer->SetRotition(D3DXVECTOR3(pPlayer->GetRotition().x, pPlayer->GetRotition().y, 0.0f));
+		pPlayer->SetRotition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
 		m_bStart = false;
 		m_pGimmickTiming->Release();
@@ -184,6 +188,7 @@ void CGimmick::Update(void)
 
 		if (m_bStart == false)
 		{
+			CWarning::Create(CWarning::TYPE_WALK);
 			m_GimmickType = TYPEWALK;
 			m_bStart = true;
 			Set(m_GimmickType, D3DXVECTOR3(DEFAULT_POS.x, DEFAULT_POS.y, DEFAULT_POS.z));
@@ -193,7 +198,7 @@ void CGimmick::Update(void)
 		fDestPos[2] <= pPlayer->GetPosition().z && m_bStart == true)
 	{ // 終了
 
-		pPlayer->SetRotition(D3DXVECTOR3(pPlayer->GetRotition().x, pPlayer->GetRotition().y, 0.0f));
+		pPlayer->SetRotition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 		m_bStart = false;
 		m_pGimmickRope->Release();
 		m_pGimmickRope = nullptr;
@@ -204,6 +209,7 @@ void CGimmick::Update(void)
 
 		if (m_bStart == false)
 		{
+			CWarning::Create(CWarning::TYPE_ROPE);
 			m_GimmickType = TYPEROPE;
 			m_bStart = true;
 			m_pGimmickTiming->Release();

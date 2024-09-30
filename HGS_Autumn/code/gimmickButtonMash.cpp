@@ -30,6 +30,8 @@ CGimmickButtonMash::~CGimmickButtonMash()
 //===========================================================
 HRESULT CGimmickButtonMash::Init(void)
 {
+	if(m_pObjectX == nullptr)
+		m_pObjectX = CObjectX::Create("data\\MODEL\\Field\\rock.x", m_pos);
 
 	return S_OK;
 }
@@ -116,7 +118,7 @@ CGimmickButtonMash* CGimmickButtonMash::Create(D3DXVECTOR3 pos)
 	if (pGimmick != nullptr)
 	{
 		pGimmick->Init();
-		pGimmick->m_pObjectX = CObjectX::Create("data\\MODEL\\Field\\rock.x", pos);
+		//pGimmick->
 		pGimmick->m_pos = pos;
 	}
 

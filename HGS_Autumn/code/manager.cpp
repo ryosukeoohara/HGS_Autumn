@@ -27,6 +27,7 @@
 #include "InputJoyPad.h"
 #include "objectX.h"
 #include"field.h"
+#include "meshdome.h"
 
 //===========================================================
 //Ã“Iƒƒ“ƒo•Ï”
@@ -917,7 +918,7 @@ void CScene::SetMap(void)
 		pRoad->Init();
 		pRoad->SetIdxTex(CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\field_soil.png"));
 		pRoad->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-		pRoad->SetSize(400.0f, 50000.0f);
+		pRoad->SetSize(400.0f, 100000.0f);
 		pRoad->SetDraw(true);
 	}
 
@@ -928,7 +929,7 @@ void CScene::SetMap(void)
 		pGrassR->Init();
 		pGrassR->SetIdxTex(CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\field_grass.jpg"));
 		pGrassR->SetPosition(D3DXVECTOR3(600.0f, 0.0f, 0.0f));
-		pGrassR->SetSize(800.0f, 50000.0f);
+		pGrassR->SetSize(800.0f, 100000.0f);
 		pGrassR->SetDraw(true);
 	}
 
@@ -939,7 +940,7 @@ void CScene::SetMap(void)
 		pGrassL->Init();
 		pGrassL->SetIdxTex(CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\field_grass.jpg"));
 		pGrassL->SetPosition(D3DXVECTOR3(-600.0f, 0.0f, 0.0f));
-		pGrassL->SetSize(800.0f, 50000.0f);
+		pGrassL->SetSize(800.0f, 100000.0f);
 		pGrassL->SetDraw(true);
 	}
 
@@ -957,7 +958,7 @@ void CScene::SetMap(void)
 	CObjectX::Create(MAPFILENAME::MAP_CASTLE_FRAME, D3DXVECTOR3(0.0f, 0.0f, -70000.0f));
 	CObjectX::Create(MAPFILENAME::MAP_CASTLE_DOOR_R, D3DXVECTOR3(55.0f, 0.0f, -70000.0f));
 	CObjectX::Create(MAPFILENAME::MAP_CASTLE_DOOR_L, D3DXVECTOR3(-60.0f, 0.0f, -70000.0f));
-	CObjectX::Create(MAPFILENAME::MAP_SKY, D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	CMeshDome::Create(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 7000.0f, 1000.0f, 3, 10, 10);
 }
 
 //================================================================

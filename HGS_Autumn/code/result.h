@@ -41,7 +41,7 @@ public:
 	void Uninit(void);             // I—¹ˆ—
 	void Update(void);             // XVˆ—
 	void Draw(void);               // •`‰æˆ—
-
+	static void Setsuccess(int i) { m_nSuccess = i; }
 	static CResult *Create(void);  // ¶¬ˆ—
 
 private:

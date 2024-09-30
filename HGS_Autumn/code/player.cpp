@@ -28,6 +28,7 @@
 #include "effect2D.h"
 #include "gimmick.h"
 #include "utility.h"
+#include "result.h"
 
 //===========================================================
 // 静的メンバ変数
@@ -233,6 +234,12 @@ void CPlayer::Update(void)
 	CManager::GetInstance()->GetDebugProc()->Print("プレイヤーの速度：%f\n", m_Info.fSpeed);
 	CManager::GetInstance()->GetDebugProc()->Print("ハンマー連打：%d\n", m_nButtonPushCounter);
 	CManager::GetInstance()->GetDebugProc()->Print("風向きの変更：[Bボタン]\n");
+
+	if (GetPosition().z <= -70000.0f)
+	{
+		CManager::GetInstance()->GetFade()->Set(CScene::MODE_RESULT);
+		CResult::Setsuccess(CResult::STATE_SUCCESS);
+	}
 }
 
 //================================================================
@@ -699,7 +706,7 @@ void CPlayerStateStep::Update(CPlayer* pPlayer)
 
 	CPlayer::INFO* Info = pPlayer->GetInfo();
 
-	if (Info->fSpeed < 2.0f)
+	if (Info->fSpeed < 0.7f)
 		Info->fSpeed += 0.03f;
 
 	Info->move.z -= Info->fSpeed;
@@ -709,6 +716,8 @@ void CPlayerStateStep::Update(CPlayer* pPlayer)
 
 	if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_RB, 0) == true)
 		pMotion->Set(pPlayer->TYPE_STEP_LEFT);
+
+	Info->rot.z += (0 - Info->rot.z) * 0.1f;
 }
 
 //================================================================
@@ -735,10 +744,10 @@ void CPlayerStateWalk::Update(CPlayer* pPlayer)
 
 	CPlayer::INFO* Info = pPlayer->GetInfo();
 
-	if (Info->fSpeed < 1.0f)
+	if (Info->fSpeed < 0.5f)
 		Info->fSpeed += 0.03f;
 
-	if (Info->fSpeed > 1.0f)
+	if (Info->fSpeed > 0.5f)
 		Info->fSpeed -= 0.03f;
 
 	Info->move.z -= Info->fSpeed;
@@ -748,6 +757,8 @@ void CPlayerStateWalk::Update(CPlayer* pPlayer)
 
 	if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_RB, 0) == true)
 		pMotion->Set(pPlayer->TYPE_WALK_LEFT);
+
+	Info->rot.z += (0 - Info->rot.z) * 0.1f;
 }
 
 //================================================================
@@ -762,6 +773,8 @@ CPlayerStateStagger::CPlayerStateStagger()
 	Info->state = CPlayer::STATE_STAGGER;
 
 	CManager::GetInstance()->GetSound()->Play(CSound::SOUND_LABEL_SE_BAD);
+
+	Info->rot.z += (0 - Info->rot.z) * 0.1f;
 }
 
 void CPlayerStateStagger::Update(CPlayer* pPlayer)
@@ -778,7 +791,7 @@ void CPlayerStateStagger::Update(CPlayer* pPlayer)
 
 	Info->move.z -= Info->fSpeed;
 
-	if (Info->fSpeed > 0.5f)
+	if (Info->fSpeed > 0.1f)
 		Info->fSpeed -= 0.03f;
 
 	if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_LB, 0) == true)
@@ -786,6 +799,8 @@ void CPlayerStateStagger::Update(CPlayer* pPlayer)
 
 	if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_RB, 0) == true)
 		pMotion->Set(pPlayer->TYPE_STAGGER_LEFT);
+
+	Info->rot.z += (0 - Info->rot.z) * 0.1f;
 }
 
 //================================================================
@@ -835,18 +850,8 @@ void CPlayerStateRopeWalk::Update(CPlayer* pPlayer)
 
 	if (Info->rot.z >= 1.57f)
 	{
-		//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-		//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-		//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-		//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-		//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 		// 死亡
-		//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-		//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-		//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-		//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-		//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+		CManager::GetInstance()->GetFade()->Set(CScene::MODE_RESULT);
 	}
 }
 
