@@ -112,7 +112,7 @@ HRESULT CTitle::Init(void)
 		m_pBg->SetDraw(true);
 	}
 
-	//CManager::GetInstance()->GetSound()->Play(CSound::SOUND_LABEL_BGM_TITLE);
+	CManager::GetInstance()->GetSound()->Play(CSound::SOUND_LABEL_BGM_TITLE);
 	
 	return S_OK;
 }
