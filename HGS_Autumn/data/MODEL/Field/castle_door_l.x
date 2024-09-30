@@ -165,7 +165,7 @@ Mesh {
    0.000000;0.000000;0.000000;;
    0.000000;0.000000;0.000000;;
    TextureFilename {
-    "C:\\Users\\student\\Documents\\2024_9_28_HGS\\HGS_Autumn\\HGS_Autumn\\data\\TEXTURE\\castle_door.png";
+    "data\\TEXTURE\\castle_door.png";
    }
   }
  }

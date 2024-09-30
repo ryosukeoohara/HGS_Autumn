@@ -67,7 +67,6 @@ void CGimmick::Update(void)
 {
 	CPlayer* pPlayer = CPlayer::GetInstance();
 
-
 	if (fDestPos[0] >= pPlayer->GetPosition().z)
 	{ // j“n‚è
 
