@@ -699,7 +699,7 @@ void CPlayerStateStep::Update(CPlayer* pPlayer)
 
 	CPlayer::INFO* Info = pPlayer->GetInfo();
 
-	if (Info->fSpeed < 2.0f)
+	if (Info->fSpeed < 0.7f)
 		Info->fSpeed += 0.03f;
 
 	Info->move.z -= Info->fSpeed;
@@ -735,10 +735,10 @@ void CPlayerStateWalk::Update(CPlayer* pPlayer)
 
 	CPlayer::INFO* Info = pPlayer->GetInfo();
 
-	if (Info->fSpeed < 1.0f)
+	if (Info->fSpeed < 0.5f)
 		Info->fSpeed += 0.03f;
 
-	if (Info->fSpeed > 1.0f)
+	if (Info->fSpeed > 0.5f)
 		Info->fSpeed -= 0.03f;
 
 	Info->move.z -= Info->fSpeed;
@@ -778,7 +778,7 @@ void CPlayerStateStagger::Update(CPlayer* pPlayer)
 
 	Info->move.z -= Info->fSpeed;
 
-	if (Info->fSpeed > 0.5f)
+	if (Info->fSpeed > 0.1f)
 		Info->fSpeed -= 0.03f;
 
 	if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_LB, 0) == true)
