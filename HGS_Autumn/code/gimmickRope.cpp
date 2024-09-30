@@ -56,7 +56,7 @@ HRESULT CGimmickRope::Init(void)
 //===========================================================
 void CGimmickRope::Uninit(void)
 {
-	
+	CObject::Release();
 }
 
 //===========================================================

@@ -8,6 +8,7 @@
 #include "manager.h"
 #include "player.h"
 #include "InputJoyPad.h"
+#include "texture.h"
 
 CBillBoard* CGimmickTiming::m_pBillBoard[NUM_JUDGE] = {};		// ビルボードの情報
 
@@ -19,6 +20,12 @@ namespace
 	const D3DXVECTOR2 JUDGE_SIZE = D3DXVECTOR2(10.0f, 10.0f);
 	const D3DXVECTOR3 DEFAULT_POS = D3DXVECTOR3(0.0f, 100.0f, 0.0f);
 	const float fMoveDest = 100.0f;		// 目標の合計移動量
+
+	const char* TEX_NAME[2] =
+	{
+		"data\\TEXTURE\\foot_l.png",
+		"data\\TEXTURE\\foot_r.png",
+	};
 }
 
 //===========================================================
@@ -51,6 +58,7 @@ HRESULT CGimmickTiming::Init(void)
 		if (m_pBillBoard[nCnt] == nullptr)
 		{
 			m_pBillBoard[nCnt] = CBillBoard::Create();
+			m_pBillBoard[nCnt]->SetIdxTex(CManager::GetInstance()->GetTexture()->Regist(TEX_NAME[0]));
 		}
 	}
 
@@ -145,6 +153,14 @@ void CGimmickTiming::Update(void)
 				m_pBillBoard[1]->SetJudgeRotType(JUDGEROTTYPE_RIGHT);
 			}
 
+			for (int nCnt = 0; nCnt < NUM_JUDGE; nCnt++)
+			{
+				if (m_pBillBoard[nCnt] != nullptr)
+				{
+					m_pBillBoard[nCnt]->SetIdxTex(CManager::GetInstance()->GetTexture()->Regist(TEX_NAME[0]));
+				}
+			}
+
 			break;
 
 		case JUDGEROTTYPE_RIGHT:		// 右側
@@ -167,6 +183,14 @@ void CGimmickTiming::Update(void)
 				m_pBillBoard[0]->SetJudgeRotType(JUDGEROTTYPE_LEFT);
 				m_pBillBoard[1]->SetJudgeRotType(JUDGEROTTYPE_LEFT);
 
+			}
+
+			for (int nCnt = 0; nCnt < NUM_JUDGE; nCnt++)
+			{
+				if (m_pBillBoard[nCnt] != nullptr)
+				{
+					m_pBillBoard[nCnt]->SetIdxTex(CManager::GetInstance()->GetTexture()->Regist(TEX_NAME[1]));
+				}
 			}
 
 			break;
