@@ -71,6 +71,11 @@ void CGimmickRope::Update(void)
 
 	if (rot.z >= fDangerRot)
 	{
+		// ふらふら歩きに変更
+		//pPlayer->ChangeState(new CPlayerStateRopeWalk);
+	}
+	if (rot.z < fDangerRot)
+	{
 		// ロープ歩きに変更
 		//pPlayer->ChangeState(new CPlayerStateRopeWalk);
 	}
