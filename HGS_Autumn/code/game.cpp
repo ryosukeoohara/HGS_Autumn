@@ -21,6 +21,7 @@
 #include "field.h"
 #include "InputKeyBoard.h"
 #include "InputJoyPad.h"
+#include "warning.h"
 
 //================================================================
 // 静的メンバ変数
@@ -98,6 +99,9 @@ HRESULT CGame::Init(void)
 
 	// マップ設置
 	SetMap();
+
+	// 警告の生成
+	CWarning::Create(CWarning::TYPE_ROCK);
 
 	// プレイヤーの生成
 	if (m_pPlayer == nullptr)
