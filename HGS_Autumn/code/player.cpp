@@ -271,6 +271,10 @@ void CPlayer::Control(void)
 		Move();
 	}
 
+	if (m_Info.state == STATE_WALK && STATE_STAGGER && STATE_STEP)
+	{
+		Move();
+	}
 
 	CManager::GetInstance()->GetDebugProc()->Print("\nプレイヤーの位置：%f,%f,%f\n", m_Info.pos.x, m_Info.pos.y, m_Info.pos.z);
 	CManager::GetInstance()->GetDebugProc()->Print("\nプレイヤーの向き：%f,%f,%f\n", m_Info.rot.x, m_Info.rot.y, m_Info.rot.z);
@@ -411,18 +415,6 @@ void CPlayer::Hammer(void)
 void CPlayer::SetState(STATE state)
 {
 	m_Info.state = state;
-
-	switch (m_Info.state)
-	{
-	case CPlayer::STATE_WALK:
-
-		CGimmick::Create(CGimmick::TYPEWALK);
-
-		break;
-
-	default:
-		break;
-	}
 }
 
 void CPlayer::debugKey(void)

@@ -7,6 +7,7 @@
 #include "gimmickTiming.h"
 #include "manager.h"
 #include "player.h"
+#include "InputJoyPad.h"
 
 CBillBoard* CGimmickTiming::m_pBillBoard[NUM_JUDGE] = {};		// ビルボードの情報
 
@@ -169,11 +170,57 @@ void CGimmickTiming::Update(void)
 		default:
 			break;
 		}
-
-		
 	}
 
+	//ゲームパッドを取得
+	CInputJoyPad* pInputJoyPad = CManager::GetInstance()->GetInputJoyPad();
 
+	if (pInputJoyPad == nullptr)
+		return;
+
+	if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_LB, 0) == true &&
+		m_pBillBoard[0]->GetJudgeRotType() == JUDGEROTTYPE_LEFT)
+	{
+		if (m_fMove <= 50.0f)
+		{
+			pPlayer->SetState(CPlayer::STATE_STAGGER);
+		}
+		else if (m_fMove <= 80.0f)
+		{
+			pPlayer->SetState(CPlayer::STATE_WALK);
+		}
+		else if (m_fMove <= 100.0f)
+		{
+			pPlayer->SetState(CPlayer::STATE_STEP);
+		}
+
+		m_fMove = 0.0f;
+
+		m_pBillBoard[0]->SetJudgeRotType(JUDGEROTTYPE_RIGHT);
+		m_pBillBoard[1]->SetJudgeRotType(JUDGEROTTYPE_RIGHT);
+	}
+	else if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_RB, 0) == true &&
+		m_pBillBoard[0]->GetJudgeRotType() == JUDGEROTTYPE_RIGHT)
+	{
+		if (m_fMove <= 50.0f)
+		{
+			pPlayer->SetState(CPlayer::STATE_STAGGER);
+		}
+		else if (m_fMove <= 80.0f)
+		{
+			pPlayer->SetState(CPlayer::STATE_WALK);
+		}
+		else if (m_fMove <= 100.0f)
+		{
+			pPlayer->SetState(CPlayer::STATE_STEP);
+		}
+
+		m_fMove = 0.0f;
+
+		m_pBillBoard[0]->SetJudgeRotType(JUDGEROTTYPE_LEFT);
+		m_pBillBoard[1]->SetJudgeRotType(JUDGEROTTYPE_LEFT);
+
+	}
 }
 
 //===========================================================
