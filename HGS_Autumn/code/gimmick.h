@@ -17,6 +17,12 @@
 class CGimmick : public CBillBoard
 {
 public:
+	enum TYPE
+	{
+		TYPEWALK = 0,		// 歩行
+		TYPEMAX
+	};
+
 	CGimmick(int nPriority = 3);  // コンストラクタ
 	~CGimmick();                  // デストラクタ
 
@@ -25,9 +31,10 @@ public:
 	void Update(void);             // 更新処理
 	void Draw(void);               // 描画処理
 
-	CGimmick* Create(void);        // 生成処理
+	static CGimmick* Create(TYPE type);        // 生成処理
 
 private:
+	TYPE m_GimmickType;			// 種類
 	
 };
 

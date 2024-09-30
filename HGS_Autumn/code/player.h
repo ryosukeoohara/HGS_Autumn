@@ -18,6 +18,7 @@
 class CCharacter;
 class CMotion;
 class CPlayerState;
+class CGimmick;
 
 //===========================================================
 // プレイヤークラス定義
@@ -88,7 +89,7 @@ public:
 	void SetPosition(D3DXVECTOR3 pos) { m_Info.pos = pos; }          // 位置設定
 	void SetRotition(D3DXVECTOR3 rot) { m_Info.rot = rot; }          // 向き設定
 	void SetMove(D3DXVECTOR3 move) { m_Info.move = move; }           // 移動量設定
-	void SetState(STATE state) { m_Info.state = state; }             // 状態
+	void SetState(STATE state);							             // 状態
 	void SetLife(int nlife) { m_Info.nLife = nlife; }                // 体力
 	void SetMobile(void) { m_Mobility = Mobile; }                    // 動けるようにする
 	void SetImmobile(void) { m_Mobility = Immobile; }                // 動けないようにする
@@ -141,6 +142,7 @@ private:
 	
 	CCharacter** m_appCharacter;
 	CMotion* m_pMotion;
+	CGimmick* m_pGimmick;		// ギミック
 	static CPlayer *m_pPlayer;
 	int m_nDefeat;  // 敵を倒した数
 	int m_nIdxEne;

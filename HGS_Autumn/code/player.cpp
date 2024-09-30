@@ -26,6 +26,7 @@
 #include "utility.h"
 #include "particle.h"
 #include "effect2D.h"
+#include "gimmick.h"
 
 //===========================================================
 // 静的メンバ変数
@@ -73,6 +74,7 @@ CPlayer::CPlayer()
 	D3DXMatrixIdentity(&m_Info.mtxWorld);
 
 	m_pPlayer = this;
+	m_pGimmick = nullptr;
 }
 
 //===========================================================
@@ -90,6 +92,7 @@ CPlayer::CPlayer(D3DXVECTOR3 pos, int nPriority) : CObject(nPriority)
 	D3DXMatrixIdentity(&m_Info.mtxWorld);
 
 	m_pPlayer = this;
+	m_pGimmick = nullptr;
 }
 
 //===========================================================
@@ -117,6 +120,8 @@ CPlayer *CPlayer::Create(D3DXVECTOR3 pos, int nPriority)
 		pPlayer->Init();
 	}
 	
+	CGimmick::Create(CGimmick::TYPEWALK);
+
 	return pPlayer;
 }
 
@@ -331,6 +336,26 @@ void CPlayer::Move(void)
 	// 移動量を更新(減衰させる)
 	m_Info.move.x += (0.0f - m_Info.move.x) * 0.1f;
 	m_Info.move.z += (0.0f - m_Info.move.z) * 0.1f;
+}
+
+//================================================================
+// 状態の設定
+//================================================================
+void CPlayer::SetState(STATE state)
+{
+	m_Info.state = state;
+
+	switch (m_Info.state)
+	{
+	case CPlayer::STATE_WAKE:
+
+		CGimmick::Create(CGimmick::TYPEWALK);
+
+		break;
+
+	default:
+		break;
+	}
 }
 
 void CPlayer::debugKey(void)

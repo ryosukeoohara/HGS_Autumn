@@ -35,10 +35,11 @@ public:
 	void Update(void);             // 更新処理
 	void Draw(void);               // 描画処理
 
-	CGimmickTiming* Create(void);        // 生成処理
+	static CGimmickTiming* Create(void);        // 生成処理
 
 private:
-	CBillBoard* m_pBillBoard[NUM_JUDGE];		// ビルボードの情報
+	static CBillBoard* m_pBillBoard[NUM_JUDGE];		// ビルボードの情報
+	float m_fMove;		// 移動量
 
 };
 

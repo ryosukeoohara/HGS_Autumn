@@ -27,13 +27,22 @@ public:
 		TYPE_MAX
 	};
 
-	// 判定の種類
+	// 歩き判定の種類
 	enum JUDGETYPE
 	{
 		JUDGETYPE_NONE = 0,		// 何もなし
 		JUDGETYPE_UP,			// 上側
 		JUDGETYPE_DOWN,			// 下側
 		JUDGETYPE_MAX
+	};
+
+	// 歩き判定の方向
+	enum JUDGEROTTYPE
+	{
+		JUDGEROTTYPE_NONE = 0,		// 何もなし
+		JUDGEROTTYPE_LEFT,			// 左側
+		JUDGEROTTYPE_RIGHT,			// 右側
+		JUDGEROTTYPE_MAX
 	};
 
 	CBillBoard(int nPriority = 3);
@@ -59,11 +68,14 @@ public:
 	void SetType(TYPE type) { m_Type = type; }                            // 種類
 	void SetDraw(bool bDraw = true) { m_bDraw = bDraw; }                  // 描画するかどうか
 	void SetJudgeType(JUDGETYPE type) { m_Judgetype = type; }			// 判定の種類
+	void SetJudgeRotType(JUDGEROTTYPE type) { m_Judgerottype = type; }			// 判定の種類
+
 
 	// 取得系
 	D3DXVECTOR3 GetPosition(void) { return m_pos; }
 	D3DXVECTOR3 GetRotition(void) { return m_rot; }
 	JUDGETYPE GetJudgeType(void) { return m_Judgetype; }			// 判定の種類
+	JUDGEROTTYPE GetJudgeRotType(void) { return m_Judgerottype; }	// 判定の種類
 
 private:
 	LPDIRECT3DTEXTURE9 m_pTexture;             // テクスチャへのポインタ
@@ -86,6 +98,7 @@ private:
 
 	TYPE m_Type;
 	JUDGETYPE m_Judgetype;			// 判定の種類
+	JUDGEROTTYPE m_Judgerottype;	// 歩き判定の向き
 };
 
 #endif
