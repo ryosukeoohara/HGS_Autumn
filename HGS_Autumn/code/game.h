@@ -18,6 +18,7 @@
 class CPause;
 class CObject2D;
 class CPlayer;
+class CTime;
 
 //===========================================================
 // ゲームクラス定義
@@ -48,6 +49,7 @@ private:
 	static bool m_bPause;
 	CObject2D* m_pBg;
 	CPlayer* m_pPlayer;
+	CTime* m_pTimer;
 
 };
 
