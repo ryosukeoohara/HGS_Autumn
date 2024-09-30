@@ -90,7 +90,7 @@ HRESULT CGame::Init(void)
 		pField->Init();
 		pField->SetIdxTex(CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\concreat.png"));
 		pField->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-		pField->SetSize(5000.0f, 5000.0f);
+		pField->SetSize(2000.0f, 50000.0f);
 		pField->SetDraw(true);
 	}
 
@@ -159,15 +159,15 @@ void CGame::Update(void)
 		return;
 	}
 
-	if (InputKeyboard->GetTrigger(DIK_RETURN) == true || pInputJoyPad->GetTrigger(CInputJoyPad::BUTTON_A, 0) == true || pInputJoyPad->GetTrigger(CInputJoyPad::BUTTON_START, 0) == true)
-	{//ENTERキーを押したかつシーンがタイトルのとき
+	//if (InputKeyboard->GetTrigger(DIK_RETURN) == true || pInputJoyPad->GetTrigger(CInputJoyPad::BUTTON_A, 0) == true || pInputJoyPad->GetTrigger(CInputJoyPad::BUTTON_START, 0) == true)
+	//{//ENTERキーを押したかつシーンがタイトルのとき
 
-		if (pFade->Get() != pFade->FADE_OUT)
-		{
-			//シーンをゲームに遷移
-			pFade->Set(CScene::MODE_RESULT);
-		}
-	}
+	//	if (pFade->Get() != pFade->FADE_OUT)
+	//	{
+	//		//シーンをゲームに遷移
+	//		pFade->Set(CScene::MODE_RESULT);
+	//	}
+	//}
 
 	//すべての更新処理
 	CObject::UpdateAll();

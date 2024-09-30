@@ -32,8 +32,8 @@ public:
 		BUTTON_RTHUMB,  // 
 		BUTTON_LB,      // 左
 		BUTTON_RB,      // 右
-		BUTTON_LT,      // 左トリガー
-		BUTTON_RT,      // 右トリガー
+		BUTTON_11,      // 左トリガー
+		BUTTON_12,      // 右トリガー
 		BUTTON_A,       // A
 		BUTTON_B,       // B
 		BUTTON_X,       // X

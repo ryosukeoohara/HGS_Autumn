@@ -57,15 +57,14 @@ void CInputJoyPad::Update(void)
 
 	if (XInputGetState(0, &aState) == ERROR_SUCCESS)
 	{
-		// トリガー
 		m_StateTrigger.Gamepad.wButtons =
-			(m_State.Gamepad.wButtons ^ aState.Gamepad.wButtons)
-			& aState.Gamepad.wButtons;
+			~m_StateTrigger.Gamepad.wButtons
+			& aState.Gamepad.wButtons;	//トリガー(ボタン)
 
-		// リリース
 		m_StateRelease.Gamepad.wButtons =
-			(m_State.Gamepad.wButtons | aState.Gamepad.wButtons)
-			^ aState.Gamepad.wButtons;
+			(m_StateRelease.Gamepad.wButtons
+				^ aState.Gamepad.wButtons)
+			& m_StateRelease.Gamepad.wButtons;	//リリース(ボタン)
 
 		// プレス
 		m_State = aState;

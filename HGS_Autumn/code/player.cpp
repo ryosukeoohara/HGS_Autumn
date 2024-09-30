@@ -69,7 +69,6 @@ CPlayer::CPlayer()
 	m_Info.move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	m_Info.rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	m_Info.col = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f);
-	m_Info.state = STATE_NONE;
 	m_Info.nLife = 0;
 	D3DXMatrixIdentity(&m_Info.mtxWorld);
 
@@ -87,7 +86,6 @@ CPlayer::CPlayer(D3DXVECTOR3 pos, int nPriority) : CObject(nPriority)
 	m_Info.move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	m_Info.rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	m_Info.col = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f);
-	m_Info.state = STATE_NONE;
 	m_Info.nLife = 0;
 	D3DXMatrixIdentity(&m_Info.mtxWorld);
 
@@ -143,8 +141,11 @@ HRESULT CPlayer::Init(void)
 		//初期化処理
 		m_pMotion->Init();
 
-		m_pMotion->Set(TYPE_NEUTRAL);
+		m_pMotion->Set(TYPE_STEP_RIGHT);
 	}
+
+	m_Info.fSpeed = 1.0f;
+	m_fWindSpeed = 0.03f;
 
 	ReadText(PLAYER_TEXT);
 
@@ -207,6 +208,9 @@ void CPlayer::Update(void)
 	if (m_pMotion != nullptr)
 		m_pMotion->Update();
 
+	Control();
+
+	debugKey();
 }
 
 //================================================================
@@ -253,11 +257,14 @@ void CPlayer::Draw(void)
 //================================================================
 void CPlayer::Control(void)
 {
+	Move();
+
 
 	CManager::GetInstance()->GetDebugProc()->Print("\nプレイヤーの位置：%f,%f,%f\n", m_Info.pos.x, m_Info.pos.y, m_Info.pos.z);
-	CManager::GetInstance()->GetDebugProc()->Print("プレイヤーの向き：%f,%f,%f\n", m_Info.rot.x, m_Info.rot.y, m_Info.rot.z);
-	CManager::GetInstance()->GetDebugProc()->Print("掴んでいる敵の番号:%d", m_nIdxEne);
-	CManager::GetInstance()->GetDebugProc()->Print("倒した数：%d\n", m_nDefeat);
+	CManager::GetInstance()->GetDebugProc()->Print("\nプレイヤーの向き：%f,%f,%f\n", m_Info.rot.x, m_Info.rot.y, m_Info.rot.z);
+	CManager::GetInstance()->GetDebugProc()->Print("プレイヤーの速度切り替え：[1]2.0f, [2]1.0f, [3]0.5f\n");
+	CManager::GetInstance()->GetDebugProc()->Print("プレイヤーの速度：%f\n", m_Info.fSpeed);
+	CManager::GetInstance()->GetDebugProc()->Print("風向きの変更：[Bボタン]\n");
 }
 
 //================================================================
@@ -265,7 +272,96 @@ void CPlayer::Control(void)
 //================================================================
 void CPlayer::Move(void)
 {
+	//ゲームパッドを取得
+	CInputJoyPad* pInputJoyPad = CManager::GetInstance()->GetInputJoyPad();
+
+	if (pInputJoyPad == nullptr)
+		return;
+
+	if (m_nDebugState == 0)
+	{
+		if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_RB, 0) == true)
+		{
+			m_Info.move.z -= m_Info.fSpeed;
+		}
+
+		if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_LB, 0) == true)
+		{
+			m_Info.move.z -= m_Info.fSpeed;
+		}
+
+		CManager::GetInstance()->GetDebugProc()->Print("現在のギミック：タイミング\n");
+	}
+
+	if (m_nDebugState == 1)
+	{
+		m_Info.fSpeed = 0.5f;
+
+		if (pInputJoyPad->GetPress(pInputJoyPad->BUTTON_RB, 0) == true)
+		{
+			if(m_fRot > -0.1f)
+			   m_fRot -= 0.01f;
+		}
+		else if (pInputJoyPad->GetPress(pInputJoyPad->BUTTON_LB, 0) == true)
+		{
+			if (m_fRot < 0.1f)
+				m_fRot += 0.01f;
+		}
+		else
+		{
+			m_fRot = 0.0f;
+		}
+
+		m_Info.rot.z += (m_fWindSpeed - m_fRot);
+
+		CManager::GetInstance()->GetDebugProc()->Print("現在のギミック：バランス\n");
+	}
 	
+
+	m_Info.move.z -= m_Info.fSpeed;
+
+	// 位置に移動量加算
+	m_Info.pos.x += m_Info.move.x;
+	m_Info.pos.z += m_Info.move.z;
+
+	// 移動量を更新(減衰させる)
+	m_Info.move.x += (0.0f - m_Info.move.x) * 0.1f;
+	m_Info.move.z += (0.0f - m_Info.move.z) * 0.1f;
+}
+
+void CPlayer::debugKey(void)
+{
+	//キーボードを取得
+	CInputKeyboard* InputKeyboard = CManager::GetInstance()->GetKeyBoard();
+
+	//ゲームパッドを取得
+	CInputJoyPad* pInputJoyPad = CManager::GetInstance()->GetInputJoyPad();
+
+	if (InputKeyboard->GetTrigger(DIK_1) == true)
+	{
+		m_Info.fSpeed = 2.0f;
+	}
+
+	if (InputKeyboard->GetTrigger(DIK_2) == true)
+	{
+		m_Info.fSpeed = 1.0f;
+	}
+
+	if (InputKeyboard->GetTrigger(DIK_3) == true)
+	{
+		m_Info.fSpeed = 0.5f;
+	}
+
+	// ギミックの切り替え
+	if (InputKeyboard->GetTrigger(DIK_4) == true)
+	{
+		m_nDebugState = m_nDebugState ? 0 : 1;
+	}
+
+	if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_B, 0) == true)
+	{
+		m_fWindSpeed *= -1.0f;
+	}
 }
 
 //================================================================
@@ -407,6 +503,6 @@ void CPlayer::ReadText(const char *fliename)
 		m_pMotion->ReadText(fliename);
 
 		// プレイヤーの初期モーション設定
-		m_pMotion->InitPose(TYPE_NEUTRAL);
+		m_pMotion->InitPose(TYPE_STEP_RIGHT);
 	}
 }

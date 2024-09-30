@@ -28,9 +28,7 @@ public:
 	// 状態
 	enum STATE
 	{
-		STATE_NONE = 0,     // なんもない
-		STATE_NEUTRAL,      // ニュートラル
-		STATE_SKIP,         // 移動
+		STATE_STEP,         // 移動
 		STATE_WAKE,         // 歩き
 		STATE_STAGGER,      // よろけながら歩く
 		STATE_DEATH,        // 死亡
@@ -39,7 +37,12 @@ public:
 
 	enum MOTIONTYPE
 	{
-		TYPE_NEUTRAL = 0,
+		TYPE_STEP_LEFT = 0,       // 
+		TYPE_STEP_RIGHT,
+		TYPE_WALK_LEFT,
+		TYPE_WALK_RIGHT,
+		TYPE_STAGGER_LEFT,
+		TYPE_STAGGER_RIGHT,
 		TYPE_MAX
 	};
 
@@ -63,6 +66,7 @@ private:
 		D3DXMATRIX mtxWorld;      // ワールドマトリックス
 		STATE state;              // 状態
 		int nLife;                // 体力
+		float fSpeed;
 	};
 
 	INFO m_Info;                          // 情報
@@ -113,6 +117,11 @@ private:
 	void Control(void);                   // 制御
 	void ReadText(const char *filename);
 	void Move(void);
+
+	void debugKey(void);
+
+	float m_fWindSpeed = 0.0f;
+	float m_fRot = 0.0f;
 	
 	// メンバ変数
 	int m_nNumModel;                    //モデル(パーツ)の総数
@@ -123,6 +132,7 @@ private:
 	int m_nCntColi;
 	int m_nDamegeCounter;
 	int m_nUseCounter;
+	int m_nDebugState = 0;
 	char m_filename[128] = {};
 
 	D3DXVECTOR3 m_Readpos;

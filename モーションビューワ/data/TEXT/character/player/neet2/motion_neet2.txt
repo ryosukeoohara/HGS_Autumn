@@ -9,7 +9,7 @@ SCRIPT			# この行は絶対消さないこと！
 #------------------------------------------------------------------------------
 # モデル数
 #------------------------------------------------------------------------------
-NUM_MODEL = 16
+NUM_MODEL = 17
 
 #------------------------------------------------------------------------------
 # モデルファイル名
@@ -30,6 +30,7 @@ MODEL_FILENAME = data/MODEL/neet2/12_neet2leftleg.x		    # [12]左足
 MODEL_FILENAME = data/MODEL/neet2/13_neet2rightthigh.x	    # [13]右太もも
 MODEL_FILENAME = data/MODEL/neet2/14_neet2rightshin.x	    # [14]右脛
 MODEL_FILENAME = data/MODEL/neet2/15_neet2rightleg.x        # [15]右足
+MODEL_FILENAME = data/MODEL/neet2/16_fish.x        # [16]右足
 
 
 #------------------------------------------------------------------------------
@@ -172,16 +173,25 @@ CHARACTERSET
 
 	PARTSSET
 		INDEX = 16
-		PARENT = 2
-		POS = 0.00 -8.50 8.00
-		ROT = -1.72 0.00 -3.14
+		PARENT = 1
+		POS = 0.00 27.50 8.00
+		ROT = -1.32 -3.14 0.00
 		START = 1
 	END_PARTSSET
 END_CHARACTERSET
 
-NUM_MOTION = 2
+NUM_MOTION = 11
 
-MOTION_FILENAME = data/TEXT/character/player/tyuuni/motion_grap.txt
-MOTION_FILENAME = data/TEXT/character/player/tyuuni/motion_throw.txt
+MOTION_FILENAME = data/TEXT/character/player/neet2/motion_stepL.txt
+MOTION_FILENAME = data/TEXT/character/player/neet2/motion_stepR.txt
+MOTION_FILENAME = data/TEXT/character/player/neet2/motion_walkL.txt
+MOTION_FILENAME = data/TEXT/character/player/neet2/motion_walkR.txt
+MOTION_FILENAME = data/TEXT/character/player/neet2/motion_gukiL.txt
+MOTION_FILENAME = data/TEXT/character/player/neet2/motion_gukiR.txt
+MOTION_FILENAME = data/TEXT/character/player/neet2/motion_ropecrisis.txt
+MOTION_FILENAME = data/TEXT/character/player/neet2/motion_ropewalk.txt
+MOTION_FILENAME = data/TEXT/character/player/neet2/motion_windL.txt
+MOTION_FILENAME = data/TEXT/character/player/neet2/motion_windR.txt
+MOTION_FILENAME = data/TEXT/character/player/neet2/motion_hammer.txt
 
 END_SCRIPT		# この行は絶対消さないこと！
