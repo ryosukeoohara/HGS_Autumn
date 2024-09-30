@@ -10,6 +10,7 @@
 #include "gimmickRope.h"
 #include "gimmickButtonMash.h"
 #include "player.h"
+#include "warning.h"
 
 float CGimmick::m_fDestPos = 0.0f;		// –Ú•W’n“_
 CGimmickTiming* CGimmick::m_pGimmickTiming = nullptr;
@@ -31,16 +32,16 @@ namespace
 		-8000.0f,		// 2.•às
 		-13000.0f,		// 3.I—¹
 		-14000.0f,		// 4.Šâ
-		-15000.0f,		// 5.I—¹
-		-16000.0f,		// 6.•às
-		-21000.0f,		// 7.I—¹
-		-22000.0f,		// 8.Šâ
-		-23000.0f,		// 9.I—¹
-		-24000.0f,		// 10.j“n‚è
-		-26000.0f,		// 11.I—¹
-		-27000.0f,		// 12.j“n‚è
-		-30000.0f,		// 13.I—¹
-		-31000.0f,		// 14.Šâ
+		-17000.0f,		// 5.I—¹
+		-26000.0f,		// 6.•às
+		-29000.0f,		// 7.I—¹
+		-32000.0f,		// 8.Šâ
+		-33000.0f,		// 9.I—¹
+		-44000.0f,		// 10.j“n‚è
+		-48000.0f,		// 11.I—¹
+		-57000.0f,		// 12.j“n‚è
+		-62000.0f,		// 13.I—¹
+		-65000.0f,		// 14.Šâ
 
 	};
 }
@@ -120,6 +121,7 @@ void CGimmick::Update(void)
 
 		if (m_bStart == false)
 		{
+			CWarning::Create(CWarning::TYPE_ROPE);
 			m_GimmickType = TYPEROPE;
 			m_bStart = true;
 			Set(m_GimmickType, D3DXVECTOR3(DEFAULT_POS.x, DEFAULT_POS.y, DEFAULT_POS.z));
@@ -140,6 +142,7 @@ void CGimmick::Update(void)
 
 		if (m_bStart == false)
 		{
+			CWarning::Create(CWarning::TYPE_ROPE);
 			m_GimmickType = TYPEROPE;
 			m_bStart = true;
 			Set(m_GimmickType, D3DXVECTOR3(DEFAULT_POS.x, DEFAULT_POS.y, DEFAULT_POS.z));
@@ -162,6 +165,7 @@ void CGimmick::Update(void)
 
 		if (m_bStart == false)
 		{
+			CWarning::Create(CWarning::TYPE_WALK);
 			m_GimmickType = TYPEWALK;
 			m_bStart = true;
 			Set(m_GimmickType, D3DXVECTOR3(DEFAULT_POS.x, DEFAULT_POS.y, DEFAULT_POS.z));
@@ -184,6 +188,7 @@ void CGimmick::Update(void)
 
 		if (m_bStart == false)
 		{
+			CWarning::Create(CWarning::TYPE_WALK);
 			m_GimmickType = TYPEWALK;
 			m_bStart = true;
 			Set(m_GimmickType, D3DXVECTOR3(DEFAULT_POS.x, DEFAULT_POS.y, DEFAULT_POS.z));
@@ -204,6 +209,7 @@ void CGimmick::Update(void)
 
 		if (m_bStart == false)
 		{
+			CWarning::Create(CWarning::TYPE_ROPE);
 			m_GimmickType = TYPEROPE;
 			m_bStart = true;
 			m_pGimmickTiming->Release();
