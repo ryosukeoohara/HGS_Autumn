@@ -151,7 +151,7 @@ Mesh {
  4;3,2,5,7;;
  
  MeshMaterialList {
-  2;
+  1;
   6;
   0,
   0,
@@ -165,22 +165,13 @@ Mesh {
    0.000000;0.000000;0.000000;;
    0.000000;0.000000;0.000000;;
    TextureFilename {
-    "data\\TEXTURE\\castle_door.png";
-   }
-  }
-  Material {
-   0.800000;0.800000;0.800000;1.000000;;
-   5.000000;
-   0.000000;0.000000;0.000000;;
-   0.000000;0.000000;0.000000;;
-   TextureFilename {
-    "data\\TEXTURE\\castle_door_frame.jpg";
+    "C:\\Users\\student\\Documents\\2024_9_28_HGS\\HGS_Autumn\\HGS_Autumn\\data\\TEXTURE\\castle_door.png";
    }
   }
  }
  MeshNormals {
   6;
-  -0.000000;0.000000;-1.000000;,
+  0.000000;0.000000;-1.000000;,
   1.000000;0.000000;0.000000;,
   0.000000;0.000000;1.000000;,
   -1.000000;0.000000;0.000000;,
