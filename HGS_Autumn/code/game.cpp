@@ -93,7 +93,7 @@ HRESULT CGame::Init(void)
 		pRoad->Init();
 		pRoad->SetIdxTex(CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\field_soil.png"));
 		pRoad->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-		pRoad->SetSize(800.0f, 50000.0f);
+		pRoad->SetSize(400.0f, 50000.0f);
 		pRoad->SetDraw(true);
 	}
 
@@ -103,7 +103,7 @@ HRESULT CGame::Init(void)
 	{
 		pGrassR->Init();
 		pGrassR->SetIdxTex(CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\field_grass.jpg"));
-		pGrassR->SetPosition(D3DXVECTOR3(800.0f, 0.0f, 0.0f));
+		pGrassR->SetPosition(D3DXVECTOR3(600.0f, 0.0f, 0.0f));
 		pGrassR->SetSize(800.0f, 50000.0f);
 		pGrassR->SetDraw(true);
 	}
@@ -114,13 +114,13 @@ HRESULT CGame::Init(void)
 	{
 		pGrassL->Init();
 		pGrassL->SetIdxTex(CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\field_grass.jpg"));
-		pGrassL->SetPosition(D3DXVECTOR3(-800.0f, 0.0f, 0.0f));
+		pGrassL->SetPosition(D3DXVECTOR3(-600.0f, 0.0f, 0.0f));
 		pGrassL->SetSize(800.0f, 50000.0f);
 		pGrassL->SetDraw(true);
 	}
 
 	// マップ設置
-	//SetMap();
+	SetMap();
 
 	// 警告の生成
 	CWarning::Create(CWarning::TYPE_ROCK);
