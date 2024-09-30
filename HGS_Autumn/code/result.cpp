@@ -17,6 +17,7 @@
 #include "InputJoyPad.h"
 #include "fade.h"
 #include "player.h"
+#include "result_time.h"
 
 // 名前空間
 namespace
@@ -30,6 +31,7 @@ namespace
 
 // 静的メンバ変数
 int CResult::m_nSuccess = CResult::STATE::STATE_FAILED;
+int CResult::m_nTime = 0;
 
 //===========================================================
 // コンストラクタ
@@ -94,6 +96,8 @@ HRESULT CResult::Init(void)
 		p->SetPosition(D3DXVECTOR3(SCREEN_WIDTH * 0.35f, SCREEN_HEIGHT * 0.75f, 0.0f));
 		p->SetSize(SCREEN_WIDTH * 0.2f, SCREEN_HEIGHT * 0.1f);
 		p->SetDraw(true);
+
+		CResultTime::Create();
 	}
 
 	// マップ設置
@@ -110,6 +114,9 @@ void CResult::Uninit(void)
 	CManager::GetInstance()->GetSound()->Stop();
 
 	CObject::ReleaseAll();
+
+	m_nSuccess = STATE_FAILED;
+	m_nTime = 0;
 }
 
 //===========================================================
