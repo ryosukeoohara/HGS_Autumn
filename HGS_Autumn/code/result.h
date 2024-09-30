@@ -26,6 +26,14 @@ class CUserRankUI;
 class CResult : public CScene
 {
 public:
+
+	enum STATE
+	{
+		STATE_FAILED = 0,	// 失敗
+		STATE_SUCCESS,		// 成功
+		STATE_MAX
+	};
+
 	CResult();                     // コンストラクタ
 	~CResult();                    // デストラクタ
 						           
@@ -41,6 +49,7 @@ private:
 	CField *m_pField;
 	CAppearanceUI *m_pNumber;
 	CUserRankUI *m_pUserRank;
+	static int m_nSuccess;
 
 	int m_nCounter;
 };

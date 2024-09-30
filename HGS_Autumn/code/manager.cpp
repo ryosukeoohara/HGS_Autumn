@@ -890,6 +890,8 @@ namespace MAPFILENAME
 
 	// èÈÇÃÉhÉAç∂ÉÇÉfÉã
 	const char* MAP_CASTLE_DOOR_L = "data\\MODEL\\Field\\castle_door_l.x";
+
+	const char* MAP_SKY = "data\\MODEL\\Field\\sky.x";
 }
 
 //================================================================
@@ -955,7 +957,7 @@ void CScene::SetMap(void)
 	CObjectX::Create(MAPFILENAME::MAP_CASTLE_FRAME, D3DXVECTOR3(0.0f, 0.0f, -70000.0f));
 	CObjectX::Create(MAPFILENAME::MAP_CASTLE_DOOR_R, D3DXVECTOR3(55.0f, 0.0f, -70000.0f));
 	CObjectX::Create(MAPFILENAME::MAP_CASTLE_DOOR_L, D3DXVECTOR3(-60.0f, 0.0f, -70000.0f));
-
+	CObjectX::Create(MAPFILENAME::MAP_SKY, D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 }
 
 //================================================================
