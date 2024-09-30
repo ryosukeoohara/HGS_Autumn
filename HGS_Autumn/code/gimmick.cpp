@@ -6,13 +6,14 @@
 //===========================================================
 #include "gimmick.h"
 #include "billboard.h"
+#include "gimmickTiming.h"
 
 //===========================================================
 // コンストラクタ
 //===========================================================
 CGimmick::CGimmick(int nPriority)
 {
-
+	m_GimmickType = TYPEWALK;
 }
 
 //===========================================================
@@ -29,7 +30,7 @@ CGimmick::~CGimmick()
 HRESULT CGimmick::Init(void)
 {
 
-	CBillBoard::Init();
+	//CBillBoard::Init();
 
 	return S_OK;
 }
@@ -39,7 +40,7 @@ HRESULT CGimmick::Init(void)
 //===========================================================
 void CGimmick::Uninit(void)
 {
-	CBillBoard::Uninit();
+	//CBillBoard::Uninit();
 
 }
 
@@ -48,7 +49,7 @@ void CGimmick::Uninit(void)
 //===========================================================
 void CGimmick::Update(void)
 {
-	CBillBoard::Update();
+	//CBillBoard::Update();
 
 }
 
@@ -57,16 +58,29 @@ void CGimmick::Update(void)
 //===========================================================
 void CGimmick::Draw(void)
 {
-	CBillBoard::Draw();
+	//CBillBoard::Draw();
 
 }
 
 //===========================================================
 // 生成処理
 //===========================================================
-CGimmick* CGimmick::Create(void)
+CGimmick* CGimmick::Create(TYPE type)
 {
-	CGimmick* pGimmick = new CGimmick;
+	CGimmick* pGimmick = nullptr;
+
+	switch (type)
+	{
+	case CGimmick::TYPEWALK:		// 歩行
+
+		CGimmickTiming::Create();
+
+		break;
+
+	default:
+
+		break;
+	}
 
 	if (pGimmick != nullptr)
 	{

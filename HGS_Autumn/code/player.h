@@ -18,6 +18,7 @@
 class CCharacter;
 class CMotion;
 class CPlayerState;
+class CGimmick;
 
 //===========================================================
 // プレイヤークラス定義
@@ -29,20 +30,23 @@ public:
 	enum STATE
 	{
 		STATE_STEP,         // 移動
-		STATE_WAKE,         // 歩き
+		STATE_WALK,         // 歩き
 		STATE_STAGGER,      // よろけながら歩く
 		STATE_DEATH,        // 死亡
+		STATE_HAMMER,
 		STATE_MAX
 	};
 
 	enum MOTIONTYPE
 	{
-		TYPE_STEP_LEFT = 0,       // 
-		TYPE_STEP_RIGHT,
-		TYPE_WALK_LEFT,
-		TYPE_WALK_RIGHT,
-		TYPE_STAGGER_LEFT,
-		TYPE_STAGGER_RIGHT,
+		TYPE_STEP_LEFT = 0,       // ステップ左
+		TYPE_STEP_RIGHT,          // ステップ右
+		TYPE_WALK_LEFT,           // 歩き左
+		TYPE_WALK_RIGHT,          // 歩き右
+		TYPE_STAGGER_LEFT,        // 足ぐき左
+		TYPE_STAGGER_RIGHT,       // 足ぐき右
+		TYPE_ROPEWALK,            // ロープ歩き
+		TYPE_HAMMER,              // ハンマー
 		TYPE_MAX
 	};
 
@@ -52,8 +56,6 @@ public:
 		Immobile,    // 動けない
 		MAX
 	};
-
-private:
 
 	// 情報
 	struct INFO
@@ -68,6 +70,8 @@ private:
 		int nLife;                // 体力
 		float fSpeed;
 	};
+
+private:
 
 	INFO m_Info;                          // 情報
 	MOBILITY m_Mobility;
@@ -88,13 +92,14 @@ public:
 	void SetPosition(D3DXVECTOR3 pos) { m_Info.pos = pos; }          // 位置設定
 	void SetRotition(D3DXVECTOR3 rot) { m_Info.rot = rot; }          // 向き設定
 	void SetMove(D3DXVECTOR3 move) { m_Info.move = move; }           // 移動量設定
-	void SetState(STATE state) { m_Info.state = state; }             // 状態
+	void SetState(STATE state);							             // 状態
 	void SetLife(int nlife) { m_Info.nLife = nlife; }                // 体力
 	void SetMobile(void) { m_Mobility = Mobile; }                    // 動けるようにする
 	void SetImmobile(void) { m_Mobility = Immobile; }                // 動けないようにする
 	void SetDefeat(int nValue) { m_nDefeat = nValue; }
 	void SetUseMicroCount(int nValue) { m_nUseCounter = nValue; }
 	void SetbHeatActFlag(bool bValue) { m_bHeatActFlag = bValue; }
+	void ChangeState(CPlayerState* pState);
 
 	// 取得系
 	D3DXVECTOR3 GetPosition(void) { return m_Info.pos; }       // 位置取得
@@ -108,7 +113,8 @@ public:
 	int GetDefeat(void) { return m_nDefeat; }
 	bool GetHeatActFlag(void) { return m_bHeatActFlag; }
 	MOBILITY GetMobility(void) { return m_Mobility; }
-
+	CMotion* GetMotion(void) { return m_pMotion; }
+	CPlayer::INFO *GetInfo(void) { return &m_Info; }
 
 
 private:
@@ -117,6 +123,8 @@ private:
 	void Control(void);                   // 制御
 	void ReadText(const char *filename);
 	void Move(void);
+	void Hammer(void);
+
 
 	void debugKey(void);
 
@@ -134,6 +142,7 @@ private:
 	int m_nUseCounter;
 	int m_nDebugState = 0;
 	char m_filename[128] = {};
+	int m_nButtonPushCounter = 0;
 
 	D3DXVECTOR3 m_Readpos;
 	D3DXVECTOR3 m_Readrot;
@@ -141,6 +150,8 @@ private:
 	
 	CCharacter** m_appCharacter;
 	CMotion* m_pMotion;
+	CGimmick* m_pGimmick;		// ギミック
+	CPlayerState* m_pState;
 	static CPlayer *m_pPlayer;
 	int m_nDefeat;  // 敵を倒した数
 	int m_nIdxEne;
@@ -185,19 +196,70 @@ private:
 
 };
 
-//===========================================================
-// プレイヤーステイト
-//===========================================================
-class CPlayerStateMove : public CPlayerState
+// ステップ
+class CPlayerStateStep : public CPlayerState
 {
 public:
-	CPlayerStateMove();
-	~CPlayerStateMove() {};
+	CPlayerStateStep();
+	~CPlayerStateStep() {};
 
-	void Update(CPlayer* pPlayer) = 0;
+	void Update(CPlayer* pPlayer) override;
 
 private:
 
+};
+
+// 歩き
+class CPlayerStateWalk : public CPlayerState
+{
+public:
+	CPlayerStateWalk();
+	~CPlayerStateWalk() {};
+
+	void Update(CPlayer* pPlayer) override;
+
+private:
+
+};
+
+// 足ぐき
+class CPlayerStateStagger : public CPlayerState
+{
+public:
+	CPlayerStateStagger();
+	~CPlayerStateStagger() {};
+
+	void Update(CPlayer* pPlayer) override;
+
+private:
+
+};
+
+// ロープ歩き
+class CPlayerStateRopeWalk : public CPlayerState
+{
+public:
+	CPlayerStateRopeWalk();
+	~CPlayerStateRopeWalk() {};
+
+	void Update(CPlayer* pPlayer) override;
+
+private:
+
+};
+
+// ハンマー
+class CPlayerStateHummer : public CPlayerState
+{
+public:
+	CPlayerStateHummer();
+	~CPlayerStateHummer() {};
+
+	void Update(CPlayer* pPlayer) override;
+
+private:
+
+	int m_nButtonPushCounter = 0;
 };
 
 #endif

@@ -31,6 +31,7 @@ CMotion::CMotion()
 	m_nNowFrame = 0;
 	m_bLoop = false;
 	m_bFinish = false;
+	m_fSpdMulti = 0.0f;
 }
 
 //===========================================================
@@ -77,6 +78,9 @@ void CMotion::Set(int nType, bool value)
 
 	// 前回の種類を設定
 	m_nTypeold = m_nType;
+
+	// 倍率リセット
+	m_fSpdMulti = 1.0f;
 
 	// 今回の種類を設定
 	m_nType = nType;
@@ -419,8 +423,9 @@ void CMotion::BlendON(void)
 {
 	D3DXVECTOR3 fDiffpos, fDiffrot;  //位置、向きの差分
 	D3DXVECTOR3 fDestpos, fDestrot;  //位置、向きの目標
+	int nFrame = m_aInfo[m_nType].KeySet[m_nKey].nFrame * m_fSpdMulti;
 
-	if (m_nCounter >= m_aInfo[m_nType].KeySet[m_nKey].nFrame)
+	if (m_nCounter >= nFrame)
 	{
 		m_nKey = (m_nKey + 1) % m_aInfo[m_nType].nNumKey;
 
@@ -467,8 +472,8 @@ void CMotion::BlendON(void)
 				fDiffrot.z += D3DX_PI * 2.0f;
 			}
 
-			fDestpos = m_aOldInfo[nCount].pos + fDiffpos * ((float)m_nCounter / (float)m_aInfo[m_nType].KeySet[m_nKey].nFrame);
-			fDestrot = m_aOldInfo[nCount].rot + fDiffrot * ((float)m_nCounter / (float)m_aInfo[m_nType].KeySet[m_nKey].nFrame);
+			fDestpos = m_aOldInfo[nCount].pos + fDiffpos * ((float)m_nCounter / (float)nFrame);
+			fDestrot = m_aOldInfo[nCount].rot + fDiffrot * ((float)m_nCounter / (float)nFrame);
 
 			// 補正
 			if (fDestrot.x > D3DX_PI)
@@ -511,7 +516,7 @@ void CMotion::BlendON(void)
 			m_nNowFrame = 0;
 		}
 
-		if (m_nCounter >= m_aInfo[m_nType].KeySet[m_nKey].nFrame)
+		if (m_nCounter >= nFrame)
 		{
 			SetInfoBlendON();
 		}
@@ -525,6 +530,7 @@ void CMotion::BlendOFF(void)
 {
 	D3DXVECTOR3 fDiffpos, fDiffrot;  //位置、向きの差分
 	D3DXVECTOR3 fDestpos, fDestrot;  //位置、向きの目標
+	int nFrame = m_aInfo[m_nType].KeySet[m_nKey].nFrame * m_fSpdMulti;
 
 	if (m_nCounter >= m_aInfo[m_nType].KeySet[m_nKey].nFrame)
 	{
@@ -584,8 +590,8 @@ void CMotion::BlendOFF(void)
 				fDiffrot.z += D3DX_PI * 2.0f;
 			}
 
-			fDestpos = fDiffpos * ((float)m_nCounter / (float)m_aInfo[m_nType].KeySet[m_nKey].nFrame);
-			fDestrot = fDiffrot * ((float)m_nCounter / (float)m_aInfo[m_nType].KeySet[m_nKey].nFrame);
+			fDestpos = fDiffpos * ((float)m_nCounter / (float)nFrame);
+			fDestrot = fDiffrot * ((float)m_nCounter / (float)nFrame);
 
 			pos = posOrigin + m_aInfo[m_nType].KeySet[m_nKey].aKey[nCount].pos + fDestpos;
 			rot = rotOrigin + m_aInfo[m_nType].KeySet[m_nKey].aKey[nCount].rot + fDestrot;
