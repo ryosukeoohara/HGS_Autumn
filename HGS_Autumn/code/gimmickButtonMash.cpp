@@ -39,7 +39,13 @@ HRESULT CGimmickButtonMash::Init(void)
 //===========================================================
 void CGimmickButtonMash::Uninit(void)
 {
+	if (m_pObjectX != nullptr)
+	{
+		m_pObjectX->Uninit();
+		m_pObjectX = nullptr;
+	}
 
+	CObject::Release();
 }
 
 //===========================================================
@@ -54,25 +60,29 @@ void CGimmickButtonMash::Update(void)
 
 	int nNum = pPlayer->GetButtonpushCount();
 
-	if (nNum >= 50)
-	{
+	if (nNum >= 30)
 		m_bClear = true;
-		
-	}
 
 	if (m_bClear == true)
 	{
 		D3DXVECTOR3 pos = m_pObjectX->GetPosition();
 		D3DXVECTOR3 rot = m_pObjectX->GetRotition();
 
-		pos.x += 50.0f;
-		pos.y += 50.0f;
-		pos.z -= 50.0f;
+		pos.x += 25.0f;
+		pos.y += 25.0f;
+		pos.z -= 25.0f;
 
-		//rot.x += 
+		rot.x += 0.2f;
+		rot.y += 0.2f;
+		rot.z += 0.2f;
 
 		m_pObjectX->SetPosition(pos);
+		m_pObjectX->SetRotition(rot);
+		pPlayer->ChangeState(new CPlayerStateStep);
 	}
+
+	if (m_bClear == true)
+		return;
 
 	CCollision* pCollision = CCollision::GetInstance();
 
