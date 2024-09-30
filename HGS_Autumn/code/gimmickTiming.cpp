@@ -221,12 +221,6 @@ void CGimmickTiming::Update(void)
 		m_pBillBoard[1]->SetJudgeRotType(JUDGEROTTYPE_LEFT);
 
 	}
-
-	if (m_bStart == true)
-	{
-		Uninit();
-	}
-	
 }
 
 //===========================================================

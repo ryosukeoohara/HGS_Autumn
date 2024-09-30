@@ -34,12 +34,11 @@ public:
 
 	static CGimmick* Create(float fDestDistance, TYPE type);        // 生成処理
 
-	bool m_bStart;		// ギミック開始したか
-
 private:
 	TYPE m_GimmickType;			// 種類
 	static float m_fDestPos;		// 目標地点
 
+	bool m_bStart;		// ギミック開始したか
 	
 };
 
