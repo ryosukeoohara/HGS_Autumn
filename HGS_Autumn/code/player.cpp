@@ -391,6 +391,8 @@ void CPlayer::Move(void)
 		{
 			if (m_fRot < 0.1f)
 				m_fRot += 0.007f;
+
+			CManager::GetInstance()->GetSound()->Play(CSound::SOUND_LABEL_SE_PANIC);
 		}
 		else
 		{
@@ -758,6 +760,8 @@ CPlayerStateStagger::CPlayerStateStagger()
 	//Info->fSpeed = 0.5f;
 
 	Info->state = CPlayer::STATE_STAGGER;
+
+	CManager::GetInstance()->GetSound()->Play(CSound::SOUND_LABEL_SE_BAD);
 }
 
 void CPlayerStateStagger::Update(CPlayer* pPlayer)

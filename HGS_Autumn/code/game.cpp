@@ -107,7 +107,7 @@ HRESULT CGame::Init(void)
 	// タイマーの生成
 	m_pTimer = CTime::Create();
 	
-	//CManager::GetInstance()->GetSound()->Play(CSound::SOUND_LABEL_BGM_GAME);
+	CManager::GetInstance()->GetSound()->Play(CSound::SOUND_LABEL_BGM_GAME);
 
 	return S_OK;
 }

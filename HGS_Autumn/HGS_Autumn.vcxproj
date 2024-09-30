@@ -189,6 +189,7 @@
     </ClCompile>
     <ClCompile Include="code\renderer.cpp" />
     <ClCompile Include="code\result.cpp" />
+    <ClCompile Include="code\result_time.cpp" />
     <ClCompile Include="code\score.cpp" />
     <ClCompile Include="code\sound.cpp" />
     <ClCompile Include="code\texture.cpp" />
@@ -233,6 +234,7 @@
     <ClInclude Include="code\precompile.h" />
     <ClInclude Include="code\renderer.h" />
     <ClInclude Include="code\result.h" />
+    <ClInclude Include="code\result_time.h" />
     <ClInclude Include="code\score.h" />
     <ClInclude Include="code\sound.h" />
     <ClInclude Include="code\texture.h" />

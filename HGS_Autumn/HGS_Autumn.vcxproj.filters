@@ -171,6 +171,9 @@
     <ClCompile Include="code\manual_button.cpp">
       <Filter>3D</Filter>
     </ClCompile>
+    <ClCompile Include="code\result_time.cpp">
+      <Filter>2D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\tutorial.h">
@@ -298,6 +301,9 @@
     </ClInclude>
     <ClInclude Include="code\manual_button.h">
       <Filter>3D</Filter>
+    </ClInclude>
+    <ClInclude Include="code\result_time.h">
+      <Filter>2D</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

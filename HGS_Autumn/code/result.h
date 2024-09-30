@@ -50,6 +50,7 @@ private:
 	CAppearanceUI *m_pNumber;
 	CUserRankUI *m_pUserRank;
 	static int m_nSuccess;
+	static int m_nTime;
 
 	int m_nCounter;
 };
