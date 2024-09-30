@@ -48,7 +48,7 @@ namespace
 	const float GRAP_LOST_STMINA = 0.1f;                       // 敵を掴んでいる時のスタミナ消費量
 	const float ATTACK_MAGNETIC_RANGE = 100.0f;                // 攻撃すると一番近くの敵に自動ですこし前進する敵との距離
 	const float MY_RADIUS = 25.0f;                             // プレイヤーの横幅
-	const char* PLAYER_TEXT = "data\\TEXT\\setup_player.txt"; // プレイヤーのテキストファイル
+	const char* PLAYER_TEXT = "data\\TEXT\\setup_player.txt";  // プレイヤーのテキストファイル
 
 	const D3DXVECTOR3 MAP_LIMIT_MAX = D3DXVECTOR3(800.0f, 0.0f, 1000.0f);   // マップの制限
 	const D3DXVECTOR3 MAP_LIMIT_MIN = D3DXVECTOR3(-850.0f, 0.0f, -670.0f);  // マップの制限
@@ -284,13 +284,13 @@ void CPlayer::Move(void)
 		if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_RB, 0) == true)
 		{
 			m_Info.move.z -= m_Info.fSpeed;
-			m_pMotion->Set(TYPE_STEP_LEFT);
+			m_pMotion->Set(TYPE_STEP_RIGHT);
 		}
 
 		if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_LB, 0) == true)
 		{
 			m_Info.move.z -= m_Info.fSpeed;
-
+			m_pMotion->Set(TYPE_STEP_LEFT);
 		}
 
 		CManager::GetInstance()->GetDebugProc()->Print("現在のギミック：タイミング\n");
