@@ -86,19 +86,41 @@ HRESULT CGame::Init(void)
 	if (m_pPause == nullptr)
 		m_pPause = CPause::Create();
 
-	CField* pField = new CField;
+	CField* pRoad = new CField;
 
-	if (pField != nullptr)
+	if (pRoad != nullptr)
 	{
-		pField->Init();
-		pField->SetIdxTex(CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\concreat.png"));
-		pField->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-		pField->SetSize(2000.0f, 50000.0f);
-		pField->SetDraw(true);
+		pRoad->Init();
+		pRoad->SetIdxTex(CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\field_soil.png"));
+		pRoad->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+		pRoad->SetSize(800.0f, 50000.0f);
+		pRoad->SetDraw(true);
+	}
+
+	CField* pGrassR = new CField;
+
+	if (pGrassR != nullptr)
+	{
+		pGrassR->Init();
+		pGrassR->SetIdxTex(CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\field_grass.jpg"));
+		pGrassR->SetPosition(D3DXVECTOR3(800.0f, 0.0f, 0.0f));
+		pGrassR->SetSize(800.0f, 50000.0f);
+		pGrassR->SetDraw(true);
+	}
+
+	CField* pGrassL = new CField;
+
+	if (pGrassL != nullptr)
+	{
+		pGrassL->Init();
+		pGrassL->SetIdxTex(CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\field_grass.jpg"));
+		pGrassL->SetPosition(D3DXVECTOR3(-800.0f, 0.0f, 0.0f));
+		pGrassL->SetSize(800.0f, 50000.0f);
+		pGrassL->SetDraw(true);
 	}
 
 	// マップ設置
-	SetMap();
+	//SetMap();
 
 	// 警告の生成
 	CWarning::Create(CWarning::TYPE_ROCK);

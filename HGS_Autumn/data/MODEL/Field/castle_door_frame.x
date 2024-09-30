@@ -215,7 +215,7 @@ Mesh {
  4;58,59,46,55;;
  
  MeshMaterialList {
-  2;
+  1;
   18;
   0,
   0,
@@ -242,15 +242,6 @@ Mesh {
    0.000000;0.000000;0.000000;;
    TextureFilename {
     "data\\TEXTURE\\castle_door_frame.jpg";
-   }
-  }
-  Material {
-   0.800000;0.800000;0.800000;1.000000;;
-   5.000000;
-   0.000000;0.000000;0.000000;;
-   0.000000;0.000000;0.000000;;
-   TextureFilename {
-    "data\\TEXTURE\\castle_door.png";
    }
   }
  }

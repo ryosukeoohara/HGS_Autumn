@@ -120,7 +120,7 @@ CPlayer *CPlayer::Create(D3DXVECTOR3 pos, int nPriority)
 		pPlayer->Init();
 	}
 	
-	CGimmick::Create(CGimmick::TYPEWALK);
+	CGimmick::Create(500.0f,CGimmick::TYPEWALK);
 
 	return pPlayer;
 }
@@ -222,6 +222,14 @@ void CPlayer::Update(void)
 	//Control();
 
 	debugKey();
+
+	CManager::GetInstance()->GetDebugProc()->Print("\nプレイヤーの位置：%f,%f,%f\n", m_Info.pos.x, m_Info.pos.y, m_Info.pos.z);
+	CManager::GetInstance()->GetDebugProc()->Print("\nプレイヤーの向き：%f,%f,%f\n", m_Info.rot.x, m_Info.rot.y, m_Info.rot.z);
+	CManager::GetInstance()->GetDebugProc()->Print("プレイヤーの速度切り替え：[1]2.0f, [2]1.0f, [3]0.5f\n");
+	CManager::GetInstance()->GetDebugProc()->Print("ギミック切り替え：[4]バランス, [5]ハンマー\n");
+	CManager::GetInstance()->GetDebugProc()->Print("プレイヤーの速度：%f\n", m_Info.fSpeed);
+	CManager::GetInstance()->GetDebugProc()->Print("ハンマー連打：%d\n", m_nButtonPushCounter);
+	CManager::GetInstance()->GetDebugProc()->Print("風向きの変更：[Bボタン]\n");
 }
 
 //================================================================
@@ -282,13 +290,7 @@ void CPlayer::Control(void)
 		Move();
 	}
 
-	CManager::GetInstance()->GetDebugProc()->Print("\nプレイヤーの位置：%f,%f,%f\n", m_Info.pos.x, m_Info.pos.y, m_Info.pos.z);
-	CManager::GetInstance()->GetDebugProc()->Print("\nプレイヤーの向き：%f,%f,%f\n", m_Info.rot.x, m_Info.rot.y, m_Info.rot.z);
-	CManager::GetInstance()->GetDebugProc()->Print("プレイヤーの速度切り替え：[1]2.0f, [2]1.0f, [3]0.5f\n");
-	CManager::GetInstance()->GetDebugProc()->Print("ギミック切り替え：[4]バランス, [5]ハンマー\n");
-	CManager::GetInstance()->GetDebugProc()->Print("プレイヤーの速度：%f\n", m_Info.fSpeed);
-	CManager::GetInstance()->GetDebugProc()->Print("ハンマー連打：%d\n", m_nButtonPushCounter);
-	CManager::GetInstance()->GetDebugProc()->Print("風向きの変更：[Bボタン]\n");
+
 }
 
 //================================================================
