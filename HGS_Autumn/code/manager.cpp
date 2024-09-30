@@ -26,6 +26,7 @@
 #include "InputMouse.h"
 #include "InputJoyPad.h"
 #include "objectX.h"
+#include"field.h"
 
 //===========================================================
 //ê√ìIÉÅÉìÉoïœêî
@@ -907,21 +908,55 @@ void CScene::SetMap(void)
 	MAPFILENAME::MAP_CASTLE_DOOR_R;
 	MAPFILENAME::MAP_CASTLE_DOOR_L;
 
-	for (int i = 0; i < 100; i++)
+	CField* pRoad = new CField;
+
+	if (pRoad != nullptr)
+	{
+		pRoad->Init();
+		pRoad->SetIdxTex(CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\field_soil.png"));
+		pRoad->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+		pRoad->SetSize(400.0f, 50000.0f);
+		pRoad->SetDraw(true);
+	}
+
+	CField* pGrassR = new CField;
+
+	if (pGrassR != nullptr)
+	{
+		pGrassR->Init();
+		pGrassR->SetIdxTex(CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\field_grass.jpg"));
+		pGrassR->SetPosition(D3DXVECTOR3(600.0f, 0.0f, 0.0f));
+		pGrassR->SetSize(800.0f, 50000.0f);
+		pGrassR->SetDraw(true);
+	}
+
+	CField* pGrassL = new CField;
+
+	if (pGrassL != nullptr)
+	{
+		pGrassL->Init();
+		pGrassL->SetIdxTex(CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\field_grass.jpg"));
+		pGrassL->SetPosition(D3DXVECTOR3(-600.0f, 0.0f, 0.0f));
+		pGrassL->SetSize(800.0f, 50000.0f);
+		pGrassL->SetDraw(true);
+	}
+
+	for (int i = 0; i < 150; i++)
 	{
 		CObjectX::Create(MAPFILENAME::MAP_TREE, D3DXVECTOR3(1000.0f, -100.0f, -2500.0f - (500 * i)));
 		CObjectX::Create(MAPFILENAME::MAP_TREE, D3DXVECTOR3(-1200.0f, -100.0f, -2500.0f - (500 * i)));
 		CObjectX::Create(MAPFILENAME::MAP_GRASS, D3DXVECTOR3(400.0f, 0.0f, -2500.0f - (500 * i)));
 		CObjectX::Create(MAPFILENAME::MAP_GRASS, D3DXVECTOR3(-400.0f, 0.0f, -2500.0f - (500 * i)));
+		CObjectX::Create(MAPFILENAME::MAP_ROCK_PIECE, D3DXVECTOR3(500.0f, 0.0f, -2500.0f - (500 * i)));
+		CObjectX::Create(MAPFILENAME::MAP_ROCK_PIECE, D3DXVECTOR3(-500.0f, 0.0f, -2500.0f - (500 * i)));
 	}
-	CObjectX::Create(MAPFILENAME::MAP_ROCK, D3DXVECTOR3(0.0f, 0.0f, -5000.0f));
-	CObjectX::Create(MAPFILENAME::MAP_ROCK_PIECE, D3DXVECTOR3(0.0f, 0.0f, -5000.0f));
-	CObjectX::Create(MAPFILENAME::MAP_ROPE, D3DXVECTOR3(0.0f, 0.0f, -5000.0f));
-	CObjectX::Create(MAPFILENAME::MAP_GRASS, D3DXVECTOR3(0.0f, 0.0f, -5000.0f));
-	CObjectX::Create(MAPFILENAME::MAP_CASTLE, D3DXVECTOR3(0.0f, 0.0f, -5000.0f));
-	CObjectX::Create(MAPFILENAME::MAP_CASTLE_FRAME, D3DXVECTOR3(0.0f, 0.0f, -5000.0f));
-	CObjectX::Create(MAPFILENAME::MAP_CASTLE_DOOR_R, D3DXVECTOR3(0.0f, 0.0f, -5000.0f));
-	CObjectX::Create(MAPFILENAME::MAP_CASTLE_DOOR_L, D3DXVECTOR3(0.0f, 0.0f, -5000.0f));
+
+	CObjectX::Create(MAPFILENAME::MAP_ROCK, D3DXVECTOR3(0.0f, 0.0f, -35000.0f));
+	CObjectX::Create(MAPFILENAME::MAP_ROPE, D3DXVECTOR3(0.0f, 0.0f, -55000.0f));
+	CObjectX::Create(MAPFILENAME::MAP_CASTLE, D3DXVECTOR3(0.0f, 0.0f, -85000.0f));
+	CObjectX::Create(MAPFILENAME::MAP_CASTLE_FRAME, D3DXVECTOR3(0.0f, 0.0f, -75000.0f));
+	CObjectX::Create(MAPFILENAME::MAP_CASTLE_DOOR_R, D3DXVECTOR3(0.0f, 0.0f, -75000.0f));
+	CObjectX::Create(MAPFILENAME::MAP_CASTLE_DOOR_L, D3DXVECTOR3(0.0f, 0.0f, -75000.0f));
 
 }
 

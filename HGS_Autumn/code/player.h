@@ -125,7 +125,7 @@ private:
 	void ReadText(const char *filename);
 	void Move(void);
 	void Hammer(void);
-
+	void NextMotion();
 
 	void debugKey(void);
 
@@ -144,6 +144,7 @@ private:
 	int m_nDebugState = 0;
 	char m_filename[128] = {};
 	int m_nButtonPushCounter = 0;
+	int m_nLeg;
 
 	D3DXVECTOR3 m_Readpos;
 	D3DXVECTOR3 m_Readrot;
