@@ -57,8 +57,6 @@ public:
 		MAX
 	};
 
-private:
-
 	// 情報
 	struct INFO
 	{
@@ -72,6 +70,8 @@ private:
 		int nLife;                // 体力
 		float fSpeed;
 	};
+
+private:
 
 	INFO m_Info;                          // 情報
 	MOBILITY m_Mobility;
@@ -99,6 +99,7 @@ public:
 	void SetDefeat(int nValue) { m_nDefeat = nValue; }
 	void SetUseMicroCount(int nValue) { m_nUseCounter = nValue; }
 	void SetbHeatActFlag(bool bValue) { m_bHeatActFlag = bValue; }
+	void ChangeState(CPlayerState* pState);
 
 	// 取得系
 	D3DXVECTOR3 GetPosition(void) { return m_Info.pos; }       // 位置取得
@@ -112,7 +113,8 @@ public:
 	int GetDefeat(void) { return m_nDefeat; }
 	bool GetHeatActFlag(void) { return m_bHeatActFlag; }
 	MOBILITY GetMobility(void) { return m_Mobility; }
-
+	CMotion* GetMotion(void) { return m_pMotion; }
+	CPlayer::INFO *GetInfo(void) { return &m_Info; }
 
 
 private:
@@ -149,6 +151,7 @@ private:
 	CCharacter** m_appCharacter;
 	CMotion* m_pMotion;
 	CGimmick* m_pGimmick;		// ギミック
+	CPlayerState* m_pState;
 	static CPlayer *m_pPlayer;
 	int m_nDefeat;  // 敵を倒した数
 	int m_nIdxEne;
@@ -193,19 +196,70 @@ private:
 
 };
 
-//===========================================================
-// プレイヤーステイト
-//===========================================================
-class CPlayerStateMove : public CPlayerState
+// ステップ
+class CPlayerStateStep : public CPlayerState
 {
 public:
-	CPlayerStateMove();
-	~CPlayerStateMove() {};
+	CPlayerStateStep();
+	~CPlayerStateStep() {};
 
-	void Update(CPlayer* pPlayer) = 0;
+	void Update(CPlayer* pPlayer) override;
 
 private:
 
+};
+
+// 歩き
+class CPlayerStateWalk : public CPlayerState
+{
+public:
+	CPlayerStateWalk();
+	~CPlayerStateWalk() {};
+
+	void Update(CPlayer* pPlayer) override;
+
+private:
+
+};
+
+// 足ぐき
+class CPlayerStateStagger : public CPlayerState
+{
+public:
+	CPlayerStateStagger();
+	~CPlayerStateStagger() {};
+
+	void Update(CPlayer* pPlayer) override;
+
+private:
+
+};
+
+// ロープ歩き
+class CPlayerStateRopeWalk : public CPlayerState
+{
+public:
+	CPlayerStateRopeWalk();
+	~CPlayerStateRopeWalk() {};
+
+	void Update(CPlayer* pPlayer) override;
+
+private:
+
+};
+
+// ハンマー
+class CPlayerStateHummer : public CPlayerState
+{
+public:
+	CPlayerStateHummer();
+	~CPlayerStateHummer() {};
+
+	void Update(CPlayer* pPlayer) override;
+
+private:
+
+	int m_nButtonPushCounter = 0;
 };
 
 #endif
