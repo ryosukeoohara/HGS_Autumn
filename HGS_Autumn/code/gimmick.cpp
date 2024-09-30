@@ -8,30 +8,37 @@
 #include "billboard.h"
 #include "gimmickTiming.h"
 #include "gimmickRope.h"
+#include "gimmickButtonMash.h"
 #include "player.h"
 
 float CGimmick::m_fDestPos = 0.0f;		// 目標地点
 CGimmickTiming* CGimmick::m_pGimmickTiming = nullptr;
 CGimmickRope* CGimmick::m_pGimmickRope = nullptr;
+CGimmickButtonMash* CGimmick::m_pGimmickButtonMash = nullptr;
 
 //===========================================================
 // 定数定義
 //===========================================================
 namespace
 {
+	const D3DXVECTOR3 DEFAULT_POS = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	const int NUM_GIMMICK = 15;		// ギミック数
 
 	// ギミック開始位置 ※終了から次のギミックまでは固定の値とする
 	const float fDestPos[NUM_GIMMICK] = {
-		-5000.0f,		// 2.綱
-		-10000.0f,		// 終了
-		-11000.0f,		// 3.歩行
-		-16000.0f,		// 終了
-		-17000.0f,		// 4.岩
-		-23000.0f,		// 終了
-		-24000.0f,		// 5.歩行
-		-26000.0f,		// 終了
-	
+		-5000.0f,		// 0.綱
+		-7000.0f,		// 1.終了
+		-8000.0f,		// 2.歩行
+		-13000.0f,		// 3.終了
+		-14000.0f,		// 4.岩
+		-15000.0f,		// 5.終了
+		-16000.0f,		// 6.歩行
+		-21000.0f,		// 7.終了
+		-22000.0f,		// 8.岩
+		-23000.0f,		// 9.終了
+		-24000.0f,		// 10.綱渡り
+		-26000.0f,		// 11.終了
+
 	};
 }
 
@@ -42,10 +49,10 @@ CGimmick::CGimmick(int nPriority)
 {
 	m_pGimmickTiming = nullptr;
 	m_pGimmickRope = nullptr;
+	m_pGimmickButtonMash = nullptr;
 	m_GimmickType = TYPEWALK;
 	m_fDestPos = 0.0f;
 	m_bStart = false;		// ギミック開始したか
-	m_bEnd = false;
 }
 
 //===========================================================
@@ -61,8 +68,8 @@ CGimmick::~CGimmick()
 //===========================================================
 HRESULT CGimmick::Init(void)
 {
-
-
+	CGimmickButtonMash::Create(D3DXVECTOR3(0.0f, 0.0f, fDestPos[4]));
+	CGimmickButtonMash::Create(D3DXVECTOR3(0.0f, 0.0f, fDestPos[8]));
 
 	return S_OK;
 }
@@ -94,7 +101,36 @@ void CGimmick::Update(void)
 {
 	CPlayer* pPlayer = CPlayer::GetInstance();
 
-	if (fDestPos[2] >= pPlayer->GetPosition().z &&
+	if (fDestPos[7] >= pPlayer->GetPosition().z &&
+		fDestPos[8] <= pPlayer->GetPosition().z &&
+		m_bStart == true)
+	{ // 終了
+
+		m_bStart = false;
+		m_pGimmickTiming->Release();
+		m_pGimmickTiming = nullptr;
+	}
+	if (fDestPos[6] >= pPlayer->GetPosition().z &&
+		fDestPos[7] <= pPlayer->GetPosition().z)
+	{ // 歩行
+
+		if (m_bStart == false)
+		{
+			m_GimmickType = TYPEWALK;
+			m_bStart = true;
+			Set(m_GimmickType, D3DXVECTOR3(DEFAULT_POS.x, DEFAULT_POS.y, DEFAULT_POS.z));
+		}
+	}
+	else if (fDestPos[3] >= pPlayer->GetPosition().z &&
+		fDestPos[4] <= pPlayer->GetPosition().z &&
+		m_bStart == true)
+	{ // 終了
+
+		m_bStart = false;
+		m_pGimmickTiming->Release();
+		m_pGimmickTiming = nullptr;
+	}
+	else if (fDestPos[2] >= pPlayer->GetPosition().z &&
 		fDestPos[3] <= pPlayer->GetPosition().z)
 	{ // 歩行
 
@@ -102,11 +138,11 @@ void CGimmick::Update(void)
 		{
 			m_GimmickType = TYPEWALK;
 			m_bStart = true;
-			Set(m_GimmickType);
+			Set(m_GimmickType, D3DXVECTOR3(DEFAULT_POS.x, DEFAULT_POS.y, DEFAULT_POS.z));
 		}
 	}
 	else if (fDestPos[1] >= pPlayer->GetPosition().z &&
-		fDestPos[2] <= pPlayer->GetPosition().z)
+		fDestPos[2] <= pPlayer->GetPosition().z && m_bStart == true)
 	{ // 終了
 
 		m_bStart = false;
@@ -123,7 +159,7 @@ void CGimmick::Update(void)
 			m_bStart = true;
 			m_pGimmickTiming->Release();
 			m_pGimmickTiming = nullptr;
-			Set(m_GimmickType);
+			Set(m_GimmickType, D3DXVECTOR3(DEFAULT_POS.x, DEFAULT_POS.y, DEFAULT_POS.z));
 		}
 	}
 }
@@ -158,9 +194,9 @@ CGimmick* CGimmick::Create(float fDestDistance, TYPE type)
 }
 
 //===========================================================
-// 生成処理
+// 設定処理
 //===========================================================
-void CGimmick::Set(TYPE GimmickType)
+void CGimmick::Set(TYPE GimmickType, D3DXVECTOR3 pos)
 {
 	switch (GimmickType)
 	{
@@ -174,6 +210,12 @@ void CGimmick::Set(TYPE GimmickType)
 		m_pGimmickRope = CGimmickRope::Create();
 
 		break;
+
+	//case CGimmick::TYPEROCK:	// 岩
+
+	//	m_pGimmickButtonMash = CGimmickButtonMash::Create(pos);
+
+	//	break;
 	
 	default:
 		break;

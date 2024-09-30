@@ -14,6 +14,7 @@
 
 class CGimmickTiming;
 class CGimmickRope;
+class CGimmickButtonMash;
 
 //===========================================================
 // ギミッククラス定義
@@ -25,6 +26,7 @@ public:
 	{
 		TYPEWALK = 0,		// 歩行
 		TYPEROPE,			// 綱渡り
+		TYPEROCK,			// 岩
 		TYPEMAX
 	};
 
@@ -38,17 +40,17 @@ public:
 
 	static CGimmick* Create(float fDestDistance, TYPE type);        // 生成処理
 
-	void Set(TYPE GimmickType);
+	void Set(TYPE GimmickType, D3DXVECTOR3 pos);
 
 private:
 	static CGimmickTiming* m_pGimmickTiming;
 	static CGimmickRope* m_pGimmickRope;
+	static CGimmickButtonMash* m_pGimmickButtonMash;
 
 	TYPE m_GimmickType;			// 種類
 	static float m_fDestPos;		// 目標地点
 
 	bool m_bStart;		// ギミック開始したか
-	bool m_bEnd;		// ギミック終了したか
 	
 };
 
