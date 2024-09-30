@@ -37,6 +37,9 @@
     <Filter Include="VFX">
       <UniqueIdentifier>{aee62278-12a4-4051-a784-0592fa75cd51}</UniqueIdentifier>
     </Filter>
+    <Filter Include="3D">
+      <UniqueIdentifier>{10d93926-71de-4352-8ef2-aab4e247112c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\debugproc.cpp">
@@ -126,6 +129,12 @@
     <ClCompile Include="code\collision.cpp">
       <Filter>base</Filter>
     </ClCompile>
+    <ClCompile Include="code\objectX.cpp">
+      <Filter>3D</Filter>
+    </ClCompile>
+    <ClCompile Include="code\object3D.cpp">
+      <Filter>3D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\tutorial.h">
@@ -214,6 +223,12 @@
     </ClInclude>
     <ClInclude Include="code\collision.h">
       <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="code\object3D.h">
+      <Filter>3D</Filter>
+    </ClInclude>
+    <ClInclude Include="code\objectX.h">
+      <Filter>3D</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
