@@ -97,6 +97,8 @@ HRESULT CGame::Init(void)
 	// マップ設置
 	SetMap();
 
+	CGimmickButtonMash::Create(D3DXVECTOR3(0.0f, 0.0f, -13600.0f));
+
 	// プレイヤーの生成
 	if (m_pPlayer == nullptr)
 	{

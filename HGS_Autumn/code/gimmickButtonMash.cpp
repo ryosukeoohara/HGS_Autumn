@@ -8,6 +8,7 @@
 #include "objectX.h"
 #include "player.h"
 #include "collision.h"
+#include "warning.h"
 
 //===========================================================
 // コンストラクタ
@@ -30,8 +31,8 @@ CGimmickButtonMash::~CGimmickButtonMash()
 //===========================================================
 HRESULT CGimmickButtonMash::Init(void)
 {
-	if(m_pObjectX == nullptr)
-		m_pObjectX = CObjectX::Create("data\\MODEL\\Field\\rock.x", m_pos);
+	
+		
 
 	return S_OK;
 }
@@ -91,12 +92,19 @@ void CGimmickButtonMash::Update(void)
 	if (pCollision == nullptr)
 		return;
 
-	if (pCollision->Circle(m_pos, pPlayer->GetPosition(), 500.0f, 50.0f) == true)
+	if (pCollision->Circle(m_pos, pPlayer->GetPosition(), 300.0f, 50.0f) == true)
 	{
 		if (pPlayer->GetState() != pPlayer->STATE_HAMMER)
 		{
 			pPlayer->ChangeState(new CPlayerStateHummer);
 		}
+
+		if (m_bn != true)
+		{
+			CWarning::Create(1);
+			m_bn = true;
+		}
+		
 	}
 }
 
@@ -118,7 +126,7 @@ CGimmickButtonMash* CGimmickButtonMash::Create(D3DXVECTOR3 pos)
 	if (pGimmick != nullptr)
 	{
 		pGimmick->Init();
-		//pGimmick->
+		pGimmick->m_pObjectX = CObjectX::Create("data\\MODEL\\Field\\rock.x", pos);
 		pGimmick->m_pos = pos;
 	}
 

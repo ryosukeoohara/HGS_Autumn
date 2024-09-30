@@ -72,9 +72,7 @@ CGimmick::~CGimmick()
 //===========================================================
 HRESULT CGimmick::Init(void)
 {
-	CGimmickButtonMash::Create(D3DXVECTOR3(0.0f, 0.0f, fDestPos[4]));
-	CGimmickButtonMash::Create(D3DXVECTOR3(0.0f, 0.0f, fDestPos[8]));
-	CGimmickButtonMash::Create(D3DXVECTOR3(0.0f, 0.0f, fDestPos[14]));
+	
 
 	return S_OK;
 }
