@@ -414,7 +414,7 @@ void CPlayer::SetState(STATE state)
 
 	switch (m_Info.state)
 	{
-	case CPlayer::STATE_WAKE:
+	case CPlayer::STATE_WALK:
 
 		CGimmick::Create(CGimmick::TYPEWALK);
 
