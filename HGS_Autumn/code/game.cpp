@@ -22,6 +22,7 @@
 #include "InputKeyBoard.h"
 #include "InputJoyPad.h"
 #include "warning.h"
+#include "manual_button.h"
 
 //================================================================
 // Ã“Iƒƒ“ƒo•Ï”
