@@ -47,7 +47,7 @@ HRESULT CGimmickRope::Init(void)
 {
 	CPlayer* pPlayer = CPlayer::GetInstance();
 	m_pObject3D->SetIdxTex(CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\rope.png"));
-	m_pObject3D->SetSize(100.0f, 1500.0f);
+	m_pObject3D->SetSize(40.0f, 1500.0f);
 
 	// ƒ[ƒv•à‚«‚É•ÏX
 	pPlayer->ChangeState(new CPlayerStateRopeWalk);
@@ -100,7 +100,7 @@ CGimmickRope* CGimmickRope::Create(D3DXVECTOR3 pos)
 
 	if (pGimmick != nullptr)
 	{
-		pGimmick->m_pObject3D = CObject3D::Create(D3DXVECTOR3(pos.x, pos.y + 1.0f, pos.z + 1500.0f));
+		pGimmick->m_pObject3D = CObject3D::Create(D3DXVECTOR3(pos.x, pos.y + 50.0f, pos.z + 1500.0f));
 
 		pGimmick->Init();
 
