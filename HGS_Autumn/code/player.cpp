@@ -651,7 +651,7 @@ CPlayerStateStep::CPlayerStateStep()
 {
 	CPlayer::INFO* Info = CPlayer::GetInstance()->GetInfo();
 
-	Info->fSpeed = 2.0f;
+	//Info->fSpeed = 2.0f;
 
 	Info->state = CPlayer::STATE_STEP;
 }
@@ -667,6 +667,9 @@ void CPlayerStateStep::Update(CPlayer* pPlayer)
 		return;
 
 	CPlayer::INFO* Info = pPlayer->GetInfo();
+
+	if (Info->fSpeed < 2.0f)
+		Info->fSpeed += 0.03f;
 
 	Info->move.z -= Info->fSpeed;
 
@@ -684,7 +687,7 @@ CPlayerStateWalk::CPlayerStateWalk()
 {
 	CPlayer::INFO* Info = CPlayer::GetInstance()->GetInfo();
 
-	Info->fSpeed = 1.0f;
+	//Info->fSpeed = 1.0f;
 
 	Info->state = CPlayer::STATE_WALK;
 }
@@ -700,6 +703,12 @@ void CPlayerStateWalk::Update(CPlayer* pPlayer)
 		return;
 
 	CPlayer::INFO* Info = pPlayer->GetInfo();
+
+	if (Info->fSpeed < 1.0f)
+		Info->fSpeed += 0.03f;
+
+	if (Info->fSpeed > 1.0f)
+		Info->fSpeed -= 0.03f;
 
 	Info->move.z -= Info->fSpeed;
 
@@ -717,7 +726,7 @@ CPlayerStateStagger::CPlayerStateStagger()
 {
 	CPlayer::INFO* Info = CPlayer::GetInstance()->GetInfo();
 
-	Info->fSpeed = 0.5f;
+	//Info->fSpeed = 0.5f;
 
 	Info->state = CPlayer::STATE_STAGGER;
 }
@@ -735,6 +744,9 @@ void CPlayerStateStagger::Update(CPlayer* pPlayer)
 	CPlayer::INFO* Info = pPlayer->GetInfo();
 
 	Info->move.z -= Info->fSpeed;
+
+	if (Info->fSpeed > 0.5f)
+		Info->fSpeed -= 0.03f;
 
 	if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_LB, 0) == true)
 		pMotion->Set(pPlayer->TYPE_STAGGER_RIGHT);

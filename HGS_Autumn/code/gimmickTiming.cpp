@@ -183,15 +183,15 @@ void CGimmickTiming::Update(void)
 	{
 		if (m_fMove <= 50.0f)
 		{
-			pPlayer->SetState(CPlayer::STATE_STAGGER);
+			pPlayer->ChangeState(new CPlayerStateStagger);
 		}
 		else if (m_fMove <= 80.0f)
 		{
-			pPlayer->SetState(CPlayer::STATE_WALK);
+			pPlayer->ChangeState(new CPlayerStateWalk);
 		}
 		else if (m_fMove <= 100.0f)
 		{
-			pPlayer->SetState(CPlayer::STATE_STEP);
+			pPlayer->ChangeState(new CPlayerStateStep);
 		}
 
 		m_fMove = 0.0f;
@@ -204,15 +204,15 @@ void CGimmickTiming::Update(void)
 	{
 		if (m_fMove <= 50.0f)
 		{
-			pPlayer->SetState(CPlayer::STATE_STAGGER);
+			pPlayer->ChangeState(new CPlayerStateStagger);
 		}
 		else if (m_fMove <= 80.0f)
 		{
-			pPlayer->SetState(CPlayer::STATE_WALK);
+			pPlayer->ChangeState(new CPlayerStateWalk);
 		}
 		else if (m_fMove <= 100.0f)
 		{
-			pPlayer->SetState(CPlayer::STATE_STEP);
+			pPlayer->ChangeState(new CPlayerStateStep);
 		}
 
 		m_fMove = 0.0f;
