@@ -53,6 +53,7 @@ CTitle::CTitle()
 	m_pStart = nullptr;
 	m_nCnt = 0;
 	m_nCntPos = 0;
+	m_fSin = 0.0f;
 }
 
 //===========================================================
@@ -85,24 +86,29 @@ CTitle *CTitle::Create(void)
 //===========================================================
 HRESULT CTitle::Init(void)
 {
-	/*if (m_pStart == nullptr)
+	// press enterを作る
+	if (m_pStart == nullptr)
 	{
 		m_pStart = CObject2D::Create();
-		m_pStart->SetIdxTex(CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\any.png"));
-		m_pStart->SetPosition(D3DXVECTOR3(SCREEN_WIDTH * 0.3f, SCREEN_HEIGHT * 0.7f, 0.0f));
-		m_pStart->SetSize(200.0f, 50.0f);
+		m_pStart->SetIdxTex(CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\press_enter.png"));
+		m_pStart->SetPosition(D3DXVECTOR3(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.8f, 0.0f));
+		m_pStart->SetSize(300.0f, 65.0f);
 		m_pStart->SetDraw(true);
-	}*/
+	}
 
 	// マップ設置
 	SetMap();
+
+	CCamera*p = CManager::GetInstance()->GetCamera();
+	p->ChangeState(new FixedCamera);
+	p->SetRotation(D3DXVECTOR3(0.0f, D3DX_PI, 0.0f));
 
 	if (m_pBg == nullptr)
 	{
 		m_pBg = CObject2D::Create();
 		m_pBg->SetIdxTex(CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\title.png"));
-		m_pBg->SetPosition(D3DXVECTOR3(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f, 0.0f));
-		m_pBg->SetSize(SCREEN_WIDTH * 0.3f, SCREEN_HEIGHT * 0.3f);
+		m_pBg->SetPosition(D3DXVECTOR3(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.35f, 0.0f));
+		m_pBg->SetSize(SCREEN_WIDTH * 0.25f, SCREEN_HEIGHT * 0.25f);
 		m_pBg->SetDraw(true);
 	}
 
@@ -145,6 +151,9 @@ void CTitle::Uninit(void)
 //===========================================================
 void CTitle::Update(void)
 {
+	CCamera* p = CManager::GetInstance()->GetCamera();
+	p->SetRotation(D3DXVECTOR3(0.0f, -D3DX_PI * 0.0f, 0.0f));
+
 	// キーボードを取得
 	CInputKeyboard *InputKeyboard = CManager::GetInstance()->GetKeyBoard();
 
@@ -156,12 +165,19 @@ void CTitle::Update(void)
 
 	if (InputKeyboard->GetTrigger(DIK_RETURN) == true || pInputJoyPad->GetTrigger(CInputJoyPad::BUTTON_A, 0) == true || pInputJoyPad->GetTrigger(CInputJoyPad::BUTTON_START, 0) == true)
 	{//ENTERキーを押したかつシーンがタイトルのとき
-
 		if (pFade->Get() != pFade->FADE_OUT)
 		{
 			//シーンをゲームに遷移
 			pFade->Set(CScene::MODE_TUTORIAL);
 		}
+	}
+
+	{
+		m_fSin += 0.03f;
+		float cola = fabsf(sinf(m_fSin));
+		if (cola >= 1.0f) { cola = 1.0f; }
+		else if (cola <= 0.0f) { cola = 0.0f; }
+		m_pStart->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, cola));
 	}
 
 	CManager::GetInstance()->GetDebugProc()->Print("現在のシーン：タイトル");

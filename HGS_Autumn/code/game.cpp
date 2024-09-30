@@ -88,19 +88,15 @@ HRESULT CGame::Init(void)
 		m_pPause = CPause::Create();
 
 	
-
 	if (m_pCollision == nullptr)
-	{
+	{	
 		m_pCollision = new CCollision;
 	}
-
+	
 	CGimmickButtonMash* pRock = CGimmickButtonMash::Create(D3DXVECTOR3(0.0f, 0.0f, -10000.0f));
-
+	
 	// マップ設置
 	SetMap();
-
-	// 警告の生成
-	CWarning::Create(CWarning::TYPE_ROCK);
 
 	// プレイヤーの生成
 	if (m_pPlayer == nullptr)
@@ -170,15 +166,15 @@ void CGame::Update(void)
 		return;
 	}
 
-	//if (InputKeyboard->GetTrigger(DIK_RETURN) == true || pInputJoyPad->GetTrigger(CInputJoyPad::BUTTON_A, 0) == true || pInputJoyPad->GetTrigger(CInputJoyPad::BUTTON_START, 0) == true)
-	//{//ENTERキーを押したかつシーンがタイトルのとき
+	if (InputKeyboard->GetTrigger(DIK_RETURN) == true || pInputJoyPad->GetTrigger(CInputJoyPad::BUTTON_A, 0) == true || pInputJoyPad->GetTrigger(CInputJoyPad::BUTTON_START, 0) == true)
+	{//ENTERキーを押したかつシーンがタイトルのとき
 
-	//	if (pFade->Get() != pFade->FADE_OUT)
-	//	{
-	//		//シーンをゲームに遷移
-	//		pFade->Set(CScene::MODE_RESULT);
-	//	}
-	//}
+		if (pFade->Get() != pFade->FADE_OUT)
+		{
+			//シーンをゲームに遷移
+			pFade->Set(CScene::MODE_RESULT);
+		}
+	}
 
 	//すべての更新処理
 	CObject::UpdateAll();

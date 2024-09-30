@@ -45,6 +45,7 @@ private:
 	static CPlayer *m_pPlayer;
 	int m_nCnt;
 	int m_nCntPos;
+	float m_fSin;
 
 };
 #endif // !_TITLE_H_

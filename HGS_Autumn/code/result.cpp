@@ -18,6 +18,19 @@
 #include "fade.h"
 #include "player.h"
 
+// 名前空間
+namespace
+{
+	const char* FILENAME[CResult::STATE::STATE_MAX] =
+	{
+		"data\\TEXTURE\\result\\failed.png",
+		"data\\TEXTURE\\result\\success.png",
+	};
+}
+
+// 静的メンバ変数
+int CResult::m_nSuccess = CResult::STATE::STATE_FAILED;
+
 //===========================================================
 // コンストラクタ
 //===========================================================
@@ -59,15 +72,28 @@ CResult *CResult::Create(void)
 //===========================================================
 HRESULT CResult::Init(void)
 {
-	CObject2D *pBg = new CObject2D;
-
-	if (pBg != nullptr)
+	// 成功失敗を表示
 	{
-		pBg->Init();
-		pBg->SetIdxTex(CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\result.png"));
-		pBg->SetPosition(D3DXVECTOR3(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f, 0.0f));
-		pBg->SetSize(SCREEN_WIDTH * 0.3f, SCREEN_HEIGHT * 0.3f);
-		pBg->SetDraw(true);
+		CObject2D* pBg = new CObject2D(7);
+
+		if (pBg != nullptr)
+		{
+			pBg->Init();
+			pBg->SetIdxTex(CManager::GetInstance()->GetTexture()->Regist(FILENAME[m_nSuccess]));
+			pBg->SetPosition(D3DXVECTOR3(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.25f, 0.0f));
+			pBg->SetSize(SCREEN_WIDTH * 0.3f, SCREEN_HEIGHT * 0.2f);
+			pBg->SetDraw(true);
+		}
+	}
+
+	// 制限時間を表示
+	{
+		CObject2D* p = new CObject2D(7);
+		p->Init();
+		p->SetIdxTex(CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\result\\time.png"));
+		p->SetPosition(D3DXVECTOR3(SCREEN_WIDTH * 0.35f, SCREEN_HEIGHT * 0.75f, 0.0f));
+		p->SetSize(SCREEN_WIDTH * 0.2f, SCREEN_HEIGHT * 0.1f);
+		p->SetDraw(true);
 	}
 
 	// マップ設置

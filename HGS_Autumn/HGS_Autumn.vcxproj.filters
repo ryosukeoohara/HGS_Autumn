@@ -168,6 +168,9 @@
     <ClCompile Include="code\gimmickRope.cpp">
       <Filter>gimmick</Filter>
     </ClCompile>
+    <ClCompile Include="code\manual_button.cpp">
+      <Filter>3D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\tutorial.h">
@@ -292,6 +295,9 @@
     </ClInclude>
     <ClInclude Include="code\gimmickRope.h">
       <Filter>gimmick</Filter>
+    </ClInclude>
+    <ClInclude Include="code\manual_button.h">
+      <Filter>3D</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
