@@ -67,6 +67,10 @@ CTutorial * CTutorial::Create(void)
 //===========================================================
 HRESULT CTutorial::Init(void)
 {
+
+	// マップ設置
+	SetMap();
+
 	if (m_pBg == nullptr)
 	{
 		m_pBg = CObject2D::Create();

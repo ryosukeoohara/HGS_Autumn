@@ -36,6 +36,7 @@ CGame::CGame()
 	m_bPause = false;
 	m_pPause = nullptr;
 	m_pBg = nullptr;
+	m_pTimer = nullptr;
 }
 
 //===========================================================
@@ -47,6 +48,7 @@ CGame::CGame(CScene::MODE mode)
 	m_pPause = nullptr;
 	m_pBg = nullptr;
 	m_pPlayer = nullptr;
+	m_pTimer = nullptr;
 }
 
 //===========================================================
@@ -94,11 +96,17 @@ HRESULT CGame::Init(void)
 		pField->SetDraw(true);
 	}
 
+	// マップ設置
+	SetMap();
+
 	// プレイヤーの生成
 	if (m_pPlayer == nullptr)
 	{
 		m_pPlayer = CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, 500.0f));
 	}
+
+	// タイマーの生成
+	m_pTimer = CTime::Create();
 	
 	//CManager::GetInstance()->GetSound()->Play(CSound::SOUND_LABEL_BGM_GAME);
 

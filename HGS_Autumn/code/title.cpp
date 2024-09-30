@@ -94,6 +94,9 @@ HRESULT CTitle::Init(void)
 		m_pStart->SetDraw(true);
 	}*/
 
+	// マップ設置
+	SetMap();
+
 	if (m_pBg == nullptr)
 	{
 		m_pBg = CObject2D::Create();
