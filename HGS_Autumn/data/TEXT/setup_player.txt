@@ -11,7 +11,7 @@ SCRIPT			# この行は絶対消さないこと！
 #------------------------------------------------------------------------------
 # モデル数
 #------------------------------------------------------------------------------
-NUM_MODEL = 16
+NUM_MODEL = 17
 
 #------------------------------------------------------------------------------
 # モデルファイル名
@@ -32,13 +32,13 @@ MODEL_FILENAME = data/MODEL/Player/12_neet2leftleg.x		    # [12]左足
 MODEL_FILENAME = data/MODEL/Player/13_neet2rightthigh.x	    # [13]右太もも
 MODEL_FILENAME = data/MODEL/Player/14_neet2rightshin.x	    # [14]右脛
 MODEL_FILENAME = data/MODEL/Player/15_neet2rightleg.x        # [15]右足
-
+MODEL_FILENAME = data/MODEL/Player/16_fish.x                 # [16]マグロ
 
 #------------------------------------------------------------------------------
 # キャラクター情報
 #------------------------------------------------------------------------------
 CHARACTERSET
-	NUM_PARTS = 16					# パーツ数
+	NUM_PARTS = 17					# パーツ数
 
 	PARTSSET						# [0]腰
 		INDEX = 0
@@ -150,6 +150,14 @@ CHARACTERSET
 		PARENT = 14					# (親)左腿
 		POS = 0.0 -19.0 0.0
 		ROT = 0.0 0.0 0.0
+	END_PARTSSET
+	
+	PARTSSET
+		INDEX = 16
+		PARENT = 1
+		POS = 0.00 27.50 8.00
+		ROT = -1.32 -3.14 0.00
+		START = 1
 	END_PARTSSET
 END_CHARACTERSET
 

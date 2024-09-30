@@ -194,6 +194,7 @@
     <ClCompile Include="code\title.cpp" />
     <ClCompile Include="code\tutorial.cpp" />
     <ClCompile Include="code\utility.cpp" />
+    <ClCompile Include="code\warning.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\billboard.h" />
@@ -235,6 +236,7 @@
     <ClInclude Include="code\title.h" />
     <ClInclude Include="code\tutorial.h" />
     <ClInclude Include="code\utility.h" />
+    <ClInclude Include="code\warning.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
