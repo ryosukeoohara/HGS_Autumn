@@ -29,9 +29,10 @@ public:
 	enum STATE
 	{
 		STATE_STEP,         // à⁄ìÆ
-		STATE_WAKE,         // ï‡Ç´
+		STATE_WALK,         // ï‡Ç´
 		STATE_STAGGER,      // ÇÊÇÎÇØÇ»Ç™ÇÁï‡Ç≠
 		STATE_DEATH,        // éÄñS
+		STATE_HAMMER,
 		STATE_MAX
 	};
 
@@ -43,6 +44,7 @@ public:
 		TYPE_WALK_RIGHT,
 		TYPE_STAGGER_LEFT,
 		TYPE_STAGGER_RIGHT,
+		TYPE_HAMMER,
 		TYPE_MAX
 	};
 
@@ -117,6 +119,8 @@ private:
 	void Control(void);                   // êßå‰
 	void ReadText(const char *filename);
 	void Move(void);
+	void Hammer(void);
+
 
 	void debugKey(void);
 
@@ -134,6 +138,7 @@ private:
 	int m_nUseCounter;
 	int m_nDebugState = 0;
 	char m_filename[128] = {};
+	int m_nButtonPushCounter = 0;
 
 	D3DXVECTOR3 m_Readpos;
 	D3DXVECTOR3 m_Readrot;
