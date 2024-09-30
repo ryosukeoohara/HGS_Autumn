@@ -17,9 +17,8 @@ Scene {
 		}
 	}
 }
-Material 2 {
+Material 1 {
 	"mat1" col(1.000 1.000 1.000 1.000) dif(0.800) amb(0.600) emi(0.000) spc(0.000) power(5.00) tex("C:\Users\student\Documents\2024_9_28_HGS\HGS_Autumn\HGS_Autumn\data\TEXTURE\castle_door.png")
-	"mat2" col(1.000 1.000 1.000 1.000) dif(0.800) amb(0.600) emi(0.000) spc(0.000) power(5.00) tex("C:\Users\student\Documents\2024_9_28_HGS\HGS_Autumn\HGS_Autumn\data\TEXTURE\castle_door_frame.jpg")
 }
 Object "door_r" {
 	visible 15
