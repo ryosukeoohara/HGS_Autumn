@@ -12,6 +12,7 @@
 #include "game.h"
 #include "fade.h"
 #include "number.h"
+#include "sound.h"
 
 // 定数定義
 namespace
@@ -85,6 +86,7 @@ HRESULT CWarning::Init(void)
 	// 種類ごとのテクスチャ設定
 	m_pObj->SetIdxTex(p->Regist(FILENAME[m_nType]));
 	m_nTimer = TIMER;
+	CManager::GetInstance()->GetSound()->Play(CSound::SOUND_LABEL_SE_WARNING);
 
 	return S_OK;
 }
