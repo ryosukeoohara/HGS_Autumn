@@ -290,7 +290,7 @@ void CPlayer::Move(void)
 	// タイミング
 	if (m_nDebugState == 0)
 	{
-		if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_RB, 0) == true)
+		if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_LB, 0) == true)
 		{
 			m_Info.move.z -= m_Info.fSpeed;
 
@@ -310,7 +310,7 @@ void CPlayer::Move(void)
 			}
 		}
 
-		if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_LB, 0) == true)
+		if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_RB, 0) == true)
 		{
 			m_Info.move.z -= m_Info.fSpeed;
 			
