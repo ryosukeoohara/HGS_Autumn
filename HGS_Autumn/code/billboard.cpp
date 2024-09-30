@@ -51,6 +51,7 @@ CBillBoard::CBillBoard(int nPriority) : CObject(nPriority)
 	m_fWidth = 0.0f;
 	m_bDraw = true;
 	m_Type = TYPE_NONE;
+	m_Judgetype = JUDGETYPE_NONE;		// ”»’è‚ÌŽí—Þ
 }
 
 //================================================================

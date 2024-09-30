@@ -5,6 +5,7 @@
 //
 //===========================================================
 #include "gimmick.h"
+#include "billboard.h"
 
 //===========================================================
 // コンストラクタ
@@ -28,6 +29,8 @@ CGimmick::~CGimmick()
 HRESULT CGimmick::Init(void)
 {
 
+	CBillBoard::Init();
+
 	return S_OK;
 }
 
@@ -36,6 +39,7 @@ HRESULT CGimmick::Init(void)
 //===========================================================
 void CGimmick::Uninit(void)
 {
+	CBillBoard::Uninit();
 
 }
 
@@ -44,6 +48,7 @@ void CGimmick::Uninit(void)
 //===========================================================
 void CGimmick::Update(void)
 {
+	CBillBoard::Update();
 
 }
 
@@ -52,6 +57,7 @@ void CGimmick::Update(void)
 //===========================================================
 void CGimmick::Draw(void)
 {
+	CBillBoard::Draw();
 
 }
 
