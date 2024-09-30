@@ -10,7 +10,7 @@
 #include "gimmick.h"
 
 class CGimmick;
-class CObjectX;
+class CObject3D;
 
 //===========================================================
 // ギミッククラス定義
