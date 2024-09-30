@@ -23,6 +23,7 @@
 #include "InputJoyPad.h"
 #include "warning.h"
 #include "gimmickButtonMash.h"
+#include "meshdome.h"
 
 //================================================================
 // Ã“Iƒƒ“ƒo•Ï”
