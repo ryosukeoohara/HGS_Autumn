@@ -417,29 +417,29 @@ void CPlayer::Move(void)
 //================================================================
 void CPlayer::Hammer(void)
 {
-	//ゲームパッドを取得
-	CInputJoyPad* pInputJoyPad = CManager::GetInstance()->GetInputJoyPad();
+	////ゲームパッドを取得
+	//CInputJoyPad* pInputJoyPad = CManager::GetInstance()->GetInputJoyPad();
 
-	if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_RB, 0) == true)
-	{
-		m_nButtonPushCounter++;
-	}
-	else if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_LB, 0) == true)
-	{
-		m_nButtonPushCounter++;
-	}
+	//if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_RB, 0) == true)
+	//{
+	//	m_nButtonPushCounter++;
+	//}
+	//else if (pInputJoyPad->GetTrigger(pInputJoyPad->BUTTON_LB, 0) == true)
+	//{
+	//	m_nButtonPushCounter++;
+	//}
 
-	if (m_nButtonPushCounter >= 50)
-	{
-		m_nButtonPushCounter = 0;
+	//if (m_nButtonPushCounter >= 50)
+	//{
+	//	m_nButtonPushCounter = 0;
 
-		m_pMotion->Set(TYPE_HAMMER);
-	}
+	//	m_pMotion->Set(TYPE_HAMMER);
+	//}
 
-	if (m_pMotion->IsFinish() == true)
-	{
-		m_Info.state = STATE_STEP;
-	}
+	//if (m_pMotion->IsFinish() == true)
+	//{
+	//	m_Info.state = STATE_STEP;
+	//}
 }
 
 // ギミックのデバック
@@ -854,9 +854,11 @@ void CPlayerStateHummer::Update(CPlayer* pPlayer)
 		m_nButtonPushCounter++;
 	}
 
+	pPlayer->SetButtonPush(m_nButtonPushCounter);
+
 	if (m_nButtonPushCounter >= 50)
 	{
-		m_nButtonPushCounter = 0;
+		//m_nButtonPushCounter = 0;
 
 		pPlayer->ChangeState(new CPlayerStateWalk);
 	}

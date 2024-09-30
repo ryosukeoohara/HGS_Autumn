@@ -1,15 +1,15 @@
 //===========================================================
 //
-// ギミック処理:タイミング[gimmickTiming.cpp]
+// ギミック処理:綱渡り[gimmickRope.cpp]
 // Author : 大原　怜将
 //
 //===========================================================
-#include "gimmickTiming.h"
+#include "gimmickRope.h"
 #include "manager.h"
 #include "player.h"
 #include "InputJoyPad.h"
 
-CBillBoard* CGimmickTiming::m_pBillBoard[NUM_JUDGE] = {};		// ビルボードの情報
+CBillBoard* CGimmickRope::m_pBillBoard[NUM_JUDGE] = {};		// ビルボードの情報
 
 //===========================================================
 // 定数定義
@@ -24,7 +24,7 @@ namespace
 //===========================================================
 // コンストラクタ
 //===========================================================
-CGimmickTiming::CGimmickTiming(int nPriority)
+CGimmickRope::CGimmickRope(int nPriority)
 {
 	for (int nCnt = 0; nCnt < NUM_JUDGE; nCnt++)
 	{
@@ -36,7 +36,7 @@ CGimmickTiming::CGimmickTiming(int nPriority)
 //===========================================================
 // デストラクタ
 //===========================================================
-CGimmickTiming::~CGimmickTiming()
+CGimmickRope::~CGimmickRope()
 {
 
 }
@@ -44,7 +44,7 @@ CGimmickTiming::~CGimmickTiming()
 //===========================================================
 // 初期化処理
 //===========================================================
-HRESULT CGimmickTiming::Init(void)
+HRESULT CGimmickRope::Init(void)
 {
 	for (int nCnt = 0; nCnt < NUM_JUDGE; nCnt++)
 	{
@@ -83,7 +83,7 @@ HRESULT CGimmickTiming::Init(void)
 //===========================================================
 // 終了処理
 //===========================================================
-void CGimmickTiming::Uninit(void)
+void CGimmickRope::Uninit(void)
 {
 	for (int nCnt = 0; nCnt < NUM_JUDGE; nCnt++)
 	{
@@ -100,14 +100,11 @@ void CGimmickTiming::Uninit(void)
 //===========================================================
 // 更新処理
 //===========================================================
-void CGimmickTiming::Update(void)
+void CGimmickRope::Update(void)
 {
 	CPlayer* pPlayer = CPlayer::GetInstance();	// プレイヤー
 	D3DXVECTOR3 posPlayer = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		// プレイヤーの位置
 	D3DXVECTOR3 pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		// 位置
-
-	if (pPlayer->GetState() == pPlayer->STATE_HAMMER)
-		return;
 
 	m_fMove = m_fMove + 1.0f;
 
@@ -229,7 +226,7 @@ void CGimmickTiming::Update(void)
 //===========================================================
 // 描画処理
 //===========================================================
-void CGimmickTiming::Draw(void)
+void CGimmickRope::Draw(void)
 {
 	for (int nCnt = 0; nCnt < NUM_JUDGE; nCnt++)
 	{
@@ -240,9 +237,9 @@ void CGimmickTiming::Draw(void)
 //===========================================================
 // 生成処理
 //===========================================================
-CGimmickTiming* CGimmickTiming::Create(void)
+CGimmickRope* CGimmickRope::Create(void)
 {
-	CGimmickTiming* pGimmick = new CGimmickTiming;
+	CGimmickRope* pGimmick = new CGimmickRope;
 
 	if (pGimmick != nullptr)
 	{

@@ -33,6 +33,7 @@ public:
 		STATE_WALK,         // 歩き
 		STATE_STAGGER,      // よろけながら歩く
 		STATE_ROPEWALK,     // ロープ歩き
+		STATE_ROPE_STAGGER, // ロープのよろめき
 		STATE_HAMMER,       // ハンマー
 		STATE_DEATH,        // 死亡
 		STATE_MAX
@@ -47,6 +48,7 @@ public:
 		TYPE_STAGGER_LEFT,        // 足ぐき左
 		TYPE_STAGGER_RIGHT,       // 足ぐき右
 		TYPE_ROPEWALK,            // ロープ歩き
+		TYPE_ROPESTAGGER,         // ロープ歩き
 		TYPE_HAMMER,              // ハンマー
 		TYPE_MAX
 	};
@@ -100,6 +102,7 @@ public:
 	void SetDefeat(int nValue) { m_nDefeat = nValue; }
 	void SetUseMicroCount(int nValue) { m_nUseCounter = nValue; }
 	void SetbHeatActFlag(bool bValue) { m_bHeatActFlag = bValue; }
+	void SetButtonPush(int nValue) { m_nButtonPushCounter = nValue; }
 	void ChangeState(CPlayerState* pState);
 
 	// 取得系
@@ -115,6 +118,7 @@ public:
 	bool GetHeatActFlag(void) { return m_bHeatActFlag; }
 	MOBILITY GetMobility(void) { return m_Mobility; }
 	CMotion* GetMotion(void) { return m_pMotion; }
+	int GetButtonpushCount(void) { return m_nButtonPushCounter; }
 	CPlayer::INFO *GetInfo(void) { return &m_Info; }
 
 
@@ -131,6 +135,7 @@ private:
 
 	float m_fWindSpeed = 0.0f;
 	float m_fRot = 0.0f;
+	int m_nButtonPushCounter = 0;
 	
 	// メンバ変数
 	int m_nNumModel;                    //モデル(パーツ)の総数
@@ -143,7 +148,6 @@ private:
 	int m_nUseCounter;
 	int m_nDebugState = 0;
 	char m_filename[128] = {};
-	int m_nButtonPushCounter = 0;
 	int m_nLeg;
 
 	D3DXVECTOR3 m_Readpos;

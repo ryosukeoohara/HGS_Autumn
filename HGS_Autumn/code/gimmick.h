@@ -11,6 +11,9 @@
 // インクルードファイル
 //===========================================================
 #include "billboard.h"
+
+class CGimmickTiming;
+
 //===========================================================
 // ギミッククラス定義
 //===========================================================
@@ -34,11 +37,16 @@ public:
 
 	static CGimmick* Create(float fDestDistance, TYPE type);        // 生成処理
 
+	void Set(TYPE GimmickType);
+
 private:
+	static CGimmickTiming* m_pGimmickTiming;
+
 	TYPE m_GimmickType;			// 種類
 	static float m_fDestPos;		// 目標地点
 
 	bool m_bStart;		// ギミック開始したか
+	bool m_bEnd;		// ギミック終了したか
 	
 };
 

@@ -31,6 +31,8 @@ public:
 private:
 
 	CObjectX* m_pObjectX = nullptr;
+	D3DXVECTOR3 m_pos = {};
+	bool m_bClear = false;
 
 };
 
