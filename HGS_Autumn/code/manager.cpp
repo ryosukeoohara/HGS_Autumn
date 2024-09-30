@@ -863,7 +863,32 @@ void CManager::SetMode(CScene::MODE mode)
 //================================================================
 namespace MAPFILENAME
 {
-	
+	// 木のモデル
+	const char* MAP_TREE = "data\\MODEL\\Field\\tree0.x";
+
+	// 岩のモデル
+	const char* MAP_ROCK = "data\\MODEL\\Field\\rock.x";
+
+	// 岩の欠片モデル
+	const char* MAP_ROCK_PIECE = "data\\MODEL\\Field\\rock_piece.x";
+
+	// ロープのモデル
+	const char* MAP_ROPE = "data\\MODEL\\Field\\rope.x";
+
+	// 草のモデル
+	const char* MAP_GRASS = "data\\MODEL\\Field\\grass.x";
+
+	// 城のモデル
+	const char* MAP_CASTLE = "data\\MODEL\\Field\\castle.x";
+
+	// 城のドアのフレームモデル
+	const char* MAP_CASTLE_FRAME = "data\\MODEL\\Field\\castle_door_frame.x";
+
+	// 城のドア右モデル
+	const char* MAP_CASTLE_DOOR_R = "data\\MODEL\\Field\\castle_door_r.x";
+
+	// 城のドア左モデル
+	const char* MAP_CASTLE_DOOR_L = "data\\MODEL\\Field\\castle_door_l.x";
 }
 
 //================================================================
@@ -872,6 +897,31 @@ namespace MAPFILENAME
 void CScene::SetMap(void)
 {
 	// ここに配置物書いていって
+	MAPFILENAME::MAP_TREE;
+	MAPFILENAME::MAP_ROCK;
+	MAPFILENAME::MAP_ROCK_PIECE;
+	MAPFILENAME::MAP_ROPE;
+	MAPFILENAME::MAP_GRASS;
+	MAPFILENAME::MAP_CASTLE;
+	MAPFILENAME::MAP_CASTLE_FRAME;
+	MAPFILENAME::MAP_CASTLE_DOOR_R;
+	MAPFILENAME::MAP_CASTLE_DOOR_L;
+
+	for (int i = 0; i < 100; i++)
+	{
+		CObjectX::Create(MAPFILENAME::MAP_TREE, D3DXVECTOR3(1000.0f, -100.0f, -2500.0f - (500 * i)));
+		CObjectX::Create(MAPFILENAME::MAP_TREE, D3DXVECTOR3(-1200.0f, -100.0f, -2500.0f - (500 * i)));
+		CObjectX::Create(MAPFILENAME::MAP_GRASS, D3DXVECTOR3(400.0f, 0.0f, -2500.0f - (500 * i)));
+		CObjectX::Create(MAPFILENAME::MAP_GRASS, D3DXVECTOR3(-400.0f, 0.0f, -2500.0f - (500 * i)));
+	}
+	CObjectX::Create(MAPFILENAME::MAP_ROCK, D3DXVECTOR3(0.0f, 0.0f, -5000.0f));
+	CObjectX::Create(MAPFILENAME::MAP_ROCK_PIECE, D3DXVECTOR3(0.0f, 0.0f, -5000.0f));
+	CObjectX::Create(MAPFILENAME::MAP_ROPE, D3DXVECTOR3(0.0f, 0.0f, -5000.0f));
+	CObjectX::Create(MAPFILENAME::MAP_GRASS, D3DXVECTOR3(0.0f, 0.0f, -5000.0f));
+	CObjectX::Create(MAPFILENAME::MAP_CASTLE, D3DXVECTOR3(0.0f, 0.0f, -5000.0f));
+	CObjectX::Create(MAPFILENAME::MAP_CASTLE_FRAME, D3DXVECTOR3(0.0f, 0.0f, -5000.0f));
+	CObjectX::Create(MAPFILENAME::MAP_CASTLE_DOOR_R, D3DXVECTOR3(0.0f, 0.0f, -5000.0f));
+	CObjectX::Create(MAPFILENAME::MAP_CASTLE_DOOR_L, D3DXVECTOR3(0.0f, 0.0f, -5000.0f));
 
 }
 
