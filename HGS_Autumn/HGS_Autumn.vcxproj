@@ -162,6 +162,7 @@
     <ClCompile Include="code\gimmick.cpp" />
     <ClCompile Include="code\gimmickBalance.cpp" />
     <ClCompile Include="code\gimmickButtonMash.cpp" />
+    <ClCompile Include="code\gimmickRope.cpp" />
     <ClCompile Include="code\gimmickTiming.cpp" />
     <ClCompile Include="code\input.cpp" />
     <ClCompile Include="code\InputJoyPad.cpp" />
@@ -210,6 +211,7 @@
     <ClInclude Include="code\gimmick.h" />
     <ClInclude Include="code\gimmickBalance.h" />
     <ClInclude Include="code\gimmickButtonMash.h" />
+    <ClInclude Include="code\gimmickRope.h" />
     <ClInclude Include="code\gimmickTiming.h" />
     <ClInclude Include="code\input.h" />
     <ClInclude Include="code\InputJoyPad.h" />

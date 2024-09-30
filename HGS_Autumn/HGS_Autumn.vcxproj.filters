@@ -165,6 +165,9 @@
     <ClCompile Include="code\warning.cpp">
       <Filter>2D</Filter>
     </ClCompile>
+    <ClCompile Include="code\gimmickRope.cpp">
+      <Filter>gimmick</Filter>
+    </ClCompile>
     <ClCompile Include="code\manual_button.cpp">
       <Filter>3D</Filter>
     </ClCompile>
@@ -289,6 +292,9 @@
     </ClInclude>
     <ClInclude Include="code\warning.h">
       <Filter>2D</Filter>
+    </ClInclude>
+    <ClInclude Include="code\gimmickRope.h">
+      <Filter>gimmick</Filter>
     </ClInclude>
     <ClInclude Include="code\manual_button.h">
       <Filter>3D</Filter>

@@ -19,6 +19,7 @@ class CPause;
 class CObject2D;
 class CPlayer;
 class CTime;
+class CCollision;
 
 //===========================================================
 // ゲームクラス定義
@@ -50,6 +51,7 @@ private:
 	CObject2D* m_pBg;
 	CPlayer* m_pPlayer;
 	CTime* m_pTimer;
+	CCollision* m_pCollision = nullptr;
 
 };
 

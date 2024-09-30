@@ -10,6 +10,7 @@
 #include "gimmick.h"
 
 class CGimmick;
+class CObjectX;
 
 //===========================================================
 // ギミッククラス定義
@@ -17,7 +18,7 @@ class CGimmick;
 class CGimmickButtonMash : public CGimmick
 {
 public:
-	CGimmickButtonMash(int nPriority = 3);  // コンストラクタ
+	CGimmickButtonMash(D3DXVECTOR3 pos, int nPriority = 3);  // コンストラクタ
 	~CGimmickButtonMash();                  // デストラクタ
 
 	HRESULT Init(void);            // 初期化処理    
@@ -25,9 +26,13 @@ public:
 	void Update(void);             // 更新処理
 	void Draw(void);               // 描画処理
 
-	CGimmickButtonMash* Create(void);        // 生成処理
+	static CGimmickButtonMash* Create(D3DXVECTOR3 pos);        // 生成処理
 
 private:
+
+	CObjectX* m_pObjectX = nullptr;
+	D3DXVECTOR3 m_pos = {};
+	bool m_bClear = false;
 
 };
 
