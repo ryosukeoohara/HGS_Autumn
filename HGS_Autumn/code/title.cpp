@@ -100,7 +100,8 @@ HRESULT CTitle::Init(void)
 	SetMap();
 
 	CCamera*p = CManager::GetInstance()->GetCamera();
-	p->SetRotation(D3DXVECTOR3(0.0f, D3DX_PI * 0.3f, 0.0f));
+	p->ChangeState(new FixedCamera);
+	p->SetRotation(D3DXVECTOR3(0.0f, D3DX_PI, 0.0f));
 
 	if (m_pBg == nullptr)
 	{
